@@ -1,0 +1,34 @@
+body {
+    background-color: #AAA;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-element {
+    /* display: flex; */
+    /* flex-grow: 1; */
+    background-color: #DDD;
+    height:100%;
+    margin: 1em;
+    padding: 1em;
+}
+
+.flex-element > h2{
+    text-align: center;
+}
+
+.flex-element > button{
+    font-size: 2em;
+    margin: 0.5em auto;
+    text-align: center;
+}
+
+.display-select > input{
+    font-size: 1.5em;
+    margin:0.5em;
+}
+
+#timer-display{
+    text-align: center;
+    font-size: 4em;
+}

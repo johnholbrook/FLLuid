@@ -1,0 +1,111 @@
+:root{
+    --chroma-key-color: #0f0;
+}
+
+@font-face{
+    font-family: ubuntu-mono-bold;
+    src: url("../fonts/UbuntuMono-B.ttf");
+}
+
+@font-face{
+	font-family: digital-7-mono;
+	src: url("../fonts/digital-7-mono.ttf");
+}
+
+*{
+    user-select: none;
+}
+
+.display-type{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+.none-display{
+    background-color: var(--chroma-key-color);
+}
+.logo-display{
+    /* background-color: red; */
+}
+.timer-display{
+    /* background-color: green; */
+    text-align: center;
+}
+.timer-display-chroma{
+    background-color:var(--chroma-key-color);
+}
+.scores-display{
+    background-color: white;
+}
+.timer-numbers-wrapper{
+    margin: auto 0;
+    font-size: 50vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.timer-numbers-wrapper-chroma{
+    position: fixed;
+    top: 5vh;
+    right: 0;
+    height: auto;
+    width: auto;
+    border-radius: 5px;
+    font-size: 15vw;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+.timer-numbers{
+    /* margin: auto 0;
+    font-size: 50vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes 
+    transform: translate(-50%, -50%); */
+}
+
+#logo{
+    position: fixed;
+    padding: 2em;
+    max-width: 90vw;
+    height: auto;
+    max-height: 80vh;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    /* border: 1px solid black */
+}
+.scrollable{
+    /* overflow: scroll; */
+    /* height:100vh; */
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90vw;
+    /* margin: 0 auto; */
+    /* border: 1px solid black; */
+}
+.scrollable > img{
+    max-width: 90vw;
+    max-height: 50vh;
+    display: block;
+    margin: 0 auto;
+}
+.scores-table{
+    margin: 0 auto;
+    font-size: 2.5vw;
+    /* overflow-y: scroll; */
+    /* overflow: hidden; */
+    max-width: 90vw;
+    border-spacing: 1em;
+
+}

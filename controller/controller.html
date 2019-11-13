@@ -2,10 +2,48 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+    <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
+    <script src="controller.js"></script>
     <title>Audience Display Controller</title>
   </head>
   <body>
-    This is the audience display controller!
-
+    <div class="logo-controls flex-element">
+      <h2>Sponsor Logos</h2>
+      Choose logo directory:
+      <input id="logo-dir-picker" type="file" webkitdirectory />
+    </div>
+    <div class="timer-controls flex-element">
+      <h2>Timer Controls</h2>
+      <div id="timer-display"></div>
+      <button id="timer-start-pause">Start</button>
+      <button id="timer-reset">Reset</button>
+      <hr/>
+      <input type="checkbox" id="start-sound" checked>Start Sound</input>
+      <br/>
+      <input type="checkbox" id="30-second-warning" checked>30 Second Warning</input>
+      <br/>
+      <input type="checkbox" id="end-sound" checked>End Sound</input>
+      <hr/>
+      Font:
+				<select id="select-font">
+					<option value="default">System Default</option>
+					<option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
+					<option value="digital-7-mono">Seven-Segment</option>
+				</select>
+    </div>
+    <div class="display-select flex-element">
+      <h2>Current Display</h2>
+      <br/>
+      <input type="radio" name="current-display" value="none" id="none-radio-button">None</input>
+      <br/>
+      <input type="radio" name="current-display" value="logos" id="logos-radio-button">Logos</input>
+      <br/>
+      <input type="radio" name="current-display" value="scores" id="scores-radio-button">Scores</input>
+      <br/>
+      <input type="radio" name="current-display" value="timer" id="timer-radio-button">Timer</input>
+      <hr/>
+      <input type="checkbox" name="chroma-key" id="chroma-key">Chroma Key</input>
+    </div>
   </body>
 </html>

@@ -18,5 +18,11 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^7.1.1"
+  },
+  "dependencies": {
+    "canvas": "^2.6.0",
+    "jsdom": "^15.2.1",
+    "needle": "^2.4.0",
+    "require": "^2.4.20"
   }
 }

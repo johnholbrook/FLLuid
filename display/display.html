@@ -2,10 +2,38 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+    <link href="./display.css" rel="stylesheet" type="text/css" media="all">
+    <script src="display.js"></script>
     <title>Audience Display</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    This is the audience display!
+    <div class="display-type none-display" id="none-display"></div>
+    <div class="display-type logo-display" id="logo-display">
+        <img id="logo" src="../blank.png">
+    </div>
+    <div class="display-type timer-display" id="timer-display">
+        <div class="timer-numbers-wrapper" id="timer-numbers-wrapper">
+            <div class="timer-numbers"></div>
+        </div>
+    </div>
+    <div class="display-type scores-display" id="scores-display">
+      <div class="scrollable">
+        <table class="scores-table">
+          <tr><td>1</td><td>12345</td><td>Magically Energized Lightning Waffle Bunnies</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>2</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>3</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>4</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>5</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>6</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>7</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>8</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>9</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+          <tr><td>10</td><td>12345</td><td>Imaginary Team</td><td>300</td><td>300</td><td>200</td><td>250</td></tr>
+        </table>
+        <img src="../fll.png">
+      </div>
+      <!-- <img src="/Users/john/Documents/logo_test/fll.png"> -->
+    </div>
   </body>
 </html>
