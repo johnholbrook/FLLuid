@@ -9,15 +9,29 @@
   </head>
   <body>
     <div class="logo-controls flex-element">
-      <h2>Sponsor Logos</h2>
-      Choose logo directory:
+      <h2>Options</h2>
+      Logo directory:
+      <br/>
       <input id="logo-dir-picker" type="file" webkitdirectory />
+      <hr/>
+      FLLTournament ID:
+      <br/>
+      <input type="text" id="tournament-id">
+      <button id="save-tournament-id">Save</button>
+      <hr/>
+      Results to Show:
+      <br/>
+      <select id="select-match-type">
+        <option value="practice">Practice Matches</option>
+        <option value="competition" selected>Competition Matches</option>
+      </select>
+
     </div>
     <div class="timer-controls flex-element">
       <h2>Timer Controls</h2>
       <div id="timer-display"></div>
-      <button id="timer-start-pause">Start</button>
-      <button id="timer-reset">Reset</button>
+      <button class="timer-button" id="timer-start-pause">Start</button>
+      <button class="timer-button" id="timer-reset">Reset</button>
       <hr/>
       <input type="checkbox" id="start-sound" checked>Start Sound</input>
       <br/>

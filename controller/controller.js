@@ -70,6 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#chroma-key").onchange = function(){
         displayWindow.webContents.send("set-chroma-key-mode", document.querySelector("#chroma-key").checked);
     };
+
+    document.querySelector("#save-tournament-id").onclick = function(){
+        let new_id = document.querySelector("#tournament-id").value;
+        displayWindow.webContents.send("set-tournament-id", new_id);
+    };
+
+    document.querySelector("#select-match-type").onchange = function(){
+        let selection = document.querySelector("#select-math-type").value;
+        let get_comp_results = selection == "competition" ? true : false;
+        displayWindow.webContents.send("set-comp-mode", get_comp_results);
+    };
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){

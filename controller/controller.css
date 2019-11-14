@@ -6,7 +6,7 @@ body {
 
 .flex-element {
     /* display: flex; */
-    /* flex-grow: 1; */
+    flex-grow: 0;
     background-color: #DDD;
     height:100%;
     margin: 1em;
@@ -17,7 +17,7 @@ body {
     text-align: center;
 }
 
-.flex-element > button{
+.timer-button{
     font-size: 2em;
     margin: 0.5em auto;
     text-align: center;
