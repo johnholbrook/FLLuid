@@ -16,6 +16,7 @@
     user-select: none;
 }
 
+/* Properties for all the different displays: */
 .display-type{
     position: fixed;
     top: 0;
@@ -25,21 +26,36 @@
     width: 100%;
     height: 100%;
 }
+
+/* Properties for the none display: */
 .none-display{
     background-color: var(--chroma-key-color);
 }
-.logo-display{
+
+/* Properties for the logo display: */
+/* .logo-display{
     /* background-color: red; */
+/* } */
+#logo{
+    position: fixed;
+    padding: 2em;
+    max-width: 90vw;
+    height: auto;
+    max-height: 80vh;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    /* border: 1px solid black */
 }
+
+/* Properties for different parts of the timer display: */
 .timer-display{
     /* background-color: green; */
     text-align: center;
 }
 .timer-display-chroma{
     background-color:var(--chroma-key-color);
-}
-.scores-display{
-    background-color: white;
 }
 .timer-numbers-wrapper{
     margin: auto 0;
@@ -60,7 +76,7 @@
     font-size: 15vw;
     background-color: white;
     margin: 0;
-    padding: 0;
+    padding: 0 0.125em;
 }
 .timer-numbers{
     /* margin: auto 0;
@@ -72,17 +88,11 @@
     transform: translate(-50%, -50%); */
 }
 
-#logo{
-    position: fixed;
-    padding: 2em;
-    max-width: 90vw;
-    height: auto;
-    max-height: 80vh;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
-    /* border: 1px solid black */
+
+/* Properties for different parts of the scores display:  */
+.scores-display{
+    background-color: white;
+    /* border: 10px solid maroon; */
 }
 .scrollable{
     /* overflow: scroll; */
@@ -99,13 +109,48 @@
     max-height: 50vh;
     display: block;
     margin: 0 auto;
+    padding: 1em 0;
+    background-color: #FFF;
 }
 .scores-table{
+    font-family: ubuntu-mono-bold;
     margin: 0 auto;
-    font-size: 2.5vw;
-    /* overflow-y: scroll; */
-    /* overflow: hidden; */
-    max-width: 90vw;
-    border-spacing: 1em;
-
+    /* display: block; */
+    /* font-size: 1.5vw; */
+    font-size: 1.5em;
+    width: 90vw;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+tr.table-row-even{
+    background-color: #CCC;
+}
+tr.table-row-odd{
+    background-color: #FFF;
+}
+.table-header{
+    top: 0;
+    background-color: white;
+}
+td > div {
+    margin: 1em auto;
+    padding: 0;
+    border-width: 0;
+}
+td{
+    padding: 0;
+}
+.rank{
+    font-weight: bolder;
+    text-align: center;
+}
+.team-number{
+    text-align: center;
+}
+.best-score{
+    font-weight: bolder;
+    text-align: center;
+}
+.score{
+    text-align: center;
 }
