@@ -11,14 +11,17 @@ module.exports = {
     set_logos : set_logos,
     start : start,
     stop : stop,
-    screen_scrolling : screen_scrolling
+    set_event_id : set_event_id,
+    set_comp_mode : set_comp_mode
 };
 
 //scroll constants and calculations
-const TABLE_SCROLL_SPEED = 70; //px per second
-const TABLE_SCROLL_FPS = 60; //updates per second
+const TABLE_SCROLL_SPEED_PPS = 70; //px per second
+const TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS/1000; //pixels per millisecond
+// console.log(TABLE_SCROLL_SPEED_PPMS + " pixels per ms");
+const TABLE_SCROLL_FPS = 45; //updates per second
 const UPDATE_INTERVAL = 1000/TABLE_SCROLL_FPS; //frequency between scroll updates (ms)
-const PX_PER_UPDATE = TABLE_SCROLL_SPEED/TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
+const PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS/TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
 
 //the current scrolling position
 var current_scroll = 1;
@@ -47,10 +50,23 @@ function get_next_logo(){
     return logo_files[current_logo];
 }
 
+var last_time = null;
+var now = null;
+var time_elapsed = null;
+var amt_to_scroll = null;
+
 function advance_scroll(){
-    console.log("Advancing scroll...");
+    // console.log("Advancing scroll...");
     //scroll by the appropriate amount:
-    current_scroll += PX_PER_UPDATE;
+    // current_scroll += PX_PER_UPDATE;
+
+    now = Date.now();
+    time_elapsed = now - last_time;
+    amt_to_scroll = time_elapsed * TABLE_SCROLL_SPEED_PPMS;
+    // console.log(time_elapsed + " ms elapsed, scrolling by " + amt_to_scroll + " px.");
+    current_scroll += amt_to_scroll;
+    last_time = now;
+
     document.querySelector(".scrollable").style.top = (-current_scroll + "px");
 
     //has the top element gone off the screen?
@@ -89,28 +105,34 @@ function update_scores(){
 }
 
 var screen_scrolling;
-
 function start(){
+    last_time = Date.now();
     update_scores();
     clearInterval(screen_scrolling)
     screen_scrolling = setInterval(advance_scroll, UPDATE_INTERVAL);
 }
-
 function stop(){
     clearInterval(screen_scrolling);
 }
 
+function set_event_id(new_id){
+    event_id = new_id;
+    update_scores();
+}
+
+function set_comp_mode(new_mode){
+    get_comp_results = new_mode;
+    update_scores();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // event_id = "21989";
-    event_id = "22029";
+    // event_id = "22029";
     // event_id = "22063";
     // event_id = "20892";
 
-    get_comp_results = true;
+    // get_comp_results = true;
     // get_comp_results = false;
 
-    start();
-
-    // update_scores();
-    // setTimeout(advance_scroll, 1000);
+    // start();
 });
