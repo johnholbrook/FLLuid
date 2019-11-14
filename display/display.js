@@ -52,9 +52,16 @@ ipcRenderer.on("new-display-selected", function(event, arg){
     if (arg == "logos" || (arg == "none" && !chroma_key_mode)){
         change_display("logos");
         logos.start();
+        scores.stop();
+    }
+    else if (arg == "scores"){
+        scores.start();
+        logos.stop();
+        change_display("scores");
     }
     else{
         logos.stop();
+        scores.stop();
         change_display(arg);
     }
 });
