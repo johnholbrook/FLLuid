@@ -88,3 +88,11 @@ ipcRenderer.on("set-chroma-key-mode", function(event, arg){
     }
     timer.set_chroma_key(chroma_key_mode);
 });
+
+ipcRenderer.on("set-tournament-id", function(event, arg){
+    scores.set_event_id(arg);
+});
+
+ipcRenderer.on("set-comp-mode", function(event, arg){
+    scores.set_comp_mode(arg);
+});
