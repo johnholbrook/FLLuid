@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector("#select-match-type").onchange = function(){
-        let selection = document.querySelector("#select-math-type").value;
+        let selection = document.querySelector("#select-match-type").value;
         let get_comp_results = selection == "competition" ? true : false;
         displayWindow.webContents.send("set-comp-mode", get_comp_results);
     };
