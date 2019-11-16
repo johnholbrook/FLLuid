@@ -15,27 +15,19 @@ function next_image(){
     document.querySelector("#logo").src = images[current_image];
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-
-// });
-
+var interval;
 function start(){
-    if (images.length != 0 && !running){
-        console.log("Starting interval");
-        running = true;
-        next_image();
-        setInterval(next_image, 5000);
+    clearInterval(interval);
+    if (images.length != 0){
+        next_image
+        interval = setInterval(next_image, 5000);
     }
 }
-
 function stop(){
-    clearInterval(next_image);
-    running = false;
+    clearInterval(interval);
 }
 
 function set_logos(new_logos){
-    // console.log("Setting logos");
-    // console.log(new_logos);
     images = new_logos;
     start();
 }
