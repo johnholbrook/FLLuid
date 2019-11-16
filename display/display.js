@@ -79,6 +79,7 @@ ipcRenderer.on("reset-timer", function(event, args){
 ipcRenderer.on("set-logos", function(event, arg){
     logos.set_logos(arg);
     scores.set_logos(arg);
+    // console.log(arg);
 });
 
 ipcRenderer.on("set-chroma-key-mode", function(event, arg){

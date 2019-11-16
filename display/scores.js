@@ -27,8 +27,8 @@ const PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS/TABLE_SCROLL_FPS; //amount (in px) 
 var current_scroll = 1;
 
 // var logo_files = ["../blank.png"];
-var logo_files = ["/Users/john/Documents/logo_test/wvde.png", "/Users/john/Documents/logo_test/fll.png", "/Users/john/Documents/logo_test/aladdin.png", "/Users/john/Documents/logo_test/city-shaper.png", "/Users/john/Documents/logo_test/fsu.png", "/Users/john/Documents/logo_test/wvsgc.png", "/Users/john/Documents/logo_test/ivv.png", "/Users/john/Documents/logo_test/wvhtf.png"]
-// var logo_files = [];
+// var logo_files = ["/Users/john/Documents/logo_test/wvde.png", "/Users/john/Documents/logo_test/fll.png", "/Users/john/Documents/logo_test/aladdin.png", "/Users/john/Documents/logo_test/city-shaper.png", "/Users/john/Documents/logo_test/fsu.png", "/Users/john/Documents/logo_test/wvsgc.png", "/Users/john/Documents/logo_test/ivv.png", "/Users/john/Documents/logo_test/wvhtf.png"]
+var logo_files = [];
 var current_logo = 0;
 function set_logos(new_logos){
     // console.log("setting logos in scores.js");
@@ -105,14 +105,20 @@ function update_scores(){
 }
 
 var screen_scrolling;
+var scores_updating;
 function start(){
     last_time = Date.now();
     update_scores();
     clearInterval(screen_scrolling)
     screen_scrolling = setInterval(advance_scroll, UPDATE_INTERVAL);
+
+    //update scores every 2 minutes while the display is shown:
+    clearInterval(scores_updating);
+    scores_updating = setInterval(update_scores, 2*60*1000)
 }
 function stop(){
     clearInterval(screen_scrolling);
+    clearInterval(scores_updating);
 }
 
 function set_event_id(new_id){
