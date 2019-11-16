@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 list_of_files.push(files[i].path);
             }
         }
+        list_of_files.sort();
+        console.log(list_of_files);
         displayWindow.send("set-logos", list_of_files);
     };
 
