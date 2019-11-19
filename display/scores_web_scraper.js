@@ -4,12 +4,14 @@ const REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MIN * 60 * 1000; //in milliseconds
 var needle = require('needle');
 
 module.exports = {
-    getScores : getScores
+    getScores : getScores,
+    getEventName : getEventName
 };
 
 //Make a request to the specified URL and pass the
 //result (assuming no error) on to the handler function
 function make_request(url, handler_function, next_step){
+    // console.log("in make_request");
     let headers = {
         cookies : {
             // 'ASP.NET_SessionId' : 'bud0aktqhice34das2onk3uu'
@@ -18,7 +20,7 @@ function make_request(url, handler_function, next_step){
         }
     }
 
-    console.log(encodeURI(url));
+    // console.log(encodeURI(url));
     needle.post(encodeURI(url), '', headers, function(error, response, body){
         if (error === null){
             //if request returned without error, call the 
@@ -132,3 +134,20 @@ function getScores(event_id, is_comp, next_step){
     url += "&Display=" + (is_comp ? 0 : 1);
     make_request(url, url_response_handler, next_step);
 }
+
+function name_extractor(body, next_step){
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(body, "text/html");
+
+    console.log("Event name: " + htmlDoc.querySelector("caption").innerText.trim());
+
+    next_step(htmlDoc.querySelector("caption").innerText.trim());
+}
+
+function getEventName(event_id, next_step){
+    // console.log("Getting event name...");
+    let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
+
+    make_request(url, name_extractor, next_step);
+}
+

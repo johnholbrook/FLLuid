@@ -13,18 +13,35 @@
       Logo directory:
       <br/>
       <input id="logo-dir-picker" type="file" webkitdirectory />
+
       <hr/>
+
+      This Event:
+      <br/>
       FLLTournament ID:
       <br/>
-      <input type="text" id="tournament-id">
-      <button id="save-tournament-id">Save</button>
-      <hr/>
-      Results to Show:
+      <input type="text" id="this-tournament-id">
+      <button id="save-this-tournament-id">Save</button>
       <br/>
-      <select id="select-match-type">
+      <select id="select-this-match-type">
         <option value="practice">Practice Matches</option>
         <option value="competition" selected>Competition Matches</option>
       </select>
+
+      <hr/>
+
+      Other Events:
+      <br/>
+      FLLTournament ID(s):
+      <br/>
+      <input type="text" id="other-tournament-ids">
+      <button id="save-other-tournament-ids">Save</button>
+      <br/>
+      <select id="select-other-match-type">
+        <option value="practice">Practice Matches</option>
+        <option value="competition" selected>Competition Matches</option>
+      </select>
+
 
     </div>
     <div class="timer-controls flex-element">
@@ -56,6 +73,8 @@
       <input type="radio" name="current-display" value="scores" id="scores-radio-button">Scores</input>
       <br/>
       <input type="radio" name="current-display" value="timer" id="timer-radio-button">Timer</input>
+      <br/>
+      <input type="radio" name="current-display" value="other-events" id="other-events-radio-button">Other Events</input>
       <hr/>
       <input type="checkbox" name="chroma-key" id="chroma-key">Chroma Key</input>
     </div>

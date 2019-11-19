@@ -73,15 +73,31 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWindow.webContents.send("set-chroma-key-mode", document.querySelector("#chroma-key").checked);
     };
 
-    document.querySelector("#save-tournament-id").onclick = function(){
-        let new_id = document.querySelector("#tournament-id").value;
-        displayWindow.webContents.send("set-tournament-id", new_id);
+    document.querySelector("#save-this-tournament-id").onclick = function(){
+        let new_id = document.querySelector("#this-tournament-id").value;
+        displayWindow.webContents.send("set-this-tournament-id", new_id);
     };
 
-    document.querySelector("#select-match-type").onchange = function(){
-        let selection = document.querySelector("#select-match-type").value;
+    document.querySelector("#select-this-match-type").onchange = function(){
+        let selection = document.querySelector("#select-this-match-type").value;
         let get_comp_results = selection == "competition" ? true : false;
-        displayWindow.webContents.send("set-comp-mode", get_comp_results);
+        displayWindow.webContents.send("set-this-comp-mode", get_comp_results);
+    };
+
+    document.querySelector("#save-other-tournament-ids").onclick = function(){
+        let input = document.querySelector("#other-tournament-ids").value;
+        // console.log(input);
+        // console.log(input.replace(/\s/g, '').split(','));
+        // let id_list = input.replace(/\s/g, '').split(',');
+        // displayWindow.webContents.send("set-other-tournament-ids", id_list);
+        // displayWindow.webContents.send("set-other-tournament-ids", input.replace(/\s/g, '').split(','));
+        displayWindow.webContents.send("set-other-tournament-ids", input);
+    };
+
+    document.querySelector("#select-other-match-type").onchange = function(){
+        let selection = document.querySelector("#select-other-match-type").value;
+        let get_comp_results = selection == "competition" ? true : false;
+        displayWindow.webContents.send("set-other-comp-mode", get_comp_results);
     };
 });
 

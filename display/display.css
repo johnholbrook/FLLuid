@@ -154,3 +154,16 @@ td{
 .score{
     text-align: center;
 }
+
+.other-events-scores{
+    margin: 0 auto;
+    max-height: 90vw;
+    width: 90vw;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1.25em;
+    overflow: auto;
+}
+.other-event-name{
+    text-align: center;
+}
