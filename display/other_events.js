@@ -6,7 +6,8 @@ module.exports = {
     show_next_table : show_next_table,
     start : start,
     stop : stop,
-    results_tables : results_tables
+    results_tables : results_tables,
+    update_tables : update_tables
 };
 
 //list of other event ids to show
@@ -34,7 +35,7 @@ function update_tables(){
     // console.log("Updating other events scores...");
     // console.log(event_ids.length);
 
-    event_ids = [];
+    results_tables = [];
 
     //create an array full of empty divs
     for (let i=0; i<event_ids.length; i++){
@@ -47,6 +48,7 @@ function update_tables(){
         web_scraper.getScores(event_ids[i], comp_mode, function(table){
             table.className = "other-events-scores"
             results_tables[i].appendChild(table);
+            console.log(table);
         });
 
         web_scraper.getEventName(event_ids[i], function(name){
@@ -56,7 +58,9 @@ function update_tables(){
             results_tables[i].insertBefore(title, results_tables[i].firstChild);
         });
     }
-    show_next_table();
+
+    // console.log(results_tables);
+    // show_next_table();
 }
 
 function show_next_table(){
@@ -65,7 +69,8 @@ function show_next_table(){
         current_table = 0;
     }
 
-    // console.log("new value of current_table: " + current_table);
+    console.log("new value of current_table: " + current_table);
+    // console.log(results_tables[current_table]);
 
     if (results_tables.length != 0){
         document.querySelector("#other-events-wrapper").innerHTML = "";
@@ -79,10 +84,13 @@ function start(){
     clearInterval(cycle_events_interval);
     clearInterval(update_scores_interval);
 
-    update_tables();
+    show_next_table();
+    setTimeout(update_tables, 5000);
+    // show_next_table();
 
     cycle_events_interval = setInterval(show_next_table, 15000);
     update_scores_interval = setInterval(update_tables, 2*60*1000);
+    // update_scores_interval = setInterval(update_tables, 5000);
 }
 
 function stop(){

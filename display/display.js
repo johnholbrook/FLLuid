@@ -59,7 +59,7 @@ function change_display(display){
 }
 
 ipcRenderer.on("new-display-selected", function(event, arg){
-    // console.log(arg);
+    console.log(arg);
     //run the logo slideshow only when that display is selected
     selected_display = arg;
     if (arg == "logos" || (arg == "none" && !chroma_key_mode)){
@@ -78,6 +78,7 @@ ipcRenderer.on("new-display-selected", function(event, arg){
         logos.stop();
         scores.stop();
         other_events.start();
+        change_display(arg);
     }
     else{
         logos.stop();
