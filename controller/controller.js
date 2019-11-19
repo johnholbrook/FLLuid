@@ -86,11 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#save-other-tournament-ids").onclick = function(){
         let input = document.querySelector("#other-tournament-ids").value;
-        // console.log(input);
-        // console.log(input.replace(/\s/g, '').split(','));
-        // let id_list = input.replace(/\s/g, '').split(',');
-        // displayWindow.webContents.send("set-other-tournament-ids", id_list);
-        // displayWindow.webContents.send("set-other-tournament-ids", input.replace(/\s/g, '').split(','));
         displayWindow.webContents.send("set-other-tournament-ids", input);
     };
 
@@ -99,6 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let get_comp_results = selection == "competition" ? true : false;
         displayWindow.webContents.send("set-other-comp-mode", get_comp_results);
     };
+
+    document.querySelector("#refresh-this-event").onclick = function(){
+        displayWindow.webContents.send("refresh-this-event");
+    }
+
+    document.querySelector("#refresh-other-events").onclick = function(){
+        displayWindow.webContents.send("refresh-other-events");
+    }
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){

@@ -12,7 +12,8 @@ module.exports = {
     start : start,
     stop : stop,
     set_event_id : set_event_id,
-    set_comp_mode : set_comp_mode
+    set_comp_mode : set_comp_mode,
+    update_scores : update_scores
 };
 
 //scroll constants and calculations

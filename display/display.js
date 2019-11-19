@@ -130,3 +130,13 @@ ipcRenderer.on("set-other-comp-mode", function(event, arg){
     other_events.set_comp_mode(arg);
     // console.log("Other comp mode: " + arg);
 });
+
+ipcRenderer.on("refresh-this-event", function(event){
+    console.log("refreshing this event...");
+    scores.update_scores();
+});
+
+ipcRenderer.on("refresh-other-events", function(event){
+    console.log("refreshing other events...");
+    other_events.update_tables();
+});
