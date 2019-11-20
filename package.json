@@ -1,29 +1,42 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "fll-audience-display",
+  "productName" : "FLL Audience Display",
+  "version": "0.1.0",
+  "description": "An audience display for FLL events run using FLLTournament.com",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/dhmmjoph/fll-audience-display",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "FLL",
+    "audience",
+    "display",
+    "FLLTournament",
+    "FIRST",
+    "LEGO",
+    "League",
+    "robotics"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "John Holbrook",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^7.1.1"
+    "electron": "^7.1.1",
+    "electron-builder": "^21.2.0"
   },
   "dependencies": {
-    "canvas": "^2.6.0",
     "jsdom": "^15.2.1",
     "needle": "^2.4.0",
     "require": "^2.4.20",
     "uglify-js": "^3.6.9"
+  },
+  "build": {
+    "appId": "com.fll-timer.audience-display",
+    "mac": {
+      "category": "public.app-category.entertainment",
+      "target": "zip",
+      "icon" : "build/logo-1024.png"
+    }
   }
 }
