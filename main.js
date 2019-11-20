@@ -1,11 +1,107 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain} = require('electron')
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 global.controllerWindow = null;
 global.displayWindow = null;
+
+//global to indicate whether the app is running on macs
+var isMac = (process.platform == 'darwin');
+
+//define the menu code
+const winMenuTemplate = [
+  // { role: 'appMenu' } (macOS only)
+  ...(isMac ? [{
+    label: app.getName(),
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  // { role: 'editMenu' }
+  // {
+  //   label: 'Edit',
+  //   submenu: [
+  //     { role: 'undo' },
+  //     { role: 'redo' },
+  //     { type: 'separator' },
+  //     { role: 'cut' },
+  //     { role: 'copy' },
+  //     { role: 'paste' },
+  //     //more macOS only stuff in the "Edit" menu
+  //     ...(isMac ? [
+  //       { role: 'pasteAndMatchStyle' },
+  //       { role: 'delete' },
+  //       { role: 'selectAll' },
+  //       { type: 'separator' },
+  //       {
+  //         label: 'Speech',
+  //         submenu: [
+  //           { role: 'startspeaking' },
+  //           { role: 'stopspeaking' }
+  //         ]
+  //       }
+  //     ] : [
+  //       { role: 'delete' },
+  //       { type: 'separator' },
+  //       { role: 'selectAll' }
+  //     ])
+  //   ]
+  // },
+  // { role: 'viewMenu' }
+  // {
+  //   label: 'View',
+  //   submenu: [
+  //     { role: 'reload' },
+  //     { role: 'forcereload' },
+  //     { role: 'toggledevtools' },
+  //     { type: 'separator' },
+  //     { role: 'resetzoom' },
+  //     { role: 'zoomin' },
+  //     { role: 'zoomout' },
+  //     { type: 'separator' },
+  //     { role: 'togglefullscreen' }
+  //   ]
+  // },
+  // { role: 'windowMenu' }
+  {
+    label: 'Window',
+    submenu: [
+      { role: 'minimize' },
+      // { role: 'maximize' },
+      { role: 'zoom' },
+      ...(isMac ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://github.com/dhmmjoph/fll-audience-display')
+        }
+      }
+    ]
+  }
+]
 
 function createControllerWindow(){
   // Create the browser window.
@@ -39,6 +135,9 @@ function createDisplayWindow(){
 function createWindow () {
   createControllerWindow();
   createDisplayWindow();
+
+  const winMenu = Menu.buildFromTemplate(winMenuTemplate)
+  Menu.setApplicationMenu(winMenu)
 
   // Open the DevTools.
   // controllerWindow.webContents.openDevTools()
