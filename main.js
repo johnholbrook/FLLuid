@@ -28,50 +28,50 @@ const winMenuTemplate = [
     ]
   }] : []),
   // { role: 'editMenu' }
-  // {
-  //   label: 'Edit',
-  //   submenu: [
-  //     { role: 'undo' },
-  //     { role: 'redo' },
-  //     { type: 'separator' },
-  //     { role: 'cut' },
-  //     { role: 'copy' },
-  //     { role: 'paste' },
-  //     //more macOS only stuff in the "Edit" menu
-  //     ...(isMac ? [
-  //       { role: 'pasteAndMatchStyle' },
-  //       { role: 'delete' },
-  //       { role: 'selectAll' },
-  //       { type: 'separator' },
-  //       {
-  //         label: 'Speech',
-  //         submenu: [
-  //           { role: 'startspeaking' },
-  //           { role: 'stopspeaking' }
-  //         ]
-  //       }
-  //     ] : [
-  //       { role: 'delete' },
-  //       { type: 'separator' },
-  //       { role: 'selectAll' }
-  //     ])
-  //   ]
-  // },
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      //more macOS only stuff in the "Edit" menu
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startspeaking' },
+            { role: 'stopspeaking' }
+          ]
+        }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
   // { role: 'viewMenu' }
-  // {
-  //   label: 'View',
-  //   submenu: [
-  //     { role: 'reload' },
-  //     { role: 'forcereload' },
-  //     { role: 'toggledevtools' },
-  //     { type: 'separator' },
-  //     { role: 'resetzoom' },
-  //     { role: 'zoomin' },
-  //     { role: 'zoomout' },
-  //     { type: 'separator' },
-  //     { role: 'togglefullscreen' }
-  //   ]
-  // },
+  {
+    label: 'View',
+    submenu: [
+      { role: 'reload' },
+      { role: 'forcereload' },
+      { role: 'toggledevtools' },
+      { type: 'separator' },
+      { role: 'resetzoom' },
+      { role: 'zoomin' },
+      { role: 'zoomout' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
   // { role: 'windowMenu' }
   {
     label: 'Window',
