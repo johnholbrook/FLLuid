@@ -1,88 +1,197 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
-    <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
-    <script src="controller.js"></script>
-    <title>Audience Display Controller</title>
-  </head>
-  <body>
-    <div class="logo-controls flex-element">
-      <h2>Options</h2>
-      Logo directory:
-      <br/>
-      <input id="logo-dir-picker" type="file" webkitdirectory />
 
-      <hr/>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+  <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
+  <script src="controller.js"></script>
+  <title>Audience Display Controller</title>
+</head>
 
-      This Event:
-      <br/>
-      FLLTournament ID:
-      <br/>
-      <input type="text" id="this-tournament-id">
-      <button id="save-this-tournament-id">Save</button>
-      <br/>
-      <select id="select-this-match-type">
-        <option value="practice">Practice Matches</option>
-        <option value="competition" selected>Competition Matches</option>
-      </select>
+<body>
+  <div class="container mt-3">
+    <div class="row">
 
-      <hr/>
+      <!-- Options -->
+      <div class="col-12 col-sm-6 px-2">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="text-center">Options</h2>
 
-      Other Events:
-      <br/>
-      FLLTournament ID(s):
-      <br/>
-      <input type="text" id="other-tournament-ids">
-      <button id="save-other-tournament-ids">Save</button>
-      <br/>
-      <select id="select-other-match-type">
-        <option value="practice">Practice Matches</option>
-        <option value="competition" selected>Competition Matches</option>
-      </select>
+            <!-- Logo Directory -->
+            <div class="form-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
+                <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+              </div>
+            </div>
 
-      <hr/>
+            <hr>
 
-      <input type="checkbox" id="start-sound" checked>Start Sound</input>
-      <br/>
-      <input type="checkbox" id="30-second-warning" checked>30 Second Warning</input>
-      <br/>
-      <input type="checkbox" id="end-sound" checked>End Sound</input>
-      <hr/>
-      Timer Font:
-				<select id="select-font">
-					<option value="default">System Default</option>
-					<option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
-					<option value="digital-7-mono">Seven-Segment</option>
-				</select>
+            <!-- This Event -->
+            <h5>This Event</h5>
+            <div class="form-group">
+              <label for="this-tournament-id">FLLTournament ID</label>
+              <div class="input-group">
+                <input class="form-control" type="text" id="this-tournament-id">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
+                </div>
+              </div>
+            </div>
+            <select class="custom-select" id="select-this-match-type">
+              <option value="practice">Practice Matches</option>
+              <option value="competition" selected>Competition Matches</option>
+            </select>
 
+            <hr>
+
+            <!-- Other Events -->
+            <h5>Other Events</h5>
+            <div class="form-group">
+              <label for="other-tournament-ids">FLLTournament ID(s)</label>
+              <div class="input-group">
+                <input class="form-control" type="text" id="other-tournament-ids">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
+                </div>
+              </div>
+            </div>
+            <select class="custom-select" id="select-other-match-type">
+              <option value="practice">Practice Matches</option>
+              <option value="competition" selected>Competition Matches</option>
+            </select>
+
+            <hr>
+
+            <!-- Sound Options -->
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="start-sound" checked>
+              <label class="custom-control-label" for="start-sound">
+                Start Sound
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
+              <label class="custom-control-label" for="30-second-warning">
+                30 Second Warning
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="end-sound" checked>
+              <label class="custom-control-label" for="end-sound">
+                End Sound
+              </label>
+            </div>
+
+            <hr>
+
+            <!-- Font Setting -->
+            <div class="form-inline">
+              <label for="select-font" class="mr-3 my-3">Timer Font</label>
+              <select id="select-font" class="custom-select">
+                <option value="default">System Default</option>
+                <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
+                <option value="digital-7-mono">Seven-Segment</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 px-2">
+        <!-- Timer Controls -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="text-center">Timer Controls</h2>
+
+            <div id="timer-display"></div>
+
+            <div class="row px-3 timer-buttons">
+              <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
+                <button class="timer-button w-100 btn btn-success" id="timer-start-pause">
+                  Start
+                </button>
+              </div>
+              <div class="col-12 col-sm-6 px-0 pl-sm-1">
+                <button class="timer-button w-100 btn btn-danger" id="timer-reset">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row px-3">
+              <button class="col-12 mb-3 btn btn-outline-secondary" id="refresh-this-event">
+                Refresh This Event's Scores
+              </button>
+              <button class="col-12 btn btn-outline-secondary" id="refresh-other-events">
+                Refresh Other Events' Scores
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Display -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="text-center">Current Display</h2>
+
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="none"
+                id="none-radio-button">
+              <label class="custom-control-label" for="none-radio-button">
+                None
+              </label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="logos"
+                id="logos-radio-button">
+              <label class="custom-control-label" for="logos-radio-button">
+                Logos
+              </label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="scores"
+                id="scores-radio-button">
+              <label class="custom-control-label" for="scores-radio-button">
+                Scores
+              </label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="timer"
+                id="timer-radio-button">
+              <label class="custom-control-label" for="timer-radio-button">
+                Timer
+              </label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="other-events"
+                id="other-events-radio-button">
+              <label class="custom-control-label" for="other-events-radio-button">
+                Other Events
+              </label>
+            </div>
+
+            <hr>
+
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
+              <label class="custom-control-label" for="chroma-key">
+                Chroma Key
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <div class="timer-controls flex-element">
-      <h2>Timer Controls</h2>
-      <div id="timer-display"></div>
-      <button class="timer-button" id="timer-start-pause">Start</button>
-      <button class="timer-button" id="timer-reset">Reset</button>
-      <hr/>
-      <button id="refresh-this-event">Refresh This Event's Scores</button>
-      <br/>
-      <button id="refresh-other-events">Refresh Other Events' Scores</button>
-    </div>
-    <div class="display-select flex-element">
-      <h2>Current Display</h2>
-      <br/>
-      <input type="radio" name="current-display" value="none" id="none-radio-button">None</input>
-      <br/>
-      <input type="radio" name="current-display" value="logos" id="logos-radio-button">Logos</input>
-      <br/>
-      <input type="radio" name="current-display" value="scores" id="scores-radio-button">Scores</input>
-      <br/>
-      <input type="radio" name="current-display" value="timer" id="timer-radio-button">Timer</input>
-      <br/>
-      <input type="radio" name="current-display" value="other-events" id="other-events-radio-button">Other Events</input>
-      <hr/>
-      <input type="checkbox" name="chroma-key" id="chroma-key">Chroma Key</input>
-    </div>
-  </body>
+  </div>
+
+</body>
+
 </html>

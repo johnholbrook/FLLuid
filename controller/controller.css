@@ -1,34 +1,21 @@
+html {
+    font-size: 14px;
+}
+
 body {
-    background-color: #AAA;
-    display: flex;
-    flex-direction: row;
+    background-color: slategray;
+    font-family: serif;
 }
 
-.flex-element {
-    /* display: flex; */
-    flex-grow: 0;
-    background-color: #DDD;
-    height:100%;
-    margin: 1em;
-    padding: 1em;
+.card {
+    background-color: #eee;
 }
 
-.flex-element > h2{
-    text-align: center;
-}
-
-.timer-button{
-    font-size: 2em;
-    margin: 0.5em auto;
-    text-align: center;
-}
-
-.display-select > input{
-    font-size: 1.5em;
-    margin:0.5em;
-}
-
-#timer-display{
+#timer-display {
     text-align: center;
     font-size: 4em;
+}
+
+.timer-buttons button {
+	font-size: 2em;
 }
