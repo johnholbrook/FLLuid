@@ -1,4 +1,5 @@
 const { remote, ipcRenderer } = require('electron');
+var accurateInterval = require('accurate-interval');
 
 module.exports = {
     start : start,
@@ -29,10 +30,6 @@ var controllerWindow = remote.getGlobal("controllerWindow");
 document.addEventListener('DOMContentLoaded', () => {
     timer_display = document.querySelector(".timer-numbers");
     reset();
-
-    // start();
-
-
 });
 
 //converts a number of seconds to a clock display
@@ -80,14 +77,16 @@ function start(){
     }
     if (!isRunning){
       isRunning = true;
-      counter = setInterval(timer, 1000);
+    //   counter = setInterval(timer, 1000);
+      counter = accurateInterval(timer, 1000);
       controllerWindow.webContents.send("set-start-button-text", "Pause");
     }
 }
   
 function pause(){
     console.log("Pausing timer");
-    clearInterval(counter);
+    // clearInterval(counter);
+    counter.clear();
     controllerWindow.webContents.send("set-start-button-text", "Start");
     isRunning = false;
 }

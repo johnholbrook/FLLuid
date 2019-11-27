@@ -1,6 +1,6 @@
 {
   "name": "fll-audience-display",
-  "productName" : "FLL Audience Display",
+  "productName": "FLL Audience Display",
   "version": "0.1.0",
   "description": "An audience display for FLL events run using FLLTournament.com",
   "main": "main.js",
@@ -26,6 +26,7 @@
     "electron-builder": "^21.2.0"
   },
   "dependencies": {
+    "accurate-interval": "^1.0.9",
     "jsdom": "^15.2.1",
     "needle": "^2.4.0",
     "require": "^2.4.20",
@@ -36,7 +37,7 @@
     "mac": {
       "category": "public.app-category.entertainment",
       "target": "zip",
-      "icon" : "build/logo-1024.png"
+      "icon": "build/logo-1024.png"
     }
   }
 }
