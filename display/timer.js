@@ -54,7 +54,7 @@ function timer(){
       clearInterval(counter);
       //counter ended, do something here
       timer_display.innerHTML = secsToClock(0);
-      controllerWindow.webContents.send("set-timer-text", secsToClock(0));
+    ipcRenderer.send("set-timer-text", secsToClock(0));
       if (play_end_sound){
           end_sound.play();
       }
@@ -64,7 +64,7 @@ function timer(){
     }
     //update the time on the display
     timer_display.innerHTML = secsToClock(count);
-    controllerWindow.webContents.send("set-timer-text", secsToClock(count));
+    ipcRenderer.send("set-timer-text", secsToClock(count));
 
     //play 30sec warning, if applicable
     if (count == 30 && play_30sec_sound){
@@ -98,7 +98,7 @@ function reset(){
     console.log("Resetting timer");
     count = RESET_VALUE;
     timer_display.innerHTML = secsToClock(count);
-    controllerWindow.webContents.send("set-timer-text", secsToClock(count));
+    ipcRenderer.send("set-timer-text", secsToClock(count));
 }
 
 function toggle(){

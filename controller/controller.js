@@ -48,10 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#select-font").onchange = function(){
         let new_choice = document.querySelector("#select-font").value;
         if (new_choice == "default"){
-            displayWindow.webContents.send("set-timer-font", "");
+            // displayWindow.webContents.send("set-timer-font", "");
+            ipcRenderer.send("set-timer-font", "");
         }
         else{
-            displayWindow.webContents.send("set-timer-font", new_choice);
+            // displayWindow.webContents.send("set-timer-font", new_choice);
+            ipcRenderer.send("set-timer-font", new_choice);
         }
     };
 
@@ -102,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#refresh-other-events").onclick = function(){
         displayWindow.webContents.send("refresh-other-events");
     }
+
+    document.querySelector("#spawn-extra-timer-window").onclick = function(){
+        console.log("spawn extra timer window button clicked");
+        ipcRenderer.send("spawn-extra-timer-window");
+    };
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
@@ -138,3 +145,7 @@ function isImage(name){
     let image_extensions = ["jpg", "jpeg", "png", "gif", "bmp"];
     return image_extensions.indexOf(extension) > -1
 }
+
+// function spawnExtraTimerWindow(){
+//     ipcMain.send("spawn-extra-timer-window");
+// }
