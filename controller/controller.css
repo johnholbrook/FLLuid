@@ -20,3 +20,7 @@ body {
 .timer-buttons button {
 	font-size: 2em;
 }
+
+summary{
+    font-size: large;
+}
