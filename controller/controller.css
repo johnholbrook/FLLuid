@@ -24,3 +24,7 @@ body {
 summary{
     font-size: large;
 }
+
+.current-match-block{
+    font-size: 3em;
+}

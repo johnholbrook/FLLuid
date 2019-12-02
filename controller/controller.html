@@ -50,6 +50,13 @@
                 <option value="practice">Show Practice Matches</option>
                 <option value="competition" selected>Show Competition Matches</option>
               </select>
+              <br/><br/>
+              <div class="form-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
+                    <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
+                  </div>
+                </div>
             </details>
 
             <hr>
@@ -125,6 +132,30 @@
 
             <hr/>
 
+            
+
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <!-- Current match block picker -->
+            <h2 class="text-center">Current Match Block</h2>
+            <div class="current-match-block text-center" id="current-match-block">
+              9:10
+            </div>
+            <div class="row px-3">
+                <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
+                  <button class="w-100 btn btn-primary" id="timer-start-pause">
+                    Prev. Block
+                  </button>
+                </div>
+                <div class="col-12 col-sm-6 px-0 pl-sm-1">
+                  <button class="w-100 btn btn-primary" id="timer-reset">
+                    Next Block
+                  </button>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -183,6 +214,20 @@
               </label>
             </div>
             <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="current-display" value="schedule"
+                  id="schedule-radio-button">
+                <label class="custom-control-label" for="schedule-radio-button">
+                  Match Schedule
+                </label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" name="current-display" value="intro"
+                  id="intro-radio-button">
+                <label class="custom-control-label" for="intro-radio-button">
+                  Match Intro
+                </label>
+            </div>
+            <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="scores"
                 id="scores-radio-button">
               <label class="custom-control-label" for="scores-radio-button">
@@ -203,6 +248,7 @@
                 Other Events
               </label>
             </div>
+            
 
             <!-- <hr> -->
 
