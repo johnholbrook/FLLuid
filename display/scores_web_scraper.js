@@ -80,6 +80,7 @@ function assembleTable(json_table, next_step){
     //First add the header row to the table
     let header_row = doc.createElement("tr");
     header_row.className = "table-header";
+    // header_row.style.display = "none";
     // let col_headers = json_table[0].keys();
     let col_headers = Object.keys(json_table[0]);
     for (let i=0; i<col_headers.length; i++){

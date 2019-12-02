@@ -13,7 +13,8 @@ module.exports = {
     stop : stop,
     set_event_id : set_event_id,
     set_comp_mode : set_comp_mode,
-    update_scores : update_scores
+    update_scores : update_scores,
+    update_table_header : update_table_header
 };
 
 //scroll constants and calculations
@@ -72,13 +73,15 @@ function advance_scroll(){
 
     //has the top element gone off the screen?
     //if so, remove it
-    if (current_scroll >= document.querySelector(".scrollable").firstElementChild.offsetHeight){
+    if (current_scroll >= document.querySelector(".scrollable").firstElementChild.offsetHeight/* - document.querySelector("#scores-title").offsetHeight*/){
         // current_scroll = -1 * document.documentElement.clientHeight;
         // console.log("top element has gone off screen, removing it");
         let scrollable = document.querySelector(".scrollable");
         scrollable.removeChild(scrollable.firstElementChild);
         current_scroll = 0;
         document.querySelector(".scrollable").style.top = (-current_scroll + "px");
+
+        update_table_header();
     }
 
     //is there new space at the bottom of the screen?
@@ -102,7 +105,38 @@ function update_scores(){
     scores_web_scraper.getScores(event_id, get_comp_results, function(table){
         current_scores_table = table;
         // console.log(current_scores_table);
+        // update_table_header();
     });
+}
+
+function update_table_header(){
+    //create the table header element
+    let header = document.createElement("table");
+    header.className = "scores-table";
+
+    //build the initial list of headers
+    // let col_th = current_scores_table.querySelectorAll("th");
+    let col_th = document.querySelector(".scrollable > .scores-table").querySelectorAll("th");
+    let header_row = document.createElement("tr");
+    header_row.className = "table-header";
+    for (let i=0; i<col_th.length; i++){
+        let tmp = document.createElement("th");
+        tmp.innerHTML = col_th[i].innerHTML;
+        header_row.append(tmp);
+    }
+    header.append(header_row)
+
+    //set the width of each column in the table header to match the
+    //corresponding column in the scores table itself
+    let header_cols = header.querySelectorAll("th");
+    for (let i=0; i<header_cols.length; i++){
+        // header_cols[i].offsetWidth = col_th[i].offsetWidth + col_th[i].marginLeft + col_th[i].marginRight;
+        // console.log(`width of col ${i} is ${col_th[i].offsetWidth}.`);
+        header_cols[i].style.width = col_th[i].offsetWidth + "px";
+    }
+
+    // console.log(header);
+    document.querySelector("#scores-table-header").innerHTML = header.outerHTML;
 }
 
 var screen_scrolling;
