@@ -136,7 +136,7 @@ tr.table-row-odd{
     top: 0;
     background-color: white;
 }
-td > div {
+.scores-table td > div {
     margin: 1em auto;
     padding: 0;
     border-width: 0;
@@ -157,6 +157,9 @@ td{
 }
 .score{
     text-align: center;
+}
+.team-name{
+    text-align: left;
 }
 
 .other-events-scores{
@@ -208,6 +211,38 @@ td{
     border-width: 0;
 }
 
-.scores-table-header > table{
-    /* table-layout: fixed; */
+
+#next-match{
+    position: fixed;
+    top: 4em;
+    left: 50%;
+    transform: translate(-50%);
+    padding-top: 1em;
+}
+
+#next-match td > div, #schedule-scrollable td > div{
+    text-align: center;
+}
+
+#next-match div.team-name, #schedule-scrollable div.team-name{
+    text-align: left;
+}
+
+.match-intro-table{
+    
+    /* text-align: center; */
+    font-size: 2.25em;
+    width: 90vw;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0 auto;
+    width: 90vw;
+}
+
+/* .match-intro-table > tr{
+    padding: 0 1em;
+} */
+
+.match-intro-table > div{
+    margin: 1em auto;
 }

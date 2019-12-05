@@ -3,8 +3,10 @@ var timer = require('./timer.js');
 var logos = require('./logos.js');
 var scores = require('./scores.js');
 var other_events = require('./other_events.js');
+var intro = require('./match-intro.js');
+var schedule = require('./schedule.js');
 
-var none_display, logo_display, timer_display, scores_display, other_events_display;
+var none_display, logo_display, timer_display, scores_display, other_events_display, intro_display, schedule_display;
 
 var chroma_key_mode = false;
 var selected_display = "";
@@ -16,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     timer_display = document.querySelector("#timer-display");
     scores_display = document.querySelector("#scores-display");
     other_events_display = document.querySelector("#other-events-display");
+    intro_display = document.querySelector("#intro-display");
+    schedule_display = document.querySelector("#schedule-display");
 });
 
 //change to a particular display
@@ -27,6 +31,8 @@ function change_display(display){
         timer_display.style.display = "none";
         scores_display.style.display = "none";
         other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
     }
     else if (display == "logos"){
         none_display.style.display = "none";
@@ -34,6 +40,8 @@ function change_display(display){
         timer_display.style.display = "none";
         scores_display.style.display = "none";
         other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
     }
     else if (display == "timer"){
         none_display.style.display = "none";
@@ -41,6 +49,8 @@ function change_display(display){
         timer_display.style.display = "";
         scores_display.style.display = "none";
         other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
     }
     else if (display == "scores"){
         none_display.style.display = "none";
@@ -48,6 +58,8 @@ function change_display(display){
         timer_display.style.display = "none";
         scores_display.style.display = "";
         other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
     }
     else if (display == "other-events"){
         none_display.style.display = "none";
@@ -55,6 +67,27 @@ function change_display(display){
         timer_display.style.display = "none";
         scores_display.style.display = "none";
         other_events_display.style.display = "";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
+    }
+    else if (display == "schedule"){
+        // console.log("showing schedule");
+        none_display.style.display = "none";
+        logo_display.style.display = "none";
+        timer_display.style.display = "none";
+        scores_display.style.display = "none";
+        other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "";
+    }
+    else if (display == "intro"){
+        none_display.style.display = "none";
+        logo_display.style.display = "none";
+        timer_display.style.display = "none";
+        scores_display.style.display = "none";
+        other_events_display.style.display = "none";
+        intro_display.style.display = "";
+        schedule_display.style.display = "none";
     }
 }
 
@@ -67,23 +100,34 @@ ipcRenderer.on("new-display-selected", function(event, arg){
         logos.start();
         scores.stop();
         other_events.stop();
+        schedule.stop();
     }
     else if (arg == "scores"){
         scores.start();
         logos.stop();
         other_events.stop();
+        schedule.stop();
         change_display("scores");
     }
     else if (arg == "other-events"){
         logos.stop();
         scores.stop();
         other_events.start();
+        schedule.stop();
+        change_display(arg);
+    }
+    else if (arg == "schedule"){
+        logos.stop();
+        scores.stop();
+        other_events.stop();
+        schedule.start();
         change_display(arg);
     }
     else{
         logos.stop();
         scores.stop();
         other_events.stop();
+        schedule.stop();
         change_display(arg);
     }
 });
@@ -101,6 +145,7 @@ ipcRenderer.on("reset-timer", function(event, args){
 ipcRenderer.on("set-logos", function(event, arg){
     logos.set_logos(arg);
     scores.set_logos(arg);
+    schedule.set_logos(arg);
     // console.log(arg);
 });
 
@@ -132,11 +177,23 @@ ipcRenderer.on("set-other-comp-mode", function(event, arg){
 });
 
 ipcRenderer.on("refresh-this-event", function(event){
-    console.log("refreshing this event...");
+    // console.log("refreshing this event...");
     scores.update_scores();
 });
 
 ipcRenderer.on("refresh-other-events", function(event){
-    console.log("refreshing other events...");
+    // console.log("refreshing other events...");
     other_events.update_tables();
+});
+
+ipcRenderer.on("set-blocks", function(event, arg){
+    // console.log("new block");
+    // console.log(arg);
+    intro.set_blocks(arg);
+    schedule.set_blocks(arg);
+});
+
+ipcRenderer.on("set-current-block", function(event, arg){
+    intro.set_current_block(arg);
+    schedule.set_current_block(arg);
 });

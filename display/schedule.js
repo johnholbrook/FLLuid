@@ -1,21 +1,53 @@
-const { ipcRenderer } = require('electron');
-let scores_web_scraper = require('./scores_web_scraper.js');
-// let x = require("./test.js")
-
-var current_scores_table = null;
-var event_id = null;
-//get practice results if this var is false, or comp match results if true
-var get_comp_results = true;
+console.log("Hello from schedule.js!");
 
 module.exports = {
+    set_blocks : set_blocks,
+    set_current_block : set_current_block,
     set_logos : set_logos,
     start : start,
-    stop : stop,
-    set_event_id : set_event_id,
-    set_comp_mode : set_comp_mode,
-    update_scores : update_scores,
-    update_table_header : update_table_header
+    stop : stop
 };
+
+var blocks = null;
+function set_blocks(new_blocks){
+    blocks = new_blocks;
+    console.log(blocks);
+    update_table();
+}
+
+var current_block = 0;
+function set_current_block(new_value){
+    current_block = new_value;
+    console.log(current_block);
+    update_table();
+}
+
+var schedule_table = null;
+function update_table(){
+    let table = document.createElement("table");
+    table.className = "scores-table";
+    let head = document.createElement("tr");
+    head.innerHTML = "<th>Start Time</th><th>Team #</th><th>Team Name</th><th>Table</th><th>Type</th><th>Round</th>";
+    table.append(head);
+
+    let curr_row_number = 0;
+
+    for (let i=current_block; i<blocks.length; i++){
+        let matches = blocks[i].matches;
+        for (let j=0; j<matches.length; j++){
+            let tmp = document.createElement("tr");
+            tmp.className = curr_row_number%2==0 ? "table-row-even" : "table-row-odd";
+            tmp.innerHTML += `<td><div>${blocks[i].time}</div></td><td><div>${matches[j].team}</div></td><td><div>${matches[j].name}</div></td><td><div>${matches[j].table}</div></td><td><div>${matches[j].type}</div></td><td><div>${matches[j].round}</div></td>`;
+            tmp.querySelectorAll("div")[2].className = "team-name";
+            table.append(tmp);
+
+            curr_row_number++;
+        }
+    }
+
+    schedule_table = table;
+    // show_table();
+}
 
 //scroll constants and calculations
 const TABLE_SCROLL_SPEED_PPS = 70; //px per second
@@ -28,17 +60,13 @@ const PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS/TABLE_SCROLL_FPS; //amount (in px) 
 //the current scrolling position
 var current_scroll = 1;
 
-// var logo_files = ["../blank.png"];
-// var logo_files = ["/Users/john/Documents/logo_test/wvde.png", "/Users/john/Documents/logo_test/fll.png", "/Users/john/Documents/logo_test/aladdin.png", "/Users/john/Documents/logo_test/city-shaper.png", "/Users/john/Documents/logo_test/fsu.png", "/Users/john/Documents/logo_test/wvsgc.png", "/Users/john/Documents/logo_test/ivv.png", "/Users/john/Documents/logo_test/wvhtf.png"]
 var logo_files = [];
 var current_logo = 0;
 function set_logos(new_logos){
-    // console.log("setting logos in scores.js");
+    // console.log("setting logos in schedule.js");
     // console.log(new_logos);
     logo_files = new_logos;
 }
-
-// var scores_table = document.create
 
 function get_next_logo(){
     current_logo += 1;
@@ -69,44 +97,36 @@ function advance_scroll(){
     current_scroll += amt_to_scroll;
     last_time = now;
 
-    document.querySelector("#scores-scrollable").style.top = (-current_scroll + "px");
+    document.querySelector("#schedule-scrollable").style.top = (-current_scroll + "px");
 
     //has the top element gone off the screen?
     //if so, remove it
-    if (current_scroll >= document.querySelector("#scores-scrollable").firstElementChild.offsetHeight/* - document.querySelector("#scores-title").offsetHeight*/){
+    if (current_scroll >= document.querySelector("#schedule-scrollable").firstElementChild.offsetHeight/* - document.querySelector("#scores-title").offsetHeight*/){
         // current_scroll = -1 * document.documentElement.clientHeight;
         // console.log("top element has gone off screen, removing it");
-        let scrollable = document.querySelector("#scores-scrollable");
+        let scrollable = document.querySelector("#schedule-scrollable");
         scrollable.removeChild(scrollable.firstElementChild);
         current_scroll = 0;
-        document.querySelector("#scores-scrollable").style.top = (-current_scroll + "px");
+        document.querySelector("#schedule-scrollable").style.top = (-current_scroll + "px");
 
         update_table_header();
     }
 
     //is there new space at the bottom of the screen?
     //if so, insert a new element there (table or image, as appropriate)
-    if ((-1*current_scroll) + document.querySelector("#scores-scrollable").offsetHeight < window.innerHeight){
+    if ((-1*current_scroll) + document.querySelector("#schedule-scrollable").offsetHeight < window.innerHeight){
         // console.log("space has opened up at the bottom of the screen, inserting new element...");
-        if (document.querySelector("#scores-scrollable").lastElementChild.tagName == "IMG"){
+        if (document.querySelector("#schedule-scrollable").lastElementChild.tagName == "IMG"){
             // let new_element = current_scores_table;
             // document.querySelector("#scores-scrollable").appendChild(new_element);
-            document.querySelector("#scores-scrollable").appendChild(current_scores_table.cloneNode(true));
+            document.querySelector("#schedule-scrollable").appendChild(schedule_table.cloneNode(true));
         }
         else{
             let new_element = document.createElement("img");
             new_element.src = get_next_logo();
-            document.querySelector("#scores-scrollable").appendChild(new_element);
+            document.querySelector("#schedule-scrollable").appendChild(new_element);
         }
     }
-}
-
-function update_scores(){
-    scores_web_scraper.getScores(event_id, get_comp_results, function(table){
-        current_scores_table = table;
-        // console.log(current_scores_table);
-        // update_table_header();
-    });
 }
 
 function update_table_header(){
@@ -116,7 +136,7 @@ function update_table_header(){
 
     //build the initial list of headers
     // let col_th = current_scores_table.querySelectorAll("th");
-    let col_th = document.querySelector("#scores-scrollable > .scores-table").querySelectorAll("th");
+    let col_th = document.querySelector("#schedule-scrollable > .scores-table").querySelectorAll("th");
     let header_row = document.createElement("tr");
     header_row.className = "table-header";
     for (let i=0; i<col_th.length; i++){
@@ -136,44 +156,19 @@ function update_table_header(){
     }
 
     // console.log(header);
-    document.querySelector("#scores-table-header").innerHTML = header.outerHTML;
+    document.querySelector("#schedule-table-header").innerHTML = header.outerHTML;
 }
 
 var screen_scrolling;
-var scores_updating;
 function start(){
     last_time = Date.now();
-    update_scores();
     clearInterval(screen_scrolling)
     screen_scrolling = setInterval(advance_scroll, UPDATE_INTERVAL);
-
-    //update scores every 2 minutes while the display is shown:
-    clearInterval(scores_updating);
-    scores_updating = setInterval(update_scores, 2*60*1000)
 }
 function stop(){
     clearInterval(screen_scrolling);
-    clearInterval(scores_updating);
 }
 
-function set_event_id(new_id){
-    event_id = new_id;
-    update_scores();
-}
-
-function set_comp_mode(new_mode){
-    get_comp_results = new_mode;
-    update_scores();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // event_id = "21989";
-    // event_id = "22029";
-    // event_id = "22063";
-    // event_id = "20892";
-
-    // get_comp_results = true;
-    // get_comp_results = false;
-
-    // start();
-});
+// function show_table(){
+//     document.querySelector("#schedule-scrollable").innerHTML = schedule_table.outerHTML;
+// }

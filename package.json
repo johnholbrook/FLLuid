@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "accurate-interval": "^1.0.9",
+    "fast-csv": "^3.4.0",
     "jsdom": "^15.2.1",
     "needle": "^2.4.0",
     "require": "^2.4.20",

@@ -1,11 +1,12 @@
-const REFRESH_INTERVAL_MIN = 5; //how often to refresh the table (in minutes)
-const REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MIN * 60 * 1000; //in milliseconds
+// const REFRESH_INTERVAL_MIN = 5; //how often to refresh the table (in minutes)
+// const REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MIN * 60 * 1000; //in milliseconds
 
 var needle = require('needle');
 
 module.exports = {
     getScores : getScores,
-    getEventName : getEventName
+    getEventName : getEventName,
+    getTeamNames : getTeamNames
 };
 
 //Make a request to the specified URL and pass the
@@ -29,7 +30,7 @@ function make_request(url, handler_function, next_step){
         }
         else{
             //TODO: error handling!
-            console.log("Error!")
+            console.error("Error!")
         }
     });
 }
@@ -152,3 +153,26 @@ function getEventName(event_id, next_step){
     make_request(url, name_extractor, next_step);
 }
 
+function team_name_extractor(body, next_step){
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(body, "text/html");
+
+    let results_table_body = htmlDoc.body.querySelector("table").querySelector("table").querySelector("tbody");
+
+    let table_rows = results_table_body.querySelectorAll("tr");
+    let result = {};
+    for (let i=1; i<table_rows.length; i++){
+        // console.log(table_rows[i])
+        let cols = table_rows[i].querySelectorAll("td");
+        // console.log(cols);
+        result[cols[1].innerText] = cols[2].innerText;
+    }
+
+    next_step(result);
+}
+
+function getTeamNames(event_id, next_step){
+    let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
+
+    make_request(url, team_name_extractor, next_step);
+}

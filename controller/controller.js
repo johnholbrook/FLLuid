@@ -1,4 +1,5 @@
 const { remote, ipcRenderer } = require('electron');
+const schedule = require('./schedule.js');
 
 var displayWindow = remote.getGlobal('displayWindow');
 
@@ -78,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#save-this-tournament-id").onclick = function(){
         let new_id = document.querySelector("#this-tournament-id").value;
         displayWindow.webContents.send("set-this-tournament-id", new_id);
+        schedule.set_event_id(new_id);
     };
 
     document.querySelector("#select-this-match-type").onchange = function(){
@@ -106,9 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelector("#spawn-extra-timer-window").onclick = function(){
-        console.log("spawn extra timer window button clicked");
+        // console.log("spawn extra timer window button clicked");
         ipcRenderer.send("spawn-extra-timer-window");
     };
+
+    document.querySelector("#schedule-csv-picker").onchange = function(){
+        let file_path = document.querySelector("#schedule-csv-picker").files[0].path;
+        schedule.parseCSV(file_path);
+    };
+
+    document.querySelector("#prev-block").onclick = function(){
+        schedule.previous_block();
+    }
+
+    document.querySelector("#next-block").onclick = function(){
+        schedule.next_block();
+    }
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
