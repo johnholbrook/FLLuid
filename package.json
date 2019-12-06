@@ -1,7 +1,7 @@
 {
   "name": "fll-audience-display",
   "productName": "FLL Audience Display",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An audience display for FLL events run using FLLTournament.com",
   "main": "main.js",
   "scripts": {
