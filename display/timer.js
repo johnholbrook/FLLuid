@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     reset();
 });
 
+var auto_advance = false;
+
 //converts a number of seconds to a clock display
 //@param time - a number of seconds
 function secsToClock(time){
@@ -57,6 +59,13 @@ function timer(){
       }
       //Wait 5 seconds, then reset
       setTimeout(reset, 5000);
+
+      //auto-advance to next match block after 5 seconds if desired
+      if (auto_advance){
+          setTimeout(function(){
+            controllerWindow.webContents.send("next-match-block");
+          }, 5000)
+      }
       return;
     }
     //update the time on the display
@@ -136,3 +145,7 @@ ipcRenderer.on("set-timer-font", function(event, arg){
     document.querySelector(".timer-numbers").style.fontFamily = arg;
 });
 
+ipcRenderer.on("set-auto-advance", function(event, arg){
+    // console.log("Setting auto advance to " + arg);
+    auto_advance = arg;
+});

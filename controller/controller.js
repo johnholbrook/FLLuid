@@ -119,11 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#prev-block").onclick = function(){
         schedule.previous_block();
-    }
+    };
 
     document.querySelector("#next-block").onclick = function(){
         schedule.next_block();
-    }
+    };
+
+    document.querySelector("#auto-advance").onclick = function(){
+        let auto_advance = document.querySelector("#auto-advance").checked;
+        displayWindow.webContents.send("set-auto-advance", auto_advance);
+        console.log("Sending auto advance");
+    };
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
@@ -132,6 +138,10 @@ ipcRenderer.on("set-start-button-text", function(event, arg){
 
 ipcRenderer.on("set-timer-text", function(event, arg){
     document.querySelector("#timer-display").innerHTML = arg;
+});
+
+ipcRenderer.on("next-match-block", function(event, arg){
+    schedule.next_block();
 });
 
 function showNone(){
