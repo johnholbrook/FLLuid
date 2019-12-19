@@ -1,6 +1,6 @@
 const csv = require('fast-csv');
 const scraper = require('../display/scores_web_scraper.js');
-const { remote } = require('electron');
+const { remote, ipcRenderer } = require('electron');
 
 var displayWindow = remote.getGlobal('displayWindow');
 
@@ -67,8 +67,8 @@ let current_block = 0;
 function set_current_block(new_value){
     if (new_value < blocks.length && new_value >= 0){
         current_block = new_value;
-
         document.querySelector("#current-match-block").innerHTML = blocks[new_value].time;
+        ipcRenderer.send("current-match-block", blocks[new_value].time)
     }
 }
 

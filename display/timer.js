@@ -29,7 +29,9 @@ var controllerWindow = remote.getGlobal("controllerWindow");
 
 document.addEventListener('DOMContentLoaded', () => {
     timer_display = document.querySelector(".timer-numbers");
-    reset();
+    // reset();
+    timer_display.innerHTML = secsToClock(count);
+    ipcRenderer.send("set-timer-text", secsToClock(count));
 });
 
 var auto_advance = false;
@@ -88,7 +90,7 @@ function start(){
       isRunning = true;
     //   counter = setInterval(timer, 1000);
       counter = accurateInterval(timer, 1000);
-      controllerWindow.webContents.send("set-start-button-text", "Pause");
+    ipcRenderer.send("set-start-button-text", "Pause");
     }
 }
   
@@ -96,7 +98,7 @@ function pause(){
     console.log("Pausing timer");
     // clearInterval(counter);
     counter.clear();
-    controllerWindow.webContents.send("set-start-button-text", "Start");
+    ipcRenderer.send("set-start-button-text", "Start");
     isRunning = false;
 }
   
@@ -148,4 +150,9 @@ ipcRenderer.on("set-timer-font", function(event, arg){
 ipcRenderer.on("set-auto-advance", function(event, arg){
     // console.log("Setting auto advance to " + arg);
     auto_advance = arg;
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // reset();
 });

@@ -16,7 +16,9 @@ function getRadioValue(buttons){
 document.addEventListener('DOMContentLoaded', () => {
     showLogos();
 
-    displayWindow.webContents.send("reset-timer");
+    // setTimeout(() => {
+    //     displayWindow.webContents.send("reset-timer");
+    // }, 500);
     
     let display_radio_buttons = document.getElementsByName('current-display');
     for (let i=0; i<display_radio_buttons.length; i++){
@@ -142,6 +144,19 @@ ipcRenderer.on("set-timer-text", function(event, arg){
 
 ipcRenderer.on("next-match-block", function(event, arg){
     schedule.next_block();
+});
+
+ipcRenderer.on("prev-match-block", function(event, arg){
+    schedule.previous_block();
+});
+
+ipcRenderer.on("start-timer", function(event){
+    displayWindow.webContents.send("start-timer");
+    showTimer();
+});
+
+ipcRenderer.on("radio-select", function(event, arg){
+    document.querySelector(arg).checked = true;
 });
 
 function showNone(){
