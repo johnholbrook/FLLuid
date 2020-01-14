@@ -246,3 +246,15 @@ td{
 .match-intro-table > div{
     margin: 1em auto;
 }
+
+.message-text{
+    text-align:center;
+    /* margin: auto 0; */
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12vh;
+    font-weight: bold;
+}

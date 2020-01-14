@@ -5,6 +5,7 @@ var scores = require('./scores.js');
 var other_events = require('./other_events.js');
 var intro = require('./match-intro.js');
 var schedule = require('./schedule.js');
+var message = require('./message.js');
 
 var none_display, logo_display, timer_display, scores_display, other_events_display, intro_display, schedule_display;
 
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     other_events_display = document.querySelector("#other-events-display");
     intro_display = document.querySelector("#intro-display");
     schedule_display = document.querySelector("#schedule-display");
+    message_display = document.querySelector("#message-display");
 });
 
 //change to a particular display
@@ -33,6 +35,7 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
     }
     else if (display == "logos"){
         none_display.style.display = "none";
@@ -42,6 +45,7 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
     }
     else if (display == "timer"){
         none_display.style.display = "none";
@@ -51,6 +55,7 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
     }
     else if (display == "scores"){
         none_display.style.display = "none";
@@ -60,6 +65,7 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
     }
     else if (display == "other-events"){
         none_display.style.display = "none";
@@ -69,6 +75,7 @@ function change_display(display){
         other_events_display.style.display = "";
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
     }
     else if (display == "schedule"){
         // console.log("showing schedule");
@@ -79,6 +86,7 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "none";
         schedule_display.style.display = "";
+        message_display.style.display = "none";
     }
     else if (display == "intro"){
         none_display.style.display = "none";
@@ -88,6 +96,17 @@ function change_display(display){
         other_events_display.style.display = "none";
         intro_display.style.display = "";
         schedule_display.style.display = "none";
+        message_display.style.display = "none";
+    }
+    else if (display == "message"){
+        none_display.style.display = "none";
+        logo_display.style.display = "none";
+        timer_display.style.display = "none";
+        scores_display.style.display = "none";
+        other_events_display.style.display = "none";
+        intro_display.style.display = "none";
+        schedule_display.style.display = "none";
+        message_display.style.display = "";
     }
 }
 
@@ -196,4 +215,9 @@ ipcRenderer.on("set-blocks", function(event, arg){
 ipcRenderer.on("set-current-block", function(event, arg){
     intro.set_current_block(arg);
     schedule.set_current_block(arg);
+});
+
+ipcRenderer.on("set-message-text", function(event, arg){
+    console.log("Message text: " + arg);
+    message.set_message_text(arg);
 });

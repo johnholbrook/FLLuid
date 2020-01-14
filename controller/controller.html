@@ -165,6 +165,7 @@
               </div>
           </div>
         </div>
+
       </div>
 
       <div class="col-12 col-sm-6 px-2">
@@ -255,20 +256,29 @@
                 Other Events
               </label>
             </div>
-            
-
-            <!-- <hr> -->
-
-            <!-- <div class="custom-control custom-checkbox">
-              <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
-              <label class="custom-control-label" for="chroma-key">
-                Chroma Key
+            <div class="custom-control custom-radio">
+              <input class="custom-control-input" type="radio" name="current-display" value="message"
+                id="message-radio-button">
+              <label class="custom-control-label" for="message-radio-button">
+                Message
               </label>
-            </div> -->
+            </div>
+
           </div>
         </div>
-      </div>
 
+        <!-- Message Text -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="text-center">Message Text</h2>
+            <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
+            <div class="row px-3">
+              <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
   </div>
 

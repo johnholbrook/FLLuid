@@ -132,6 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWindow.webContents.send("set-auto-advance", auto_advance);
         console.log("Sending auto advance");
     };
+
+    document.querySelector("#submit-message-text").onclick = function(){
+        let message_text = document.querySelector("#message-text-area").value;
+        displayWindow.webContents.send("set-message-text", message_text);
+    };
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
