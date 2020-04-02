@@ -162,13 +162,21 @@ td{
     text-align: left;
 }
 
+
+#other-events-wrapper{
+    position: fixed;
+    top: 3em;
+    left: 50%;
+    transform: translate(-50%);
+    /* display: block; */
+}
 .other-events-scores{
     margin: 0 auto;
     max-height: 90vw;
     width: 90vw;
     border-collapse: collapse;
     border-spacing: 0;
-    font-size: 1.25em;
+    font-size: 2em;
     overflow: auto;
 }
 .other-event-name{
