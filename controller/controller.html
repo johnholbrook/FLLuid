@@ -24,23 +24,134 @@
 
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                <a class="nav-item nav-link active" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="true">Logos</a>
+                <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="false">Event</a>
+                <a class="nav-item nav-link" id="nav-sounds-tab" data-toggle="tab" href="#nav-sounds" role="tab" aria-controls="nav-sounds" aria-selected="false">Sounds</a>
+                <a class="nav-item nav-link" id="nav-appearance-tab" data-toggle="tab" href="#nav-appearance" role="tab" aria-controls="nav-appearance" aria-selected="false">Appearance</a>
+                <a class="nav-item nav-link" id="nav-misc-tab" data-toggle="tab" href="#nav-misc" role="tab" aria-controls="nav-misc" aria-selected="false">Misc</a>
               </div>
             </nav>
+            
+            <div style="height:1em;"></div>
 
             <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Home!</div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Profile!</div>
-              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Contact!</div>
+              <!-- "Logos" Tab Content -->
+              <div class="tab-pane fade show active" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
+                <div class="form-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
+                    <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- "Event" Tab Content -->
+              <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+                <!-- <div style="height:2em;"></div> -->
+                <h4><b>This Event</b></h4>
+                <div class="form-group">
+                  <label for="this-tournament-id">FLLTournament ID:</label>
+                  <div class="input-group">
+                    <input class="form-control" type="text" id="this-tournament-id">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
+                    </div>
+                  </div>
+                </div>
+                <select class="custom-select" id="select-this-match-type">
+                  <option value="practice">Show Practice Matches</option>
+                  <option value="competition" selected>Show Competition Matches</option>
+                </select>
+                <br/><br/>
+                <div class="form-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
+                      <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
+                    </div>
+                  </div>
+
+
+                <h4><b>Other Events</b></h4>
+                <div class="form-group">
+                  <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
+                  <div class="input-group">
+                    <input class="form-control" type="text" id="other-tournament-ids">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
+                    </div>
+                  </div>
+                </div>
+                <select class="custom-select" id="select-other-match-type">
+                  <option value="practice">Show Practice Matches</option>
+                  <option value="competition" selected>Show Competition Matches</option>
+                </select>
+              </div>
+
+              <!-- "Sounds" Tab Content -->
+              <div class="tab-pane fade" id="nav-sounds" role="tabpanel" aria-labelledby="nav-sounds-tab">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="start-sound" checked>
+                  <label class="custom-control-label" for="start-sound">
+                    Play Start Sound
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
+                  <label class="custom-control-label" for="30-second-warning">
+                    Play 30 Second Warning
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="end-sound" checked>
+                  <label class="custom-control-label" for="end-sound">
+                    Play End Sound
+                  </label>
+                </div>
+              </div>
+
+              <!-- "Appearance" Tab Content -->
+              <div class="tab-pane fade" id="nav-appearance" role="tabpanel" aria-labelledby="nav-appearance-tab">
+                <div class="form-inline">
+                  <label for="select-font" class="mr-3 my-3">Timer Font:</label>
+                  <select id="select-font" class="custom-select">
+                    <option value="default">System Default</option>
+                    <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
+                    <option value="digital-7-mono">Seven-Segment</option>
+                  </select>
+                </div>
+  
+                <!-- Chroma Key mode -->
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
+                    <label class="custom-control-label" for="chroma-key">
+                      Chroma Key Mode
+                    </label>
+                </div>
+  
+                <br/>
+  
+                <!-- Button to spawn extra timer window -->
+                <div class="form-inline">
+                  <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
+                </div>
+              </div>
+
+              <!-- "Misc" Tab Content -->
+              <div class="tab-pane fade" id="nav-misc" role="tabpanel" aria-labelledby="nav-misc-tab">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="auto-advance">
+                  <label class="custom-control-label" for="auto-advance">
+                    Auto-advance match block 5s after timer end
+                  </label>
+                </div>
+              </div>
             </div>
 
 
             <!-- BEGIN OLD SETTINGS -->
 
             <!-- Logo Directory -->
-            <details>
+            <!-- <details>
               <summary>Sponsor Logos</summary>
               <br/>
               <div class="form-group">
@@ -49,12 +160,12 @@
                   <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
                 </div>
               </div>
-            </details>
+            </details> -->
 
-            <hr>
+            <!-- <hr> -->
 
             <!-- This Event -->
-            <details>
+            <!-- <details>
               <summary>This Event Options</summary>
               <div class="form-group">
                 <label for="this-tournament-id">FLLTournament ID:</label>
@@ -76,12 +187,12 @@
                     <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
                   </div>
                 </div>
-            </details>
+            </details> -->
 
-            <hr>
+            <!-- <hr> -->
 
             <!-- Other Events -->
-            <details>
+            <!-- <details>
               <summary>Other Events Options</summary>
               <div class="form-group">
                 <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
@@ -96,15 +207,15 @@
                 <option value="practice">Show Practice Matches</option>
                 <option value="competition" selected>Show Competition Matches</option>
               </select>
-            </details>
+            </details> -->
 
-            <hr>
+            <!-- <hr>
 
             <details>
-              <summary>Timer Options</summary>
+              <summary>Timer Options</summary> -->
             
               <!-- Sound Options -->
-              <div class="custom-control custom-checkbox">
+              <!-- <div class="custom-control custom-checkbox">
                 <input class="custom-control-input" type="checkbox" id="start-sound" checked>
                 <label class="custom-control-label" for="start-sound">
                   Play Start Sound
@@ -124,27 +235,27 @@
               </div> -->
 
               <!-- Font Setting -->
-              <div class="form-inline">
+              <!-- <div class="form-inline">
                 <label for="select-font" class="mr-3 my-3">Timer Font:</label>
                 <select id="select-font" class="custom-select">
                   <option value="default">System Default</option>
                   <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
                   <option value="digital-7-mono">Seven-Segment</option>
                 </select>
-              </div>
+              </div> -->
 
               <!-- Chroma Key mode -->
-              <div class="custom-control custom-checkbox">
+              <!-- <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
                   <label class="custom-control-label" for="chroma-key">
                     Chroma Key Mode
                   </label>
               </div>
 
-              <br/>
+              <br/> -->
 
               <!-- Button to spawn extra timer window -->
-              <div class="form-inline">
+              <!-- <div class="form-inline">
                 <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
               </div>
 
@@ -159,7 +270,7 @@
             </details>
             
 
-            <hr/>
+            <hr/> -->
             
             <!-- END OLD SETTINGS -->
 
