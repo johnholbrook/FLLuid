@@ -2,9 +2,12 @@
 <html>
 
 <head>
+  
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
-  <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
   <script src="controller.js"></script>
   <title>Audience Display Controller</title>
@@ -19,6 +22,23 @@
         <div class="card mb-3">
           <div class="card-body">
             <h2 class="text-center">Options</h2>
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+              </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Home!</div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Profile!</div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Contact!</div>
+            </div>
+
+
+            <!-- BEGIN OLD SETTINGS -->
 
             <!-- Logo Directory -->
             <details>
@@ -102,7 +122,7 @@
                 <label class="custom-control-label" for="end-sound">
                   Play End Sound
                 </label>
-              </div>
+              </div> -->
 
               <!-- Font Setting -->
               <div class="form-inline">
@@ -142,6 +162,7 @@
 
             <hr/>
             
+            <!-- END OLD SETTINGS -->
 
           </div>
         </div>
