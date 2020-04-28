@@ -1,10 +1,10 @@
-# FLL Audience Display
+# FLLuid
 
-FLL Audience Display is an easy-to-use display package for FIRST Lego League events run using the [FLLTournament.com website](http://flltournament.com). It provides a number of different displays, described below.
+FLLuid (FLL Useful Information Display) is an easy-to-use display package for FIRST Lego League events run using the [FLLTournament.com website](http://flltournament.com). It provides a number of different displays, described below.
 
 ## Installation
 ### The Easy Way
-Download the packaged app from the latest [release](https://github.com/dhmmjoph/fll-audience-display/releases) and run it.
+Download the packaged app from the latest [release](https://github.com/johnholbrook/flluid/releases) and run it.
 
 ### Build from Source
 1. Install node and npm (`brew install node npm` with [Homebrew](https://brew.sh), or [see this page](https://nodejs.org/en/download/)).
@@ -17,4 +17,4 @@ This software is still in development! Some functionality may be broken, and new
 
 An initial feature-complete release is targeted for late summer/early fall 2020, but no promises on that.
 
-If you'd like submit a bug report, feature request, or other concern, please [open a new issue](https://github.com/johnholbrook/fll-audience-display/issues/new).
+If you'd like submit a bug report, feature request, or other concern, please [open a new issue](https://github.com/johnholbrook/flluid/issues/new).
