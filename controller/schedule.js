@@ -123,7 +123,7 @@ function parseCSV(filePath){
             indexes.type = row.indexOf("Type");
             indexes.round = row.indexOf("Round");
             indexes.team = row.indexOf("Team #");
-            indexes.table = row.indexOf("Description");
+            indexes.table = row.indexOf("Room");
             // console.log(indexes);
         }
         else{
