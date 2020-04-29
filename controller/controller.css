@@ -28,3 +28,12 @@ summary{
 .current-match-block{
     font-size: 4em;
 }
+
+#screen-select{
+    font-weight: bold;
+    /* font-size: 1.25em; */
+}
+
+#screen-select input{
+    /* top: 0.125em; */
+}

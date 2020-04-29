@@ -17,18 +17,17 @@
     <div class="row">
 
       <!-- Options -->
-      <div class="col-12 col-sm-6 px-2">
+      <div class="col-12 col-md-7 px-2">
         <div class="card mb-3">
           <div class="card-body">
             <h2 class="text-center">Options</h2>
 
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="true">Logos</a>
-                <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="false">Event</a>
-                <a class="nav-item nav-link" id="nav-sounds-tab" data-toggle="tab" href="#nav-sounds" role="tab" aria-controls="nav-sounds" aria-selected="false">Sounds</a>
-                <a class="nav-item nav-link" id="nav-appearance-tab" data-toggle="tab" href="#nav-appearance" role="tab" aria-controls="nav-appearance" aria-selected="false">Appearance</a>
-                <a class="nav-item nav-link" id="nav-misc-tab" data-toggle="tab" href="#nav-misc" role="tab" aria-controls="nav-misc" aria-selected="false">Misc</a>
+                <a class="nav-item nav-link active" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="false">Logos</a>
+                <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a>
+                <a class="nav-item nav-link" id="nav-timer-settings-tab" data-toggle="tab" href="#nav-timer-settings" role="tab" aria-controls="nav-appearance" aria-selected="false">Timer</a>
+                <a class="nav-item nav-link" id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab" aria-controls="nav-appearance" aria-selected="false">Message</a>
               </div>
             </nav>
             
@@ -87,30 +86,9 @@
                 </select>
               </div>
 
-              <!-- "Sounds" Tab Content -->
-              <div class="tab-pane fade" id="nav-sounds" role="tabpanel" aria-labelledby="nav-sounds-tab">
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="start-sound" checked>
-                  <label class="custom-control-label" for="start-sound">
-                    Play Start Sound
-                  </label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
-                  <label class="custom-control-label" for="30-second-warning">
-                    Play 30 Second Warning
-                  </label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="end-sound" checked>
-                  <label class="custom-control-label" for="end-sound">
-                    Play End Sound
-                  </label>
-                </div>
-              </div>
-
-              <!-- "Appearance" Tab Content -->
-              <div class="tab-pane fade" id="nav-appearance" role="tabpanel" aria-labelledby="nav-appearance-tab">
+              <!-- "Timer" Tab Content -->
+              <div class="tab-pane fade" id="nav-timer-settings" role="tabpanel" aria-labelledby="nav-timer-settings-tab">
+                <h4><b>Appearance</b></h4>
                 <div class="form-inline">
                   <label for="select-font" class="mr-3 my-3">Timer Font:</label>
                   <select id="select-font" class="custom-select">
@@ -129,150 +107,57 @@
                 </div>
   
                 <br/>
-  
-                <!-- Button to spawn extra timer window -->
-                <div class="form-inline">
-                  <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
-                </div>
-              </div>
 
-              <!-- "Misc" Tab Content -->
-              <div class="tab-pane fade" id="nav-misc" role="tabpanel" aria-labelledby="nav-misc-tab">
+                <h4><b>Sounds</b></h4>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="start-sound" checked>
+                  <label class="custom-control-label" for="start-sound">
+                    Play Start Sound
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
+                  <label class="custom-control-label" for="30-second-warning">
+                    Play 30 Second Warning
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="end-sound" checked>
+                  <label class="custom-control-label" for="end-sound">
+                    Play End Sound
+                  </label>
+                </div>
+
+
+                <br/>
+
+                <h4><b>Behavior</b></h4>
+
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="auto-advance">
                   <label class="custom-control-label" for="auto-advance">
                     Auto-advance match block 5s after timer end
                   </label>
                 </div>
+
+                <br/>
+
+                <!-- Button to spawn extra timer window -->
+                <div class="form-inline">
+                  <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
+                </div>
+              </div>
+
+              <!-- "Message" Tab Content -->
+              <div class="tab-pane fade" id="nav-message" role="tabpanel" aria-labelledby="nav-message-tab">
+                <h2 class="text-center">Message Text</h2>
+                <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
+                <div class="row px-3">
+                  <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
+                </div>
               </div>
             </div>
 
-
-            <!-- BEGIN OLD SETTINGS -->
-
-            <!-- Logo Directory -->
-            <!-- <details>
-              <summary>Sponsor Logos</summary>
-              <br/>
-              <div class="form-group">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
-                  <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
-                </div>
-              </div>
-            </details> -->
-
-            <!-- <hr> -->
-
-            <!-- This Event -->
-            <!-- <details>
-              <summary>This Event Options</summary>
-              <div class="form-group">
-                <label for="this-tournament-id">FLLTournament ID:</label>
-                <div class="input-group">
-                  <input class="form-control" type="text" id="this-tournament-id">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
-                  </div>
-                </div>
-              </div>
-              <select class="custom-select" id="select-this-match-type">
-                <option value="practice">Show Practice Matches</option>
-                <option value="competition" selected>Show Competition Matches</option>
-              </select>
-              <br/><br/>
-              <div class="form-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
-                    <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
-                  </div>
-                </div>
-            </details> -->
-
-            <!-- <hr> -->
-
-            <!-- Other Events -->
-            <!-- <details>
-              <summary>Other Events Options</summary>
-              <div class="form-group">
-                <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
-                <div class="input-group">
-                  <input class="form-control" type="text" id="other-tournament-ids">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
-                  </div>
-                </div>
-              </div>
-              <select class="custom-select" id="select-other-match-type">
-                <option value="practice">Show Practice Matches</option>
-                <option value="competition" selected>Show Competition Matches</option>
-              </select>
-            </details> -->
-
-            <!-- <hr>
-
-            <details>
-              <summary>Timer Options</summary> -->
-            
-              <!-- Sound Options -->
-              <!-- <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="start-sound" checked>
-                <label class="custom-control-label" for="start-sound">
-                  Play Start Sound
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
-                <label class="custom-control-label" for="30-second-warning">
-                  Play 30 Second Warning
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="end-sound" checked>
-                <label class="custom-control-label" for="end-sound">
-                  Play End Sound
-                </label>
-              </div> -->
-
-              <!-- Font Setting -->
-              <!-- <div class="form-inline">
-                <label for="select-font" class="mr-3 my-3">Timer Font:</label>
-                <select id="select-font" class="custom-select">
-                  <option value="default">System Default</option>
-                  <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
-                  <option value="digital-7-mono">Seven-Segment</option>
-                </select>
-              </div> -->
-
-              <!-- Chroma Key mode -->
-              <!-- <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
-                  <label class="custom-control-label" for="chroma-key">
-                    Chroma Key Mode
-                  </label>
-              </div>
-
-              <br/> -->
-
-              <!-- Button to spawn extra timer window -->
-              <!-- <div class="form-inline">
-                <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
-              </div>
-
-              <br/>
-
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="auto-advance">
-                <label class="custom-control-label" for="auto-advance">
-                  Auto-advance match block 5s after timer end
-                </label>
-              </div>
-            </details>
-            
-
-            <hr/> -->
-            
-            <!-- END OLD SETTINGS -->
 
           </div>
         </div>
@@ -299,7 +184,7 @@
 
       </div>
 
-      <div class="col-12 col-sm-6 px-2">
+      <div class="col-12 col-md-5 px-2">
         <!-- Timer Controls -->
         <div class="card mb-3">
           <div class="card-body">
@@ -335,63 +220,63 @@
 
         <!-- Current Display -->
         <div class="card mb-3">
-          <div class="card-body">
+          <div class="card-body" id="screen-select">
             <h2 class="text-center">Current Display</h2>
 
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="none"
                 id="none-radio-button">
               <label class="custom-control-label" for="none-radio-button">
-                None
+                <h4>None</h4>
               </label>
             </div>
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="logos"
                 id="logos-radio-button">
               <label class="custom-control-label" for="logos-radio-button">
-                Logos
+                <h4>Logos</h4>
               </label>
             </div>
             <div class="custom-control custom-radio">
                 <input class="custom-control-input" type="radio" name="current-display" value="schedule"
                   id="schedule-radio-button">
                 <label class="custom-control-label" for="schedule-radio-button">
-                  Match Schedule
+                  <h4>Match Schedule</h4>
                 </label>
             </div>
             <div class="custom-control custom-radio">
                 <input class="custom-control-input" type="radio" name="current-display" value="intro"
                   id="intro-radio-button">
                 <label class="custom-control-label" for="intro-radio-button">
-                  Match Intro
+                  <h4>Match Intro</h4>
                 </label>
             </div>
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="scores"
                 id="scores-radio-button">
               <label class="custom-control-label" for="scores-radio-button">
-                Scores
+                <h4>Scores</h4>
               </label>
             </div>
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="timer"
                 id="timer-radio-button">
               <label class="custom-control-label" for="timer-radio-button">
-                Timer
+                <h4>Timer</h4>
               </label>
             </div>
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="other-events"
                 id="other-events-radio-button">
               <label class="custom-control-label" for="other-events-radio-button">
-                Other Events
+                <h4>Other Events</h4>
               </label>
             </div>
             <div class="custom-control custom-radio">
               <input class="custom-control-input" type="radio" name="current-display" value="message"
                 id="message-radio-button">
               <label class="custom-control-label" for="message-radio-button">
-                Message
+                <h4>Message</h4>
               </label>
             </div>
 
@@ -399,7 +284,7 @@
         </div>
 
         <!-- Message Text -->
-        <div class="card mb-3">
+        <!-- <div class="card mb-3">
           <div class="card-body">
             <h2 class="text-center">Message Text</h2>
             <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
@@ -407,7 +292,7 @@
               <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
             </div>
           </div>
-        </div>
+        </div> -->
         
       </div>
     </div>
