@@ -29,7 +29,7 @@
     "accurate-interval": "^1.0.9",
     "bootstrap": "^4.4.1",
     "fast-csv": "^3.4.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
     "needle": "^2.4.0",
     "popper.js": "^1.16.1",
