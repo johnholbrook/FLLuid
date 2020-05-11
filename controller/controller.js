@@ -142,6 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let status = document.querySelector("#msg-on-other-screens").checked;
         displayWindow.webContents.send("msg-on-other-screens", status);
     }
+
+    $('#chroma-color-picker').colorpicker({
+        autoInputFallback: false,
+        format: 'hex',
+        debug: true
+    });
+
+    $('#chroma-color-picker').on('colorpickerChange', function(event){
+        // console.log(event.color.toString());
+        displayWindow.webContents.send("set-chroma-key-color", event.color.toString())
+    });
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){

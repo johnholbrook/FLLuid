@@ -6,7 +6,10 @@
   <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <script src="import-jquery.js"></script>
+  <script src="../node_modules/popper.js/dist/umd/popper.js"></script>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+  <link href="../node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" media="all">
   <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
   <script src="controller.js"></script>
   <title>Audience Display Controller</title>
@@ -102,6 +105,8 @@
                   </select>
                 </div>
   
+                <br/>
+
                 <!-- Chroma Key mode -->
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
@@ -110,6 +115,16 @@
                     </label>
                 </div>
   
+                <br/>
+
+                <b>Chroma Key Background Color</b>
+                <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                  </span>
+                </div>
+
                 <br/>
 
                 <h4><b>Sounds</b></h4>

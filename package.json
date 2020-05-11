@@ -26,8 +26,10 @@
     "electron-builder": "^21.2.0"
   },
   "dependencies": {
+    "@popperjs/core": "^2.4.0",
     "accurate-interval": "^1.0.9",
     "bootstrap": "^4.4.1",
+    "bootstrap-colorpicker": "^3.2.0",
     "fast-csv": "^3.4.0",
     "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
