@@ -7,7 +7,8 @@ module.exports = {
     start : start,
     stop : stop,
     results_tables : results_tables,
-    update_tables : update_tables
+    update_tables : update_tables,
+    update_table_position : update_table_position
 };
 
 //list of other event ids to show
@@ -96,4 +97,10 @@ function start(){
 function stop(){
     clearInterval(cycle_events_interval);
     clearInterval(update_scores_interval);
+}
+
+function update_table_position(){
+    let title_height = document.querySelector('#other-events-title').offsetHeight;
+	let msg_height = document.querySelector('#other-events-message-area').offsetHeight;
+	document.querySelector('#other-events-wrapper').style.top = String(title_height + msg_height) + 'px';
 }

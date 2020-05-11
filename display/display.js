@@ -78,6 +78,8 @@ function change_display(display){
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
         message_display.style.display = "none";
+
+        other_events.update_table_position();
     }
     else if (display == "schedule"){
         // console.log("showing schedule");

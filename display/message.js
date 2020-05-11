@@ -6,6 +6,7 @@ module.exports = {
 var scores = require('./scores.js');
 var schedule = require('./schedule.js');
 var intro = require('./match-intro.js');
+var other_events = require('./other_events.js');
 
 function set_message_text(new_text){
     document.querySelector("#message-text").innerHTML = new_text;
@@ -23,6 +24,7 @@ function update_table_headers(){
     scores.update_table_header();
     schedule.update_table_header();
     intro.update_table_position();
+    other_events.update_table_position();
 }
 
 function show_on_other_screens(show){
