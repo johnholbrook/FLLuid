@@ -17,7 +17,7 @@ function make_request(url, handler_function, next_step){
         cookies : {
             // 'ASP.NET_SessionId' : 'bud0aktqhice34das2onk3uu'
             //any string seems to work for the session ID:
-            'ASP.NET_SessionId' : "fll-audience-display in development"
+            'ASP.NET_SessionId' : "FLLuid (FLL Useful Information Display)"
         }
     }
 
