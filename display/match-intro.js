@@ -2,7 +2,8 @@
 
 module.exports = {
     set_current_block : set_current_block,
-    set_blocks : set_blocks
+    set_blocks : set_blocks,
+    update_table_position : update_table_position
 }
 
 var blocks = []
@@ -37,4 +38,10 @@ function update_table(){
         tmp.append(subtmp);
     }
     document.querySelector("#next-match").innerHTML = tmp.outerHTML;
+}
+
+function update_table_position(){
+    let title_height = document.querySelector('#intro-title').offsetHeight;
+	let msg_height = document.querySelector('#intro-message-area').offsetHeight;
+	document.querySelector('#next-match').style.top = String(title_height + msg_height) + 'px';
 }

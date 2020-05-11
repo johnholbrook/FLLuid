@@ -66,6 +66,8 @@ function change_display(display){
         intro_display.style.display = "none";
         schedule_display.style.display = "none";
         message_display.style.display = "none";
+
+        scores.update_table_header();
     }
     else if (display == "other-events"){
         none_display.style.display = "none";
@@ -87,6 +89,8 @@ function change_display(display){
         intro_display.style.display = "none";
         schedule_display.style.display = "";
         message_display.style.display = "none";
+
+        schedule.update_table_header();
     }
     else if (display == "intro"){
         none_display.style.display = "none";
@@ -97,6 +101,8 @@ function change_display(display){
         intro_display.style.display = "";
         schedule_display.style.display = "none";
         message_display.style.display = "none";
+
+        intro.update_table_position();
     }
     else if (display == "message"){
         none_display.style.display = "none";

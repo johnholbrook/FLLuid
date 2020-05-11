@@ -4,6 +4,8 @@ module.exports = {
 };
 
 var scores = require('./scores.js');
+var schedule = require('./schedule.js');
+var intro = require('./match-intro.js');
 
 function set_message_text(new_text){
     document.querySelector("#message-text").innerHTML = new_text;
@@ -15,10 +17,12 @@ function set_message_text(new_text){
     update_table_headers();
 }
 
-function update_table_headers(){
+function update_table_headers(){    
     //move any table headers on other screens (scores, schedule, etc)
     //to the correct height after showing, hiding, or updating a message
     scores.update_table_header();
+    schedule.update_table_header();
+    intro.update_table_position();
 }
 
 function show_on_other_screens(show){
