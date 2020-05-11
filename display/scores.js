@@ -135,8 +135,18 @@ function update_table_header(){
         header_cols[i].style.width = col_th[i].offsetWidth + "px";
     }
 
+    // //set the top position of the table header to be just below the screen title and message (if any)
+    // let title_height = document.querySelector("#scores-title").offsetHeight;
+    // let msg_height = document.querySelector("#scores-message-area").offsetHeight;
+    // header.style.top = title_height + msg_height;
+
     // console.log(header);
     document.querySelector("#scores-table-header").innerHTML = header.outerHTML;
+
+    //set the top position of the table header to be just below the screen title and message (if any)
+    let title_height = document.querySelector("#scores-title").offsetHeight;
+    let msg_height = document.querySelector("#scores-message-area").offsetHeight;
+    document.querySelector("#scores-table-header").style.top = String(title_height + msg_height) + "px";
 }
 
 var screen_scrolling;

@@ -137,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let message_text = document.querySelector("#message-text-area").value;
         displayWindow.webContents.send("set-message-text", message_text);
     };
+
+    document.querySelector("#msg-on-other-screens").onchange = function(){
+        let status = document.querySelector("#msg-on-other-screens").checked;
+        displayWindow.webContents.send("msg-on-other-screens", status);
+    }
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){

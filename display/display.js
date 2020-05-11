@@ -221,3 +221,7 @@ ipcRenderer.on("set-message-text", function(event, arg){
     console.log("Message text: " + arg);
     message.set_message_text(arg);
 });
+
+ipcRenderer.on("msg-on-other-screens", function(event, arg){
+    message.show_on_other_screens(arg);
+})
