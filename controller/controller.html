@@ -24,8 +24,9 @@
 
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="false">Logos</a>
-                <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a>
+                <a class="nav-item nav-link active" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="false">Event</a>
+                <a class="nav-item nav-link" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="false">Logos</a>
+                <!-- <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a> -->
                 <a class="nav-item nav-link" id="nav-timer-settings-tab" data-toggle="tab" href="#nav-timer-settings" role="tab" aria-controls="nav-appearance" aria-selected="false">Timer</a>
                 <a class="nav-item nav-link" id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab" aria-controls="nav-appearance" aria-selected="false">Message</a>
               </div>
@@ -34,18 +35,8 @@
             <div style="height:1em;"></div>
 
             <div class="tab-content" id="nav-tabContent">
-              <!-- "Logos" Tab Content -->
-              <div class="tab-pane fade show active" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
-                <div class="form-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
-                    <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
-                  </div>
-                </div>
-              </div>
-
               <!-- "Event" Tab Content -->
-              <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+              <div class="tab-pane fade show active" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
                 <!-- <div style="height:2em;"></div> -->
                 <h4><b>This Event</b></h4>
                 <div class="form-group">
@@ -69,6 +60,7 @@
                     </div>
                   </div>
 
+                  <hr>
 
                 <h4><b>Other Events</b></h4>
                 <div class="form-group">
@@ -84,6 +76,18 @@
                   <option value="practice">Show Practice Matches</option>
                   <option value="competition" selected>Show Competition Matches</option>
                 </select>
+              </div>
+
+
+              <!-- "Logos" Tab Content -->
+              <div class="tab-pane fade" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
+                <h4><b>Logo Directory</b></h4>
+                <div class="form-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
+                    <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+                  </div>
+                </div>
               </div>
 
               <!-- "Timer" Tab Content -->
@@ -150,7 +154,8 @@
 
               <!-- "Message" Tab Content -->
               <div class="tab-pane fade" id="nav-message" role="tabpanel" aria-labelledby="nav-message-tab">
-                <h2 class="text-center">Message Text</h2>
+                <!-- <h2 class="text-center">Message Text</h2> -->
+                <h4><b>Message Text</b></h4>
                 <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
                 <div class="row px-3">
                   <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
@@ -190,7 +195,7 @@
           <div class="card-body">
             <h2 class="text-center">Timer Controls</h2>
 
-            <div id="timer-display"></div>
+            <div id="timer-display">2:30</div>
 
             <div class="row px-3 timer-buttons">
               <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
@@ -282,18 +287,6 @@
 
           </div>
         </div>
-
-        <!-- Message Text -->
-        <!-- <div class="card mb-3">
-          <div class="card-body">
-            <h2 class="text-center">Message Text</h2>
-            <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
-            <div class="row px-3">
-              <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
-            </div>
-          </div>
-        </div> -->
-        
       </div>
     </div>
   </div>
