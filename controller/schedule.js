@@ -1,5 +1,5 @@
 const csv = require('fast-csv');
-const scraper = require('../display/scores_web_scraper.js');
+const scraper = require('../web_scraper/web_scraper.js');
 const { remote, ipcRenderer } = require('electron');
 
 var displayWindow = remote.getGlobal('displayWindow');

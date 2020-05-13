@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-let scores_web_scraper = require('./scores_web_scraper.js');
+const web_scraper = require('../web_scraper/web_scraper.js');
 // let x = require("./test.js")
 
 var current_scores_table = null;
@@ -105,7 +105,7 @@ function advance_scroll() {
 }
 
 function update_scores() {
-	scores_web_scraper.getScores(event_id, get_comp_results, function(table) {
+	web_scraper.getScores(event_id, get_comp_results, function(table) {
 		current_scores_table = table;
 		// console.log(current_scores_table);
 		// update_table_header();

@@ -1,4 +1,4 @@
-var web_scraper = require("./scores_web_scraper.js");
+const web_scraper = require("../web_scraper/web_scraper.js");
 
 module.exports = {
     set_event_ids : set_event_ids,
