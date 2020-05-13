@@ -144,6 +144,7 @@ ipcRenderer.on('set-chroma-key-color', function(event, arg) {
     if (chroma_key_mode){
         document.querySelector('#timer-display').style.backgroundColor = chroma_key_color;
     }
+    document.querySelector("#none-display").style.backgroundColor = arg;
 });
 
 ipcRenderer.on('set-start-sound', function(event, arg) {
