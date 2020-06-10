@@ -10,6 +10,7 @@
   <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="../node_modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
   <link href="../node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" media="all">
+  <script src="../node_modules/sortablejs/Sortable.min.js"></script>
   <link href="./controller.css" rel="stylesheet" type="text/css" media="all">
   <script src="controller.js"></script>
   <title>Audience Display Controller</title>
@@ -85,12 +86,17 @@
 
               <!-- "Logos" Tab Content -->
               <div class="tab-pane fade" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
-                <h4><b>Logo Directory</b></h4>
+                <h4><b>Select Logo Directory</b></h4>
                 <div class="form-group">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
                     <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
                   </div>
+                </div>
+
+                <div class="card" id="logo-ordering-card">
+                  <div class="card-header"><h4><b>Select Logo Order</b></h4></div>
+                  <div class="card-body" id="logo-ordering"></div>
                 </div>
               </div>
 

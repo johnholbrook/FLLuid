@@ -37,3 +37,19 @@ summary{
 #chroma-color-picker{
     max-width: 10em;
 }
+
+.logo-preview{
+    max-height: 3em;
+    /* margin-left: 1em; */
+}
+
+.logo-draggable-element{
+    margin:0.25em;
+    background-color: #ddd;
+    /* border: 2px solid grey; */
+    /* padding: 0.25em; */
+}
+
+#logo-ordering-card{
+    /* background-color: #ccc; */
+}

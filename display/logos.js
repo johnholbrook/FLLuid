@@ -31,6 +31,7 @@ function stop(){
 
 function set_logos(new_logos){
     images = new_logos;
+    current_image = -1;
     next_image();
     start();
 }

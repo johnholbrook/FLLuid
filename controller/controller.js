@@ -72,6 +72,34 @@ document.addEventListener('DOMContentLoaded', () => {
         list_of_files.sort();
         console.log(list_of_files);
         displayWindow.send("set-logos", list_of_files);
+
+        document.querySelector("#logo-ordering").innerHTML = "";
+        list_of_files.forEach(file_path => {
+            let tmp = document.createElement("div");
+            tmp.setAttribute("path", file_path);
+            // tmp.className = "logo-draggable-element";
+            tmp.className = "card logo-draggable-element";
+            let file_name = file_path.split(/[\/\\]/).pop(); //split on either-direction slash
+            tmp.innerHTML = `<div class="card-body">
+                                <img class="logo-preview" src="${file_path}">
+                                <span style="margin:0.5em;"></span>
+                                <b>${file_name}</b>
+                             </div>
+                            `;
+            document.querySelector("#logo-ordering").appendChild(tmp);
+        });
+
+        let sortable_list = document.querySelector("#logo-ordering");
+        var sortable = Sortable.create(sortable_list, {
+            onSort: function(evt){
+                let new_list = []
+                for (let child of evt.to.children){
+                    new_list.push(child.getAttribute("path"));
+                }
+                console.log(new_list);
+                displayWindow.send("set-logos", new_list);
+            }
+        });
     };
 
     document.querySelector("#chroma-key").onchange = function(){
