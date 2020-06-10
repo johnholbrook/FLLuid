@@ -99,7 +99,7 @@ const winMenuTemplate = [
         label: 'Learn More',
         click: async () => {
           const { shell } = require('electron')
-          await shell.openExternal('https://github.com/dhmmjoph/fll-audience-display')
+          await shell.openExternal('https://github.com/johnholbrook/flluid')
         }
       }
     ]
@@ -266,10 +266,6 @@ const timer_reset = new TouchBarButton({
 });
 
 
-// const curr_block = new TouchBarButton({
-//   backgroundColor : "#000000"
-// });
-
 const curr_block = new TouchBarLabel();
 const prev_block = new TouchBarButton({
   label : "Prev Block",
@@ -286,9 +282,6 @@ const next_block = new TouchBarButton({
   }
 });
 
-// const none_button = new TouchBarButton({
-//   label : "None"
-// });
 const logos_button = new TouchBarButton({
   label : "Logos",
   click : () => {
@@ -317,9 +310,7 @@ const scores_button = new TouchBarButton({
     controllerWindow.webContents.send("radio-select", "#scores-radio-button")
   }
 });
-// const timer_button = new TouchBarButton({
-//   label : "Timer"
-// });
+
 const other_events_button = new TouchBarButton({
   label : "Other",
   click : () => {
@@ -327,17 +318,7 @@ const other_events_button = new TouchBarButton({
     controllerWindow.webContents.send("radio-select", "#other-events-radio-button")
   }
 });
-// const display_select_group = new TouchBarGroup({
-//   items : [
-//     none_button,
-//     logos_button,
-//     schedule_button,
-//     intro_button,
-//     scores_button,
-//     timer_button,
-//     other_events_button
-//   ]
-// });
+
 
 
 const touchBar = new TouchBar({
@@ -345,16 +326,10 @@ const touchBar = new TouchBar({
     timer_current,
     timer_sp,
     timer_reset,
-    new TouchBarSpacer({ size: 'large' }),
-    // prev_block,
-    // curr_block,
-    // next_block,
-    // new TouchBarSpacer({ size : 'large'}),
     logos_button,
     schedule_button,
     intro_button,
     scores_button,
-    // timer_button,
     other_events_button
   ]
 });

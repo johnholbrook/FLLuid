@@ -1,14 +1,14 @@
 {
-  "name": "fll-audience-display",
-  "productName": "FLL Audience Display",
+  "name": "flluid",
+  "productName": "FLLuid",
   "version": "0.2.0",
-  "description": "An audience display for FLL events run using FLLTournament.com",
+  "description": "An easy-to-use",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
   },
-  "repository": "https://github.com/dhmmjoph/fll-audience-display",
+  "repository": "https://github.com/johnholbrook/flluid",
   "keywords": [
     "FLL",
     "audience",
@@ -40,7 +40,7 @@
     "uglify-js": "^3.6.9"
   },
   "build": {
-    "appId": "com.fll-timer.audience-display",
+    "appId": "com.fll-timer.flluid",
     "mac": {
       "category": "public.app-category.entertainment",
       "target": "zip",
