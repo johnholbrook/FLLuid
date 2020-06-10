@@ -232,9 +232,13 @@ ipcRenderer.on("set-message-text", function(event, arg){
 
 ipcRenderer.on("msg-on-other-screens", function(event, arg){
     message.show_on_other_screens(arg);
-})
+});
 
 ipcRenderer.on("set-table-scroll-speed", function(event, arg){
     scores.set_scroll_speed(arg);
     schedule.set_scroll_speed(arg);
+});
+
+ipcRenderer.on("set-logo-time", function(event, arg){
+    logos.set_delay_time(arg);
 })
