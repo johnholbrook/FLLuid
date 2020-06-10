@@ -1,6 +1,3 @@
-// const REFRESH_INTERVAL_MIN = 5; //how often to refresh the table (in minutes)
-// const REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MIN * 60 * 1000; //in milliseconds
-
 var needle = require('needle');
 
 module.exports = {
@@ -12,16 +9,13 @@ module.exports = {
 //Make a request to the specified URL and pass the
 //result (assuming no error) on to the handler function
 function make_request(url, handler_function, next_step){
-    // console.log("in make_request");
     let headers = {
         cookies : {
-            // 'ASP.NET_SessionId' : 'bud0aktqhice34das2onk3uu'
             //any string seems to work for the session ID:
             'ASP.NET_SessionId' : "FLLuid (FLL Useful Information Display)"
         }
     }
 
-    // console.log(encodeURI(url));
     needle.post(encodeURI(url), '', headers, function(error, response, body){
         if (error === null){
             //if request returned without error, call the 
@@ -29,8 +23,7 @@ function make_request(url, handler_function, next_step){
             handler_function(body, next_step);
         }
         else{
-            //TODO: error handling!
-            console.error("Error!")
+            console.error(`Error making request to ${url}: ${error}`);
         }
     });
 }
@@ -39,7 +32,6 @@ function make_request(url, handler_function, next_step){
 //a list of JSON objects representing the results for each team, then passes it
 //on to assembleTable
 function url_response_handler(body, next_step){
-    // const htmlDoc = new JSDOM(body).window.document;
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(body, "text/html");
 
@@ -51,7 +43,6 @@ function url_response_handler(body, next_step){
     for (let i=0; i<table_header_objects.length; i++){
         table_headers.push(table_header_objects[i].querySelector("font").innerHTML);
     }
-    // console.log(table_headers);
 
     //generate the list of JSON objects representing the results for each team
     let json_table = [];
@@ -81,8 +72,6 @@ function assembleTable(json_table, next_step){
     //First add the header row to the table
     let header_row = doc.createElement("tr");
     header_row.className = "table-header";
-    // header_row.style.display = "none";
-    // let col_headers = json_table[0].keys();
     let col_headers = Object.keys(json_table[0]);
     for (let i=0; i<col_headers.length; i++){
         let tmp = doc.createElement("th");
@@ -137,6 +126,7 @@ function getScores(event_id, is_comp, next_step){
     make_request(url, url_response_handler, next_step);
 }
 
+
 function name_extractor(body, next_step){
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(body, "text/html");
@@ -147,7 +137,6 @@ function name_extractor(body, next_step){
 }
 
 function getEventName(event_id, next_step){
-    // console.log("Getting event name...");
     let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
 
     make_request(url, name_extractor, next_step);
@@ -162,9 +151,7 @@ function team_name_extractor(body, next_step){
     let table_rows = results_table_body.querySelectorAll("tr");
     let result = {};
     for (let i=1; i<table_rows.length; i++){
-        // console.log(table_rows[i])
         let cols = table_rows[i].querySelectorAll("td");
-        // console.log(cols);
         result[cols[1].innerText] = cols[2].innerText;
     }
 
