@@ -13,13 +13,35 @@ global.extraTimerWindow = null;
 //global to indicate whether the app is running on macs
 var isMac = (process.platform == 'darwin');
 
+const aboutWindow = require('about-window').default;
+const join = require('path').join;
+function openAboutWindow(){ 
+  aboutWindow({
+    icon_path: join(__dirname, "build", "logo-1024.png"),
+    package_json_dir: __dirname,
+    bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
+    copyright: "Copyright (c) 2019-2020 John Holbrook. <br/> Distributed under the MIT License.",
+    homepage: "https://github.com/johnholbrook/flluid",
+    css_path: join(__dirname, "about_window.css"),
+    description: "An easy-to-use display package for FIRST Lego League events run using FLLTournament.com.",
+    bug_link_text: "Bug reports & feature requests",
+    adjust_window_size: true,
+    use_inner_html: true,
+    product_name: "FLLuid"
+  });
+}
+
 //define the menu code
 const winMenuTemplate = [
   // { role: 'appMenu' } (macOS only)
   ...(isMac ? [{
     label: app.getName(),
     submenu: [
-      { role: 'about' },
+      // { role: 'about' },
+      {
+        label: 'About FLLuid',
+        click: openAboutWindow
+      },
       { type: 'separator' },
       { role: 'services' },
       { type: 'separator' },
