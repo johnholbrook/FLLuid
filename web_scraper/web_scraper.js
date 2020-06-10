@@ -126,7 +126,7 @@ function getScores(event_id, is_comp, next_step){
     make_request(url, url_response_handler, next_step);
 }
 
-
+//takes the raw html returned from the server and returns the name of the event in question
 function name_extractor(body, next_step){
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(body, "text/html");
@@ -136,12 +136,14 @@ function name_extractor(body, next_step){
     next_step(htmlDoc.querySelector("caption").innerText.trim());
 }
 
+//get the name of a particular event ID and pass it on to next_step
 function getEventName(event_id, next_step){
     let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
 
     make_request(url, name_extractor, next_step);
 }
 
+//takes the raw html returned from the server and returns an array of all the team names
 function team_name_extractor(body, next_step){
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(body, "text/html");
@@ -158,6 +160,7 @@ function team_name_extractor(body, next_step){
     next_step(result);
 }
 
+//get all the team names for a particular event ID and pass them on to next_step
 function getTeamNames(event_id, next_step){
     let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
 
