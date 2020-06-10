@@ -153,6 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log(event.color.toString());
         displayWindow.webContents.send("set-chroma-key-color", event.color.toString())
     });
+
+    document.querySelector("#table-scroll-speed").oninput = function(){
+        let value = document.querySelector("#table-scroll-speed").value;
+        document.querySelector("#table-scroll-speed-current-value").innerHTML = value;
+        displayWindow.webContents.send("set-table-scroll-speed", value);
+    };
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){

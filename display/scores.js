@@ -14,16 +14,16 @@ module.exports = {
 	set_event_id: set_event_id,
 	set_comp_mode: set_comp_mode,
 	update_scores: update_scores,
-	update_table_header: update_table_header
+	update_table_header: update_table_header,
+	set_scroll_speed: set_scroll_speed
 };
 
-//scroll constants and calculations
-const TABLE_SCROLL_SPEED_PPS = 70; //px per second
-const TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
-// console.log(TABLE_SCROLL_SPEED_PPMS + " pixels per ms");
+//scroll speed initial calculations
+var TABLE_SCROLL_SPEED_PPS = 70; //px per second
+var TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
 const TABLE_SCROLL_FPS = 45; //updates per second
 const UPDATE_INTERVAL = 1000 / TABLE_SCROLL_FPS; //frequency between scroll updates (ms)
-const PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS / TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
+// var PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS / TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
 
 //the current scrolling position
 var current_scroll = 1;
@@ -176,12 +176,9 @@ function set_comp_mode(new_mode) {
 	update_scores();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-	// event_id = "21989";
-	// event_id = "22029";
-	// event_id = "22063";
-	// event_id = "20892";
-	// get_comp_results = true;
-	// get_comp_results = false;
-	// start();
-});
+function set_scroll_speed(new_speed){
+	TABLE_SCROLL_SPEED_PPS = new_speed; //px per second
+	TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
+	// PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS / TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
+	start()
+}

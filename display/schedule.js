@@ -6,7 +6,8 @@ module.exports = {
 	set_logos: set_logos,
 	start: start,
 	stop: stop,
-	update_table_header: update_table_header
+	update_table_header: update_table_header,
+	set_scroll_speed: set_scroll_speed
 };
 
 var blocks = null;
@@ -49,16 +50,14 @@ function update_table() {
 	}
 
 	schedule_table = table;
-	// show_table();
 }
 
 //scroll constants and calculations
-const TABLE_SCROLL_SPEED_PPS = 70; //px per second
-const TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
+var TABLE_SCROLL_SPEED_PPS = 70; //px per second
+var TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
 // console.log(TABLE_SCROLL_SPEED_PPMS + " pixels per ms");
 const TABLE_SCROLL_FPS = 45; //updates per second
 const UPDATE_INTERVAL = 1000 / TABLE_SCROLL_FPS; //frequency between scroll updates (ms)
-const PX_PER_UPDATE = TABLE_SCROLL_SPEED_PPS / TABLE_SCROLL_FPS; //amount (in px) to scroll with each update
 
 //the current scrolling position
 var current_scroll = 1;
@@ -183,6 +182,9 @@ function stop() {
 	clearInterval(screen_scrolling);
 }
 
-// function show_table(){
-//     document.querySelector("#schedule-scrollable").innerHTML = schedule_table.outerHTML;
-// }
+function set_scroll_speed(new_speed){
+	TABLE_SCROLL_SPEED_PPS = new_speed; //px per second
+	TABLE_SCROLL_SPEED_PPMS = TABLE_SCROLL_SPEED_PPS / 1000; //pixels per millisecond
+
+	start();
+}

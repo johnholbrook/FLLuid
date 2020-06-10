@@ -32,6 +32,7 @@
                 <!-- <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a> -->
                 <a class="nav-item nav-link" id="nav-timer-settings-tab" data-toggle="tab" href="#nav-timer-settings" role="tab" aria-controls="nav-appearance" aria-selected="false">Timer</a>
                 <a class="nav-item nav-link" id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab" aria-controls="nav-appearance" aria-selected="false">Message</a>
+                <a class="nav-item nav-link" id="nav-display-tab" data-toggle="tab" href="#nav-display" role="tab" aria-controls="nav-appearance" aria-selected="false">Display</a>
               </div>
             </nav>
             
@@ -117,13 +118,13 @@
   
                 <br/>
 
-                <b>Chroma Key Background Color</b>
+                <!-- <b>Chroma Key Background Color</b>
                 <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
                   <input type="text" class="form-control">
                   <span class="input-group-append">
                     <span class="input-group-text colorpicker-input-addon"><i></i></span>
                   </span>
-                </div>
+                </div> -->
 
                 <br/>
 
@@ -184,7 +185,41 @@
                   </label>
                 </div>
               </div>
+
+              <!-- "Display" tab content -->
+              <div class="tab-pane fade" id="nav-display" role="tabpanel" aria-labelledby="nav-display-tab">
+                <h4><b>Display Options</b></h4>
+
+                <b>Chroma Key Background Color</b>
+                <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                  </span>
+                </div>
+
+                <br/>
+
+                <label for="table-scroll-speed">
+                  <b>Table Scroll Speed:</b>
+                  <span id="table-scroll-speed-current-value">70</span>
+                  pixels/sec
+                </label>
+                <br/>
+                <input type="range" class="custom-range w-50" id="table-scroll-speed" step="5" min="20" max="120" value="70">
+
+                <br/>
+
+                <b>Sponsor Image Time</b>
+
+              </div>
+
+
+
+            <!-- END OF TAB CONTENT DIVS -->
             </div>
+
+            
 
 
           </div>
