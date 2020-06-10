@@ -33,196 +33,243 @@
                 <!-- <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a> -->
                 <a class="nav-item nav-link" id="nav-timer-settings-tab" data-toggle="tab" href="#nav-timer-settings" role="tab" aria-controls="nav-appearance" aria-selected="false">Timer</a>
                 <a class="nav-item nav-link" id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab" aria-controls="nav-appearance" aria-selected="false">Message</a>
-                <a class="nav-item nav-link" id="nav-display-tab" data-toggle="tab" href="#nav-display" role="tab" aria-controls="nav-appearance" aria-selected="false">Display</a>
+                <a class="nav-item nav-link" id="nav-display-tab" data-toggle="tab" href="#nav-display" role="tab" aria-controls="nav-appearance" aria-selected="false">Appearance</a>
               </div>
             </nav>
             
             <div style="height:1em;"></div>
 
             <div class="tab-content" id="nav-tabContent">
+
               <!-- "Event" Tab Content -->
               <div class="tab-pane fade show active" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
                 <!-- <div style="height:2em;"></div> -->
-                <h4><b>This Event</b></h4>
-                <div class="form-group">
-                  <label for="this-tournament-id">FLLTournament ID:</label>
-                  <div class="input-group">
-                    <input class="form-control" type="text" id="this-tournament-id">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
+                <div class="card">
+                  <h4 class="card-header">This Event</h4>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="this-tournament-id">FLLTournament ID:</label>
+                      <div class="input-group">
+                        <input class="form-control" type="text" id="this-tournament-id">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
+                        </div>
+                      </div>
                     </div>
+                    <select class="custom-select" id="select-this-match-type">
+                      <option value="practice">Show Practice Matches</option>
+                      <option value="competition" selected>Show Competition Matches</option>
+                    </select>
+                    <br/><br/>
+                    <div class="form-group">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
+                          <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
+                        </div>
+                      </div>
+
+                      <button class="col-12 mb-3 btn btn-outline-secondary" id="refresh-this-event">
+                        Manually Refresh This Event's Scores
+                      </button>
                   </div>
                 </div>
-                <select class="custom-select" id="select-this-match-type">
-                  <option value="practice">Show Practice Matches</option>
-                  <option value="competition" selected>Show Competition Matches</option>
-                </select>
-                <br/><br/>
-                <div class="form-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
-                      <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
-                    </div>
-                  </div>
+                
+                <br/>
 
-                  <hr>
-
-                <h4><b>Other Events</b></h4>
-                <div class="form-group">
-                  <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
-                  <div class="input-group">
-                    <input class="form-control" type="text" id="other-tournament-ids">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
+                <div class="card">
+                  <h4 class="card-header">Other Events</h4>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
+                      <div class="input-group">
+                        <input class="form-control" type="text" id="other-tournament-ids">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
+                        </div>
+                      </div>
                     </div>
+                    <div>
+                      <select class="custom-select" id="select-other-match-type">
+                        <option value="practice">Show Practice Matches</option>
+                        <option value="competition" selected>Show Competition Matches</option>
+                      </select>
+                    </div>
+
+                    <br/>
+
+                    <button class="col-12 btn btn-outline-secondary" id="refresh-other-events">
+                      Manually Refresh Other Events' Scores
+                    </button>
                   </div>
                 </div>
-                <select class="custom-select" id="select-other-match-type">
-                  <option value="practice">Show Practice Matches</option>
-                  <option value="competition" selected>Show Competition Matches</option>
-                </select>
+
+              <!-- END OF "Event" Tab Content -->
               </div>
 
 
               <!-- "Logos" Tab Content -->
               <div class="tab-pane fade" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
-                <h4><b>Select Logo Directory</b></h4>
-                <div class="form-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
-                    <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+                
+                <div class="card">
+                  <h4 class="card-header">Select Logo Directory</h4>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
+                        <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                
+                <br/>
 
                 <div class="card" id="logo-ordering-card">
-                  <div class="card-header"><h4><b>Select Logo Order</b></h4></div>
+                  <h4 class="card-header">Select Logo Order</h4>
                   <div class="card-body" id="logo-ordering"></div>
                 </div>
               </div>
 
               <!-- "Timer" Tab Content -->
               <div class="tab-pane fade" id="nav-timer-settings" role="tabpanel" aria-labelledby="nav-timer-settings-tab">
-                <h4><b>Appearance</b></h4>
-                <div class="form-inline">
-                  <label for="select-font" class="mr-3 my-3">Timer Font:</label>
-                  <select id="select-font" class="custom-select">
-                    <option value="default">System Default</option>
-                    <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
-                    <option value="digital-7-mono">Seven-Segment</option>
-                  </select>
+                
+                <div class="card">
+                  <h4 class="card-header">Timer Appearance</h4>
+                  <div class="card-body">
+                    <div class="form-inline">
+                      <label for="select-font" class="mr-3 my-3">Timer Font:</label>
+                      <select id="select-font" class="custom-select">
+                        <option value="default">System Default</option>
+                        <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
+                        <option value="digital-7-mono">Seven-Segment</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
   
                 <br/>
 
-                <!-- Chroma Key mode -->
-                <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
-                    <label class="custom-control-label" for="chroma-key">
-                      Chroma Key Mode
-                    </label>
-                </div>
-  
-                <br/>
-
-                <!-- <b>Chroma Key Background Color</b>
-                <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                  </span>
-                </div> -->
-
-                <br/>
-
-                <h4><b>Sounds</b></h4>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="start-sound" checked>
-                  <label class="custom-control-label" for="start-sound">
-                    Play Start Sound
-                  </label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
-                  <label class="custom-control-label" for="30-second-warning">
-                    Play 30 Second Warning
-                  </label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="end-sound" checked>
-                  <label class="custom-control-label" for="end-sound">
-                    Play End Sound
-                  </label>
-                </div>
-
-
-                <br/>
-
-                <h4><b>Behavior</b></h4>
-
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="auto-advance">
-                  <label class="custom-control-label" for="auto-advance">
-                    Auto-advance match block 5s after timer end
-                  </label>
+                <div class="card">
+                  <h4 class="card-header">Timer Sounds</h4>
+                  <div class="card-body">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" id="start-sound" checked>
+                      <label class="custom-control-label" for="start-sound">
+                        Play Start Sound
+                      </label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" id="30-second-warning" checked>
+                      <label class="custom-control-label" for="30-second-warning">
+                        Play 30 Second Warning
+                      </label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" id="end-sound" checked>
+                      <label class="custom-control-label" for="end-sound">
+                        Play End Sound
+                      </label>
+                    </div>
+                  </div>
                 </div>
 
                 <br/>
 
-                <!-- Button to spawn extra timer window -->
-                <div class="form-inline">
+                <div class="card">
+                  <h4 class="card-header">Timer Behavior</h4>
+                  <div class="card-body">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" id="auto-advance">
+                      <label class="custom-control-label" for="auto-advance">
+                        Auto-advance match block 5s after timer end
+                      </label>
+                    </div>
+                  </div>
+                
                   <button class="btn btn-danger" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
                 </div>
+
+                <br/>
+
               </div>
 
               <!-- "Message" Tab Content -->
               <div class="tab-pane fade" id="nav-message" role="tabpanel" aria-labelledby="nav-message-tab">
-                <!-- <h2 class="text-center">Message Text</h2> -->
-                <h4><b>Message Text</b></h4>
-                <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
-                <div class="row px-3">
-                  <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
+                
+                <div class="card">
+                  <h4 class="card-header">Message Text</h4>
+                  <div class="card-body">
+                    <textarea rows="3" style="width:100%;" id="message-text-area"></textarea>
+                    <div class="row px-3">
+                      <button class="col-12 mb-3 btn btn-success" id="submit-message-text">Submit</button>
+                    </div>
+                  </div>
                 </div>
+                
+                <br/>
 
-                <h4><b>Message Options</b></h4>
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="msg-on-other-screens">
-                  <label class="custom-control-label" for="msg-on-other-screens" >
-                    Show message text on other displays
-                  </label>
+                <div class="card">
+                  <h4 class="card-header">Message Options</h4>
+                  <div class="card-body">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" id="msg-on-other-screens">
+                      <label class="custom-control-label" for="msg-on-other-screens" >
+                        Show message text on other displays
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <!-- "Display" tab content -->
               <div class="tab-pane fade" id="nav-display" role="tabpanel" aria-labelledby="nav-display-tab">
-                <h4><b>Display Options</b></h4>
+                <div class="card">
+                  <h4 class="card-header">Chroma Key</h4>
+                  <div class="card-body">
+                    <!-- Chroma Key mode -->
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" type="checkbox" name="chroma-key" id="chroma-key">
+                      <label class="custom-control-label" for="chroma-key">
+                        Chroma Key Mode
+                      </label>
+                    </div>
 
-                <b>Chroma Key Background Color</b>
-                <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                  </span>
+                    <br/>
+
+                    <b>Chroma Key Background Color</b>
+                    <div id="chroma-color-picker" class="input-group" data-color="#00ff00">
+                      <input type="text" class="form-control">
+                      <span class="input-group-append">
+                        <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
-
+                
                 <br/>
 
-                <label for="table-scroll-speed">
-                  <b>Table Scroll Speed:</b>
-                  <span id="table-scroll-speed-current-value">70</span>
-                  pixels/sec
-                </label>
-                <br/>
-                <input type="range" class="custom-range w-50" id="table-scroll-speed" step="5" min="20" max="120" value="70">
+                <div class="card">
+                  <h4 class="card-header">Display Speed</h4>
+                  <div class="card-body">
+                    <label for="table-scroll-speed">
+                      <b>Table Scroll Speed:</b>
+                      <span id="table-scroll-speed-current-value">70</span>
+                      pixels/sec
+                    </label>
+                    <br/>
+                    <input type="range" class="custom-range w-50" id="table-scroll-speed" step="5" min="20" max="120" value="70">
 
-                <br/><br/>
+                    <br/><br/>
 
-                <label for="logo-time">
-                  <b>Sponsor Image Time:</b>
-                  <span id="logo-time-current-value">5</span>
-                  seconds
-                </label>
-                <br/>
-                <input type="range" class="custom-range w-50" id="logo-time" min="2" max="15" value="5">
+                    <label for="logo-time">
+                      <b>Sponsor Image Time:</b>
+                      <span id="logo-time-current-value">5</span>
+                      seconds
+                    </label>
+                    <br/>
+                    <input type="range" class="custom-range w-50" id="logo-time" min="2" max="15" value="5">
+                  </div>
+                </div>
 
               </div>
 
@@ -237,9 +284,9 @@
           </div>
         </div>
 
-        <div class="card mb-3">
+        <!-- <div class="card mb-3">
           <div class="card-body">
-            <!-- Current match block picker -->
+            <-- Current match block picker
             <h2 class="text-center">Current Match Block</h2>
             <div class="current-match-block text-center" id="current-match-block"></div>
             <div class="row px-3">
@@ -255,7 +302,7 @@
                 </div>
               </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
@@ -279,17 +326,26 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
 
-            <hr>
-
+        <div class="card mb-3">
+          <div class="card-body">
+            <!-- Current match block picker -->
+            <h2 class="text-center">Current Match Block</h2>
+            <div class="current-match-block text-center" id="current-match-block"></div>
             <div class="row px-3">
-              <button class="col-12 mb-3 btn btn-outline-secondary" id="refresh-this-event">
-                Refresh This Event's Scores
-              </button>
-              <button class="col-12 btn btn-outline-secondary" id="refresh-other-events">
-                Refresh Other Events' Scores
-              </button>
-            </div>
+                <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
+                  <button class="w-100 btn btn-primary" id="prev-block">
+                    Prev. Block
+                  </button>
+                </div>
+                <div class="col-12 col-sm-6 px-0 pl-sm-1">
+                  <button class="w-100 btn btn-primary" id="next-block">
+                    Next Block
+                  </button>
+                </div>
+              </div>
           </div>
         </div>
 
