@@ -14,7 +14,7 @@ body {
 
 #timer-display {
     text-align: center;
-    font-size: 4em;
+    font-size: 6em;
 }
 
 .timer-buttons button {
@@ -26,7 +26,7 @@ summary{
 }
 
 .current-match-block{
-    font-size: 4em;
+    font-size: 3em;
 }
 
 #screen-select{
@@ -48,8 +48,4 @@ summary{
     background-color: #ddd;
     /* border: 2px solid grey; */
     /* padding: 0.25em; */
-}
-
-#logo-ordering-card{
-    /* background-color: #ccc; */
 }
