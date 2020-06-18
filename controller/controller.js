@@ -106,6 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWindow.webContents.send("set-chroma-key-mode", document.querySelector("#chroma-key").checked);
     };
 
+    document.querySelector("#chroma-key-timer-teams").onchange = function(){
+        displayWindow.webContents.send("set-chroma-key-timer-teams", document.querySelector("#chroma-key-timer-teams").checked);
+    };
+
     document.querySelector("#save-this-tournament-id").onclick = function(){
         let new_id = document.querySelector("#this-tournament-id").value;
         displayWindow.webContents.send("set-this-tournament-id", new_id);

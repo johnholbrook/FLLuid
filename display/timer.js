@@ -1,12 +1,17 @@
 const { remote, ipcRenderer } = require('electron');
 var accurateInterval = require('accurate-interval');
+var scraper = require('../web_scraper/web_scraper.js');
 
 module.exports = {
 	start: start,
 	pause: pause,
 	reset: reset,
 	toggle: toggle,
-	set_chroma_key: set_chroma_key
+	set_chroma_key: set_chroma_key,
+	set_chroma_key_team_info: set_chroma_key_team_info,
+	set_blocks: set_blocks,
+	set_current_block: set_current_block,
+	set_event_id: set_event_id
 };
 
 //chroma key color
@@ -14,6 +19,17 @@ var chroma_key_color = '#00ff00';
 
 //chroma key mode
 var chroma_key_mode = false;
+
+//show team info on chroma key timer
+var chroma_key_team_info = false;
+
+//match schedule (necessary if showing current match info in chroma key mode)
+var blocks = null;
+var current_block = 0;
+
+//event info
+var event_id = null;
+var team_names = null;
 
 //timer globals
 const RESET_VALUE = 150;
@@ -132,11 +148,65 @@ function set_chroma_key(chroma_key) {
 		// document.querySelector("#timer-display").className = "display-type timer-display-chroma";
 		document.querySelector('#timer-display').style.backgroundColor = chroma_key_color;
 		document.querySelector('#timer-numbers-wrapper').className = 'timer-numbers-wrapper-chroma';
+		if (chroma_key_team_info){
+			//show the timer team info strip
+			document.querySelector(".timer-team-info-wrapper").style.display = "";
+		}
+		else{
+			//hide the timer team info strip
+			document.querySelector(".timer-team-info-wrapper").style.display = "none";
+		}
 	} else {
 		// document.querySelector("#timer-display").className = "display-type timer-display";
 		document.querySelector('#timer-numbers-wrapper').className = 'timer-numbers-wrapper';
 		document.querySelector('#timer-display').style.backgroundColor = '';
+		//hide the timer team info strip
+		document.querySelector(".timer-team-info-wrapper").style.display = "none";
 	}
+}
+
+function set_chroma_key_team_info(new_val){
+	chroma_key_team_info = new_val;
+	if (chroma_key_team_info && chroma_key_mode){
+		//show the timer team info strip
+		document.querySelector(".timer-team-info-wrapper").style.display = "";
+	}
+	else{
+		//hide the timer team info strip
+		document.querySelector(".timer-team-info-wrapper").style.display = "none";
+	}
+}
+
+function set_blocks(new_blocks){
+	blocks = new_blocks;
+	fill_team_info_strip();
+}
+
+function set_current_block(new_current_block){
+	current_block = new_current_block;
+	console.log(blocks[current_block]);
+	fill_team_info_strip();
+}
+
+function fill_team_info_strip(){
+	// let curr = blocks[current_block];
+	// document.querySelector("#timer-team-info").innerHTML = "";
+	let tmp = "";
+	blocks[current_block].matches.forEach((match, i) => {
+		// tmp += `<span class="team-match-info">${match.table}: <b>${match.team}</b></span>`;
+		tmp += `<span class="team-match-info">${match.table}: <b>${team_names[match.team]}</b></span>`;
+		if (i < blocks[current_block].matches.length-1){
+			tmp += `<span class="hsep"></span>`;
+		}
+	});
+	document.querySelector("#timer-team-info").innerHTML = tmp;
+}
+
+function set_event_id(new_id){
+	event_id = new_id;
+	scraper.getTeamNames(event_id, names => {
+		team_names = names;
+	})
 }
 
 ipcRenderer.on('set-chroma-key-color', function(event, arg) {

@@ -184,8 +184,14 @@ ipcRenderer.on("set-chroma-key-mode", function(event, arg){
     timer.set_chroma_key(chroma_key_mode);
 });
 
+ipcRenderer.on("set-chroma-key-timer-teams", function(event, arg){
+    // console.log(arg);
+    timer.set_chroma_key_team_info(arg);
+});
+
 ipcRenderer.on("set-this-tournament-id", function(event, arg){
     scores.set_event_id(arg);
+    timer.set_event_id(arg);
 });
 
 ipcRenderer.on("set-this-comp-mode", function(event, arg){
@@ -218,11 +224,13 @@ ipcRenderer.on("set-blocks", function(event, arg){
     // console.log(arg);
     intro.set_blocks(arg);
     schedule.set_blocks(arg);
+    timer.set_blocks(arg);
 });
 
 ipcRenderer.on("set-current-block", function(event, arg){
     intro.set_current_block(arg);
     schedule.set_current_block(arg);
+    timer.set_current_block(arg);
 });
 
 ipcRenderer.on("set-message-text", function(event, arg){

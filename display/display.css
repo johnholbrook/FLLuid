@@ -280,3 +280,25 @@ td{
     font-size: 3em;
     max-width: 85%;
 }
+
+.timer-team-info-wrapper{
+    width: 100%;
+    position: fixed;
+    bottom: 1em;
+    font-size: 2em;
+    background-color: white;
+}
+
+.hsep{
+    display:inline-block;
+    width: 1em;
+}
+
+.team-match-info{
+    white-space: nowrap;
+}
+
+#timer-team-info{
+    max-width: 90%;
+    margin: 0 auto;
+}
