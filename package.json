@@ -46,6 +46,10 @@
       "category": "public.app-category.entertainment",
       "target": "zip",
       "icon": "build/logo-1024.png"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "build/logo-1024.png"
     }
   }
 }
