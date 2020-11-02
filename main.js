@@ -52,6 +52,16 @@ const winMenuTemplate = [
       { role: 'quit' }
     ]
   }] : []),
+  //file menu (non-Mac only)
+  ...(isMac ? [] : [{
+    label: "File",
+    submenu: [
+      {
+        label: "About FLLuid",
+        click: openAboutWindow
+      }
+    ]
+  }]),
   // { role: 'editMenu' }
   {
     label: 'Edit',
