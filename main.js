@@ -141,8 +141,8 @@ const winMenuTemplate = [
 function createControllerWindow(){
   // Create the browser window.
   controllerWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration:true
@@ -159,8 +159,8 @@ function createControllerWindow(){
 
 function createDisplayWindow(){
   displayWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js')
       nodeIntegration:true
@@ -200,9 +200,12 @@ function createExtraTimerWindow(){
   });
 }
 
-function createWindow () {
-  createControllerWindow();
+function initialize() {
+  checkForUpdates();
+
   createDisplayWindow();
+  createControllerWindow();
+  // createDisplayWindow();
 
   const winMenu = Menu.buildFromTemplate(winMenuTemplate)
   Menu.setApplicationMenu(winMenu)
@@ -229,7 +232,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', initialize)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
