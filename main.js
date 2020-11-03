@@ -9,6 +9,7 @@ const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 global.controllerWindow = null;
 global.displayWindow = null;
 global.extraTimerWindow = null;
+global.updateWindow = null;
 
 //global to indicate whether the app is running on macs
 var isMac = (process.platform == 'darwin');
@@ -200,6 +201,36 @@ function createExtraTimerWindow(){
   });
 }
 
+function checkForUpdates(){
+  var getJSON = require('./web_scraper/get_json.js');
+  getJSON("https://api.github.com/repos/johnholbrook/flluid/releases/latest", function(latest_release){
+    let latest_version = latest_release.tag_name;
+    if (latest_version.charAt(0) == 'v') latest_version = latest_version.substr(1);
+    let this_version = app.getVersion();
+    // let this_version = "0.1";
+
+    // console.log(latest_version > this_version);
+    if (latest_version > this_version){
+      // a newer version is available, alert the user
+      updateWindow = new BrowserWindow({
+        parent: controllerWindow, 
+        modal: true, 
+        width: 800, 
+        height: 750, 
+        webPreferences: {
+          nodeIntegration: true
+        }
+      });
+      
+      updateWindow.loadFile('./update/update.html');
+
+      updateWindow.on('closed', function(){
+        updateWindow = null;
+      })
+    }
+  });
+}
+
 function initialize() {
   checkForUpdates();
 
@@ -353,8 +384,6 @@ const other_events_button = new TouchBarButton({
     controllerWindow.webContents.send("radio-select", "#other-events-radio-button")
   }
 });
-
-
 
 const touchBar = new TouchBar({
   items: [
