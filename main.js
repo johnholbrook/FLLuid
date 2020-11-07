@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, ipcMain, TouchBar} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain, TouchBar, dialog} = require('electron')
 const path = require('path')
 
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
@@ -43,6 +43,10 @@ const winMenuTemplate = [
         label: 'About FLLuid',
         click: openAboutWindow
       },
+      {
+        label: "Check for Updates",
+        click: () => {checkForUpdates(true)}
+      },
       { type: 'separator' },
       { role: 'services' },
       { type: 'separator' },
@@ -60,6 +64,10 @@ const winMenuTemplate = [
       {
         label: "About FLLuid",
         click: openAboutWindow
+      },
+      {
+        label: "Check for Updates",
+        click: () => {checkForUpdates(true)}
       }
     ]
   }]),
@@ -201,7 +209,7 @@ function createExtraTimerWindow(){
   });
 }
 
-function checkForUpdates(){
+function checkForUpdates(manually_activated){
   var getJSON = require('./web_scraper/get_json.js');
   getJSON("https://api.github.com/repos/johnholbrook/flluid/releases/latest", function(latest_release){
     let latest_version = latest_release.tag_name;
@@ -228,11 +236,21 @@ function checkForUpdates(){
         updateWindow = null;
       })
     }
+    else{
+      if (manually_activated){
+        dialog.showMessageBox(controllerWindow, {
+          type: "info",
+          buttons: ["OK"],
+          title: "Check for Updates",
+          message: "FLLuid is up to date."
+        });
+      }
+    }
   });
 }
 
 function initialize() {
-  checkForUpdates();
+  checkForUpdates(false);
 
   createDisplayWindow();
   createControllerWindow();
