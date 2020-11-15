@@ -57,7 +57,7 @@
 .timer-display-chroma{
     background-color:var(--chroma-key-color);
 }
-.timer-numbers-wrapper{
+.timer-text-wrapper{
     margin: auto 0;
     font-size: 50vw;
     position: fixed;
@@ -66,7 +66,7 @@
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
-.timer-numbers-wrapper-chroma{
+.timer-text-wrapper-chroma{
     position: fixed;
     top: 5vh;
     right: 0;
@@ -78,14 +78,21 @@
     margin: 0;
     padding: 0 0.125em;
 }
-.timer-numbers{
-    /* margin: auto 0;
-    font-size: 50vw;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes 
-    transform: translate(-50%, -50%); */
+.timer-text-wrapper-chroma.brick{
+    background-color: transparent;
+}
+
+.timer-text-wrapper .brick-font{
+    /* display:block; */
+    width: 90vw;
+    height: auto;
+    max-height: 90vh;
+    margin-top: 16vh;
+}
+
+.timer-text-wrapper-chroma .brick-font{
+    width: 22vw;
+    height: auto;
 }
 
 
