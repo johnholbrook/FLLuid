@@ -18,7 +18,8 @@ const aboutWindow = require('about-window').default;
 const join = require('path').join;
 function openAboutWindow(){ 
   aboutWindow({
-    icon_path: join(__dirname, "build", "logo-1024.png"),
+    // icon_path: join(__dirname, "build", "logo-1024.png"),
+    icon_path: join(__dirname, "timer.png"),
     package_json_dir: __dirname,
     bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
     copyright: "Copyright (c) 2019-2020 John Holbrook. <br/> Distributed under the MIT License.",
