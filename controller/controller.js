@@ -13,6 +13,16 @@ function getRadioValue(buttons){
     }
 }
 
+function set_timer_font(){
+    let new_choice = document.querySelector("#select-font").value;
+    if (new_choice == "default"){
+        ipcRenderer.send("set-timer-font", "");
+    }
+    else{
+        ipcRenderer.send("set-timer-font", new_choice);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     showLogos();
 
@@ -48,17 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWindow.webContents.send("set-end-sound", document.querySelector("#end-sound").checked);
     };
 
-    document.querySelector("#select-font").onchange = function(){
-        let new_choice = document.querySelector("#select-font").value;
-        if (new_choice == "default"){
-            // displayWindow.webContents.send("set-timer-font", "");
-            ipcRenderer.send("set-timer-font", "");
-        }
-        else{
-            // displayWindow.webContents.send("set-timer-font", new_choice);
-            ipcRenderer.send("set-timer-font", new_choice);
-        }
-    };
+    document.querySelector("#select-font").onchange = set_timer_font;
 
     document.querySelector("#logo-dir-picker").onchange = function(){
         // console.log(document.querySelector("#logo-dir-picker").files);
@@ -144,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#spawn-extra-timer-window").onclick = function(){
         // console.log("spawn extra timer window button clicked");
         ipcRenderer.send("spawn-extra-timer-window");
+        //terrible hack, I know
+        setTimeout(set_timer_font, 500);
     };
 
     document.querySelector("#schedule-csv-picker").onchange = function(){

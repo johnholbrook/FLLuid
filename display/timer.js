@@ -262,6 +262,7 @@ ipcRenderer.on('set-timer-font', function(event, arg) {
 	}
 	else{
 		brick_font = false;
+		setTimerValue(secsToClock(count));
 		document.querySelector('.timer-text').style.fontFamily = arg;
 		document.querySelector("#timer-text-wrapper").classList.remove("brick");
 	}
