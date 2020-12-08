@@ -31,7 +31,7 @@
     "accurate-interval": "^1.0.9",
     "bootstrap": "^4.4.1",
     "bootstrap-colorpicker": "^3.2.0",
-    "fast-csv": "^3.4.0",
+    "fast-csv": "^4.3.6",
     "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
     "markdown-it": "^12.0.2",
