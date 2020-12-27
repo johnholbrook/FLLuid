@@ -19,12 +19,12 @@ const join = require('path').join;
 function openAboutWindow(){ 
   aboutWindow({
     // icon_path: join(__dirname, "build", "logo-1024.png"),
-    icon_path: join(__dirname, "timer.png"),
-    package_json_dir: __dirname,
+    icon_path: join(__dirname, "about", "timer.png"),
+    package_json_dir: join(__dirname, ".."),
     bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
     copyright: "Copyright (c) 2019-2020 John Holbrook. <br/> Distributed under the MIT License.",
     homepage: "https://github.com/johnholbrook/flluid",
-    css_path: join(__dirname, "about_window.css"),
+    css_path: join(__dirname, "about", "about_window.css"),
     description: "An easy-to-use display package for FIRST Lego League events run using FLLTournament.com.",
     bug_link_text: "Bug reports & feature requests",
     adjust_window_size: true,
@@ -154,7 +154,6 @@ function createControllerWindow(){
     width: 1200,
     height: 800,
     webPreferences: {
-      // preload: path.join(__dirname, 'preload.js')
       nodeIntegration:true
     }
   })
@@ -164,7 +163,7 @@ function createControllerWindow(){
   }
 
   // and load the index.html of the app.
-  controllerWindow.loadFile('./controller/controller.html')
+  controllerWindow.loadFile('./src/controller/controller.html')
 }
 
 function createDisplayWindow(){
@@ -182,7 +181,7 @@ function createDisplayWindow(){
   }
 
   // and load the index.html of the app.
-  displayWindow.loadFile('./display/display.html')
+  displayWindow.loadFile('./src/display/display.html')
 }
 
 function createExtraTimerWindow(){

@@ -3,7 +3,7 @@
   "productName": "FLLuid",
   "version": "1.0.0",
   "description": "An easy-to-use display package for FIRST Lego League events run using the FLLTournament.com website",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
