@@ -4,6 +4,9 @@ const path = require('path')
 
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 
+// start the server
+require("./server/server.js")
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 global.controllerWindow = null;
@@ -181,7 +184,8 @@ function createDisplayWindow(){
   }
 
   // and load the index.html of the app.
-  displayWindow.loadFile('./src/display/display.html')
+  // displayWindow.loadFile('./src/display/display.html')
+  displayWindow.loadURL("http://localhost:34778")
 }
 
 function createExtraTimerWindow(){

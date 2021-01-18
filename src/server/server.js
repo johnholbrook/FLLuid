@@ -1,6 +1,7 @@
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
+const {ipcMain} = require("electron");
 
 // check if a file at the given path (relative to the display directory) exists
 function fileExists(filepath) {
@@ -8,7 +9,7 @@ function fileExists(filepath) {
     return fs.existsSync(p);
 }
 
-// create the server
+// create the HTTP server
 var server = http.createServer(function(req, res) {
     // determine which file to serve based on the request URL
     let fp;
@@ -48,6 +49,14 @@ var server = http.createServer(function(req, res) {
             fp = path.join("timer", "timer.html");
             break;
 
+        // some additional special cases for libraries and resources that live outside the 'display' directory
+        case "/lib/socket.io.min.js":
+            fp = path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js");
+            break;
+        case "/lib/socket.io.min.js.map":
+            fp = path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map");
+            break;
+
         // default case
         default:
             // fp = "default";
@@ -72,14 +81,37 @@ var server = http.createServer(function(req, res) {
     if (fp == "404.html"){
         res.writeHead(404, { 'Content-Type': 'text/html' });
     }
-    else{
+    else if (fp.split(".").slice(-1)[0] == "html"){
         res.writeHead(200, { 'Content-Type': 'text/html' });
+    }
+    else{
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
     }
 
     // get the file contents
     res.write(fs.readFileSync(path.join(__dirname, "..", "display", fp)))
     res.end();
 });
+
+// initialize socket.io
+const io = require("socket.io")(server);
+
+io.on('connection', socket => {
+    console.log("connection!");
+    // ipcMain.on("new-display-selected", function(event, arg){
+    //     socket.emit("set-display", arg);
+    // });
+
+    // generically pass messages from the controller to all connected displays
+    ipcMain.on("broadcast-to-displays", function(event, name, arg){
+        socket.emit(name, arg);
+    });
+});
+
+
+
+
+
 
 // listen on port 34778 (spells FIRST on a phone pad)
 server.listen(34778);

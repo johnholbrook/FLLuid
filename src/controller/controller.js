@@ -33,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let display_radio_buttons = document.getElementsByName('current-display');
     for (let i=0; i<display_radio_buttons.length; i++){
         display_radio_buttons[i].onchange = function(){
-            displayWindow.webContents.send("new-display-selected", getRadioValue(display_radio_buttons));
+            // displayWindow.webContents.send("new-display-selected", getRadioValue(display_radio_buttons));
+            // ipcRenderer.send("new-display-selected", getRadioValue(display_radio_buttons));
+            ipcRenderer.send("broadcast-to-displays", "set-display", getRadioValue(display_radio_buttons));
         };
     }
 

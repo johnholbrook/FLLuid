@@ -1,5 +1,3 @@
-const { ipcRenderer } = require('electron');
-
 document.addEventListener("DOMContentLoaded", () => {
     hideAll();
     document.querySelector("#logos-frame").style.display = "";
@@ -36,6 +34,16 @@ function selectDisplay(disp_name){
     }
 }
 
-ipcRenderer.on("new-display-selected", function(event, arg){
-    selectDisplay(arg);
+// ipcRenderer.on("new-display-selected", function(event, arg){
+//     selectDisplay(arg);
+// });
+
+const socket = io();
+socket.on('connect', () => {
+    console.log("Connected!")
+});
+
+socket.on("set-display", name => {
+    selectDisplay(name);
+    console.log(name);
 });
