@@ -34,16 +34,12 @@ function selectDisplay(disp_name){
     }
 }
 
-// ipcRenderer.on("new-display-selected", function(event, arg){
-//     selectDisplay(arg);
-// });
-
 const socket = io();
 socket.on('connect', () => {
     console.log("Connected!")
 });
 
-socket.on("set-display", name => {
+socket.on("select-display", name => {
     selectDisplay(name);
     console.log(name);
 });

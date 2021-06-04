@@ -35,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         display_radio_buttons[i].onchange = function(){
             // displayWindow.webContents.send("new-display-selected", getRadioValue(display_radio_buttons));
             // ipcRenderer.send("new-display-selected", getRadioValue(display_radio_buttons));
-            ipcRenderer.send("broadcast-to-displays", "set-display", getRadioValue(display_radio_buttons));
+            // ipcRenderer.send("broadcast-to-displays", "set-display", getRadioValue(display_radio_buttons));
+            ipcRenderer.send("set-display", getRadioValue(display_radio_buttons));
         };
     }
 
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         list_of_files.sort();
         console.log(list_of_files);
-        displayWindow.send("set-logos", list_of_files);
+        ipcRenderer.send("set-logos", list_of_files);
 
         document.querySelector("#logo-ordering").innerHTML = "";
         list_of_files.forEach(file_path => {
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     new_list.push(child.getAttribute("path"));
                 }
                 console.log(new_list);
-                displayWindow.send("set-logos", new_list);
+                ipcRenderer.send("set-logos", new_list);
             }
         });
     };
@@ -171,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#submit-message-text").onclick = function(){
         let message_text = document.querySelector("#message-text-area").value;
-        displayWindow.webContents.send("set-message-text", message_text);
+        ipcRenderer.webContents.send("set-message-text", message_text);
     };
 
     document.querySelector("#msg-on-other-screens").onchange = function(){

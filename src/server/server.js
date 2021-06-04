@@ -97,23 +97,47 @@ var server = http.createServer(function(req, res) {
 // initialize socket.io
 const io = require("socket.io")(server);
 
+// when a new client connects, send it the display state
 io.on('connection', socket => {
     console.log("connection!");
-    // ipcMain.on("new-display-selected", function(event, arg){
-    //     socket.emit("set-display", arg);
-    // });
+    socket.emit("set-state", JSON.stringify(display_state));
 });
-
-// generically pass messages from the controller to all connected displays
-ipcMain.on("broadcast-to-displays", function(event, name, arg){
-    console.log(`Broadcasting message ${name} with arg ${arg}`);
-    io.emit(name, arg);
-});
-
-
-
 
 // listen on port 34778 (spells FIRST on a phone pad)
 server.listen(34778);
-
 console.log('Web server running at http://localhost:34778...');
+
+var display_state = {
+    images: [],
+    message: ""
+}
+
+// send the display state to all connected clients
+function updateDisplayState(){
+    io.emit("set-state", JSON.stringify(display_state));
+}
+
+ipcMain.on("set-display", function(event, arg){
+    io.emit("select-display", arg);
+});
+
+// when a new set of images is selected in the controller,
+// propagate that change appropriately
+ipcMain.on("set-logos", function(event, arg){
+    images = {};
+    let names = [];
+    arg.forEach(img_fp => {
+        let fname = `/img/${path.basename(img_fp)}`;
+        images[fname] = img_fp;
+        names.push(fname);
+    });
+    display_state.images = names;
+    updateDisplayState();
+    console.log(images);
+});
+
+// update the message
+ipcMain.on("set-message-text", function(event, arg){
+    display_state.message = arg;
+    updateDisplayState();
+});

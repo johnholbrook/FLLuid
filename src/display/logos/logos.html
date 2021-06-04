@@ -1,1 +1,26 @@
-This is the logos display!
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+    <!-- <link href="./display.css" rel="stylesheet" type="text/css" media="all"> -->
+    <script src="/lib/socket.io.min.js"></script>
+    <script src="/logos/logos.js"></script>
+    <title>FLLuid - Logo Display</title>
+    <style>
+        #logo_area{
+            max-width: 90%;
+            max-height: 80%;
+            position:fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+  </head>
+
+  <body>
+    <img id="logo_area"></img>
+  </body>
+
+</html>
