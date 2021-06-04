@@ -1,7 +1,7 @@
 const { remote, ipcRenderer } = require('electron');
-const schedule = require('./schedule.js');
+// const schedule = require('./schedule.js');
 
-var displayWindow = remote.getGlobal('displayWindow');
+// var displayWindow = remote.getGlobal('displayWindow');
 
 //gets the selected value of a set of radio buttons
 //@param buttons - a list of buttons, e.g.returned by document.getElementsByName('current-display')
@@ -234,7 +234,8 @@ function showNone(){
 }
 
 function showLogos(){
-    displayWindow.webContents.send("new-display-selected", "logos");
+    // displayWindow.webContents.send("new-display-selected", "logos");
+    ipcRenderer.send("broadcast-to-displays", "set-display", "logos");
     document.querySelector("#logos-radio-button").checked = true;
 }
 

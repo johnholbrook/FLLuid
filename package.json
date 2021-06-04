@@ -22,7 +22,7 @@
   "author": "John Holbrook",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^7.2.4",
+    "electron": "latest",
     "electron-builder": "^21.2.0"
   },
   "dependencies": {
@@ -37,7 +37,7 @@
     "markdown-it": "^12.0.2",
     "needle": "^2.4.0",
     "popper.js": "^1.16.1",
-    "require": "^2.4.20",
+    "require": "^0.4.4",
     "socket.io": "^3.1.0",
     "sortablejs": "^1.10.2",
     "uglify-js": "^3.6.9"
