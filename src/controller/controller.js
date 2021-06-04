@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#submit-message-text").onclick = function(){
         let message_text = document.querySelector("#message-text-area").value;
-        ipcRenderer.webContents.send("set-message-text", message_text);
+        ipcRenderer.send("set-message-text", message_text);
     };
 
     document.querySelector("#msg-on-other-screens").onchange = function(){

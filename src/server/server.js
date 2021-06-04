@@ -22,6 +22,7 @@ const paths = {
     "/timer" : path.join("timer", "timer.html"),
     "/lib/socket.io.min.js" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js"),
     "/lib/socket.io.min.js.map" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map"),
+    "/lib/bootstrap.min.css" : path.join("..", "..", "node_modules", "bootstrap", "dist", "css", "bootstrap.min.css"),
 }
 
 const mime_types = {
@@ -139,5 +140,6 @@ ipcMain.on("set-logos", function(event, arg){
 // update the message
 ipcMain.on("set-message-text", function(event, arg){
     display_state.message = arg;
+    console.log(display_state.message)
     updateDisplayState();
 });

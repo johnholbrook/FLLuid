@@ -1,1 +1,27 @@
-This is the message display!
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+    <link href="/lib/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/lib/socket.io.min.js"></script>
+    <script src="/message/message.js"></script>
+    <title>FLLuid - Message Display</title>
+
+    <style>
+      #message_area{
+        font-size: 5em;
+        width: 90vw !important;
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+      <div class="font-weight-bold text-center" id="message_area">
+        <p id="message_content"></p>
+      </div>
+  </body>
+</html>
