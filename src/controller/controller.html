@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';" />
   <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
   <script src="import-jquery.js"></script>
   <script src="../../node_modules/popper.js/dist/umd/popper.js"></script>
@@ -26,51 +26,59 @@
           <div class="card-body">
             <h2 class="text-center">Options</h2>
 
-            <nav>
-              <div class="nav nav-tabs lead font-weight-normal" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="false">Event</a>
-                <a class="nav-item nav-link" id="nav-logos-tab" data-toggle="tab" href="#nav-logos" role="tab" aria-controls="nav-logos" aria-selected="false">Logos</a>
-                <!-- <a class="nav-item nav-link" id="nav-event-tab" data-toggle="tab" href="#nav-event" role="tab" aria-controls="nav-event" aria-selected="true">Event</a> -->
-                <a class="nav-item nav-link" id="nav-timer-settings-tab" data-toggle="tab" href="#nav-timer-settings" role="tab" aria-controls="nav-appearance" aria-selected="false">Timer</a>
-                <a class="nav-item nav-link" id="nav-message-tab" data-toggle="tab" href="#nav-message" role="tab" aria-controls="nav-appearance" aria-selected="false">Message</a>
-                <a class="nav-item nav-link" id="nav-display-tab" data-toggle="tab" href="#nav-display" role="tab" aria-controls="nav-appearance" aria-selected="false">Appearance</a>
-              </div>
-            </nav>
-            
-            <div style="height:1em;"></div>
+            <!-- Navigation tabs -->
+            <ul class="nav nav-tabs h4" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="text-primary nav-link active" id="event-tab" data-bs-toggle="tab" data-bs-target="#event" type="button" role="tab" aria-controls="event" aria-selected="true">Event</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="text-primary nav-link" id="logos-tab" data-bs-toggle="tab" data-bs-target="#logos" type="button" role="tab" aria-controls="logos" aria-selected="false">Logos</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="text-primary nav-link" id="timer-tab" data-bs-toggle="tab" data-bs-target="#timer" type="button" role="tab" aria-controls="timer" aria-selected="false">Timer</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="text-primary nav-link" id="message-tab" data-bs-toggle="tab" data-bs-target="#message" type="button" role="tab" aria-controls="message" aria-selected="false">Message</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="text-primary nav-link" id="appearance-tab" data-bs-toggle="tab" data-bs-target="#appearance" type="button" role="tab" aria-controls="appearance" aria-selected="false">Appearance</button>
+              </li>
+            </ul> <!-- END of nav tabs -->
 
-            <div class="tab-content" id="nav-tabContent">
-
-              <!-- "Event" Tab Content -->
-              <div class="tab-pane fade show active" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
-                <!-- <div style="height:2em;"></div> -->
+            <!-- Navigation tab content sections -->
+            <div class="tab-content" id="myTabContent">
+              
+              <!-- EVENT tab content -->
+              <div class="tab-pane fade show active" id="event" role="tabpanel" aria-labelledby="event-tab">
+                <div class="mb-1"></div>
                 <div class="card">
                   <h4 class="card-header">This Event</h4>
                   <div class="card-body">
                     <div class="form-group">
                       <label for="this-tournament-id">FLLTournament ID:</label>
-                      <div class="input-group">
+                      <div class="input-group mb-1">
                         <input class="form-control" type="text" id="this-tournament-id">
                         <div class="input-group-append">
                           <button class="btn btn-primary" id="save-this-tournament-id">Save</button>
                         </div>
                       </div>
                     </div>
-                    <select class="custom-select" id="select-this-match-type">
+                    <select class="form-select mb-1" id="select-this-match-type">
                       <option value="practice">Show Practice Matches</option>
                       <option value="competition" selected>Show Competition Matches</option>
                     </select>
-                    <br/><br/>
+                    <button class="col-12 mb-3 btn btn-outline-secondary" id="refresh-this-event">
+                      Manually Refresh This Event's Scores
+                    </button>
+                    <br/>
                     <div class="form-group">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="schedule-csv-picker" accept=".csv">
-                          <label class="custom-file-label" for="schedule-csv-picker">CSV Schedule File</label>
+                        <div>
+                          <label class="form-label" for="schedule-csv-picker">CSV Schedule File:</label>
+                          <input type="file" class="form-control" id="schedule-csv-picker" accept=".csv">
                         </div>
                       </div>
 
-                      <button class="col-12 mb-3 btn btn-outline-secondary" id="refresh-this-event">
-                        Manually Refresh This Event's Scores
-                      </button>
+                      
                   </div>
                 </div>
                 
@@ -81,42 +89,37 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label for="other-tournament-ids">FLLTournament ID(s) (separate with commas):</label>
-                      <div class="input-group">
+                      <div class="input-group mb-1">
                         <input class="form-control" type="text" id="other-tournament-ids">
                         <div class="input-group-append">
                           <button class="btn btn-primary" id="save-other-tournament-ids">Save</button>
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <select class="custom-select" id="select-other-match-type">
+                    <div class="mb-1">
+                      <select class="form-select" id="select-other-match-type">
                         <option value="practice">Show Practice Matches</option>
                         <option value="competition" selected>Show Competition Matches</option>
                       </select>
                     </div>
 
-                    <br/>
-
                     <button class="col-12 btn btn-outline-secondary" id="refresh-other-events">
                       Manually Refresh Other Events' Scores
                     </button>
                   </div>
-                </div>
+                  </div>
+              </div> <!-- END of EVENT tab content -->
 
-              <!-- END OF "Event" Tab Content -->
-              </div>
-
-
-              <!-- "Logos" Tab Content -->
-              <div class="tab-pane fade" id="nav-logos" role="tabpanel" aria-labelledby="nav-logos-tab">
-                
+              <!-- LOGOS tab content -->
+              <div class="tab-pane fade" id="logos" role="tabpanel" aria-labelledby="logos-tab">
+                <div class="mb-1"></div>
                 <div class="card">
                   <h4 class="card-header">Select Logo Directory</h4>
                   <div class="card-body">
                     <div class="form-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="logo-dir-picker" webkitdirectory>
-                        <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label>
+                        <input type="file" class="form-control" id="logo-dir-picker" webkitdirectory>
+                        <!-- <label class="custom-file-label" for="logo-dir-picker">Logo Directory</label> -->
                       </div>
                     </div>
                   </div>
@@ -128,17 +131,17 @@
                   <h4 class="card-header">Select Logo Order</h4>
                   <div class="card-body" id="logo-ordering"></div>
                 </div>
-              </div>
+              </div> <!-- END of LOGOS tab content -->
 
-              <!-- "Timer" Tab Content -->
-              <div class="tab-pane fade" id="nav-timer-settings" role="tabpanel" aria-labelledby="nav-timer-settings-tab">
-                
+              <!-- TIMER tab content -->
+              <div class="tab-pane fade" id="timer" role="tabpanel" aria-labelledby="timer-tab">
+                <div class="mb-1"></div>
                 <div class="card">
                   <h4 class="card-header">Timer Appearance</h4>
                   <div class="card-body">
-                    <div class="form-inline">
-                      <label for="select-font" class="mr-3 my-3">Timer Font:</label>
-                      <select id="select-font" class="custom-select">
+                    <div class="input-group">
+                      <span class="input-group-text">Timer Font:</span>
+                      <select id="select-font" class="form-select">
                         <option value="default">System Default</option>
                         <option value="bricks">Bricks</option>
                         <option value="ubuntu-mono-bold">Ubuntu Mono Bold</option>
@@ -191,12 +194,11 @@
                 <button class="btn btn-danger my-3 w-100" id="spawn-extra-timer-window">Spawn Extra Timer Window</button>
 
                 <br/>
+              </div> <!-- END of TIMER tab content -->
 
-              </div>
-
-              <!-- "Message" Tab Content -->
-              <div class="tab-pane fade" id="nav-message" role="tabpanel" aria-labelledby="nav-message-tab">
-                
+              <!-- MESSAGE tab content -->
+              <div class="tab-pane fade" id="message" role="tabpanel" aria-labelledby="message-tab">
+                <div class="mb-1"></div>
                 <div class="card">
                   <h4 class="card-header">Message Text</h4>
                   <div class="card-body">
@@ -220,10 +222,11 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> <!-- END of MESSAGE tab content -->
 
-              <!-- "Display" tab content -->
-              <div class="tab-pane fade" id="nav-display" role="tabpanel" aria-labelledby="nav-display-tab">
+              <!-- APPEARANCE tab content -->
+              <div class="tab-pane fade" id="appearance" role="tabpanel" aria-labelledby="appearance-tab">
+                <div class="mb-1"></div>
                 <div class="card">
                   <h4 class="card-header">Chroma Key</h4>
                   <div class="card-body">
@@ -280,13 +283,9 @@
                     <input type="range" class="custom-range w-50" id="logo-time" min="2" max="15" value="5">
                   </div>
                 </div>
+              </div> <!-- END of APPEARANCE tab content -->
 
-              </div>
-
-
-
-            <!-- END OF TAB CONTENT DIVS -->
-            </div>
+            </div> <!-- END of nav tab content sections-->
 
             
 
@@ -305,12 +304,12 @@
             <div id="timer-display">2:30</div>
 
             <div class="row px-3 timer-buttons">
-              <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
+              <div class="col-12 col-sm-6 pr-sm-1 mb-3 mb-sm-0">
                 <button class="timer-button w-100 btn btn-success" id="timer-start-pause">
                   Start
                 </button>
               </div>
-              <div class="col-12 col-sm-6 px-0 pl-sm-1">
+              <div class="col-12 col-sm-6 pl-sm-1">
                 <button class="timer-button w-100 btn btn-danger" id="timer-reset">
                   Reset
                 </button>
@@ -325,12 +324,12 @@
             <h2 class="text-center">Current Match Block</h2>
             <div class="current-match-block text-center" id="current-match-block"></div>
             <div class="row px-3">
-                <div class="col-12 col-sm-6 px-0 pr-sm-1 mb-3 mb-sm-0">
+                <div class="col-12 col-sm-6 pr-sm-1 mb-3 mb-sm-0">
                   <button class="w-100 btn btn-primary" id="prev-block">
                     Prev. Block
                   </button>
                 </div>
-                <div class="col-12 col-sm-6 px-0 pl-sm-1">
+                <div class="col-12 col-sm-6 pl-sm-1">
                   <button class="w-100 btn btn-primary" id="next-block">
                     Next Block
                   </button>
