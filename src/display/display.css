@@ -15,8 +15,20 @@
 
 /* left-align only the team names in the various tables, leave other cols centered */
 #schedule-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(3),
-.intro-table > tbody > tr > td:nth-of-type(3) {
+.intro-table > tbody > tr > td:nth-of-type(3),
+#scores-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(3) {
     text-align: left !important;
+}
+
+/* also bold the best score on the scores table */
+#scores-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(4) {
+    font-weight: bold !important;
+}
+
+/* try to ensure there's enough room for the round titles on the scores display */
+#scores-display-area > div > .scrollable-table > tbody > tr > td,
+#scores-display-area > div > .scrollable-table > thead > th > td{
+    min-width: 4.3em;
 }
 
 .title-bg{

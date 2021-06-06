@@ -1,5 +1,6 @@
 const { remote, ipcRenderer } = require('electron');
 const schedule = require('./schedule.js');
+const scraper = require('../web_scraper/web_scraper.js');
 
 // var displayWindow = remote.getGlobal('displayWindow');
 
@@ -22,6 +23,9 @@ function set_timer_font(){
         ipcRenderer.send("set-timer-font", new_choice);
     }
 }
+
+var this_event_id = "";
+var get_comp_results = true;
 
 document.addEventListener('DOMContentLoaded', () => {
     showLogos();
@@ -117,12 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let new_id = document.querySelector("#this-tournament-id").value;
         // displayWindow.webContents.send("set-this-tournament-id", new_id);
         schedule.set_event_id(new_id);
+        this_event_id = new_id;
+        scraper.getScores(this_event_id, get_comp_results, scores => {
+            ipcRenderer.send("update-scores", scores);
+        });
     };
 
     document.querySelector("#select-this-match-type").onchange = function(){
         let selection = document.querySelector("#select-this-match-type").value;
-        let get_comp_results = selection == "competition" ? true : false;
-        displayWindow.webContents.send("set-this-comp-mode", get_comp_results);
+        /*let*/ get_comp_results = selection == "competition" ? true : false;
+        scraper.getScores(this_event_id, get_comp_results, scores => {
+            ipcRenderer.send("update-scores", scores);
+        });
+        // displayWindow.webContents.send("set-this-comp-mode", get_comp_results);
     };
 
     document.querySelector("#save-other-tournament-ids").onclick = function(){

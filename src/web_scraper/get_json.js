@@ -1,3 +1,4 @@
+// pretty sure this is used by the update checker?
 var needle = require('needle');
 
 module.exports = function(url, callback){

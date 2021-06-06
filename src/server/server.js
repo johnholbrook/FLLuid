@@ -114,7 +114,8 @@ var display_state = {
     message: "",
     show_message_on_tables: false,
     match_blocks: [],
-    current_block: 0
+    current_block: 0,
+    scores: []
 }
 
 // send the display state to all connected clients
@@ -161,5 +162,10 @@ ipcMain.on("msg-on-other-screens", function(event, arg){
 
 ipcMain.on("set-current-block", function(event, arg){
     display_state.current_block = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("update-scores", function(event, arg){
+    display_state.scores = arg;
     updateDisplayState();
 });

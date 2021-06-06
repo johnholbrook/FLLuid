@@ -12,7 +12,7 @@ function make_request(url, handler_function, next_step){
     let headers = {
         cookies : {
             //any string seems to work for the session ID:
-            'ASP.NET_SessionId' : "FLLuid (FLL Useful Information Display)"
+            'ASP.NET_SessionId' : "FLLuid - https://github.com/johnholbrook/flluid"
         }
     }
 
@@ -56,73 +56,18 @@ function url_response_handler(body, next_step){
         json_table.push(this_row);
     }
 
-    //pass the JSON table on to assembleTable, which will assemble a DOM <table> object
-    assembleTable(json_table, next_step);
+    //pass the JSON table on to the next step
+    next_step(json_table);
 }
 
-//Takes a JSON table produced by url_response_handler and assembles a DOM <table> object,
-//then passes it on to next_step
-function assembleTable(json_table, next_step){
-    let parser = new DOMParser();
-    let doc = parser.parseFromString("", "text/html");
-
-    let table = doc.createElement("table");
-    table.className = "scores-table";
-
-    //First add the header row to the table
-    let header_row = doc.createElement("tr");
-    header_row.className = "table-header";
-    let col_headers = Object.keys(json_table[0]);
-    for (let i=0; i<col_headers.length; i++){
-        let tmp = doc.createElement("th");
-        tmp.innerHTML = "<div>" + col_headers[i] + "</div>";
-        header_row.append(tmp);
-    }
-    table.append(header_row);
-
-    //Now add each team's row to the table
-    for (let i=0; i<json_table.length; i++){
-        let this_row = doc.createElement("tr");
-        this_row.className = i%2==0 ? "table-row-even" : "table-row-odd";
-        for (let j=0; j<col_headers.length; j++){
-            let tmp = doc.createElement("td");
-            tmp.className = cell_class_name(col_headers[j]);
-            tmp.innerHTML = "<div>" + json_table[i][col_headers[j]] + "</div>";
-            this_row.append(tmp);
-        }
-        table.append(this_row);
-    }
-
-    next_step(table);
-}
-
-//returns a class name for a cell in a particular column of the table
-function cell_class_name(header){
-    if (header == "Rank"){
-        return "rank";
-    }
-    else if (header == "Team #"){
-        return "team-number";
-    }
-    else if (header == "Team Name"){
-        return "team-name";
-    }
-    else if (header == "Best Score"){
-        return "best-score";
-    }
-    else{
-        return "score";
-    }
-}
-
-//makes a request for the specified data, assembles it into a DOM <table>
-//element, and passes it on to the specified callback
+//makes a request for the specified data and passes it on to the specified callback
 //@param event_id - the FLLTournament.com ID of the event
 //@param is_comp - true to get competition round scores, false to get practice round scores
 //@param next_step - callback to send DOM <table> to
 function getScores(event_id, is_comp, next_step){
-    let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
-    url += "&Display=" + (is_comp ? 0 : 1);
+    // let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
+    // url += "&Display=" + (is_comp ? 0 : 1);
+    let url = `https://flltournament.com/Scoreboard.aspx?TID=${event_id}&Display=${is_comp ? 0 : 1}`;
     make_request(url, url_response_handler, next_step);
 }
 
