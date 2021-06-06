@@ -1,5 +1,5 @@
 const { remote, ipcRenderer } = require('electron');
-// const schedule = require('./schedule.js');
+const schedule = require('./schedule.js');
 
 // var displayWindow = remote.getGlobal('displayWindow');
 
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#save-this-tournament-id").onclick = function(){
         let new_id = document.querySelector("#this-tournament-id").value;
-        displayWindow.webContents.send("set-this-tournament-id", new_id);
+        // displayWindow.webContents.send("set-this-tournament-id", new_id);
         schedule.set_event_id(new_id);
     };
 
@@ -172,12 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#submit-message-text").onclick = function(){
         let message_text = document.querySelector("#message-text-area").value;
+        console.log(message_text);
         ipcRenderer.send("set-message-text", message_text);
     };
 
     document.querySelector("#msg-on-other-screens").onchange = function(){
         let status = document.querySelector("#msg-on-other-screens").checked;
-        displayWindow.webContents.send("msg-on-other-screens", status);
+        ipcRenderer.send("msg-on-other-screens", status);
     }
 
     $('#chroma-color-picker').colorpicker({

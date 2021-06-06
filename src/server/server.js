@@ -23,6 +23,7 @@ const paths = {
     "/lib/socket.io.min.js" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js"),
     "/lib/socket.io.min.js.map" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map"),
     "/lib/bootstrap.min.css" : path.join("..", "..", "node_modules", "bootstrap", "dist", "css", "bootstrap.min.css"),
+    "/lib/scrollable.js" : path.join("..", "scrollable", "scrollable.js"),
 }
 
 const mime_types = {
@@ -110,7 +111,10 @@ console.log('Web server running at http://localhost:34778...');
 
 var display_state = {
     images: [],
-    message: ""
+    message: "",
+    show_message_on_tables: false,
+    match_blocks: [],
+    current_block: 0
 }
 
 // send the display state to all connected clients
@@ -140,6 +144,22 @@ ipcMain.on("set-logos", function(event, arg){
 // update the message
 ipcMain.on("set-message-text", function(event, arg){
     display_state.message = arg;
-    console.log(display_state.message)
+    // console.log(display_state.message)
+    updateDisplayState();
+});
+
+ipcMain.on("set-blocks", function(event, arg){
+    // console.log(arg);
+    display_state.match_blocks = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("msg-on-other-screens", function(event, arg){
+    display_state.show_message_on_tables = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-current-block", function(event, arg){
+    display_state.current_block = arg;
     updateDisplayState();
 });

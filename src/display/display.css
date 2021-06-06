@@ -2,3 +2,22 @@
     height: 100%;
     width: 100%;
 }
+
+:root{
+    --table-font-size: 2.5em;
+}
+
+.scrollable-table, .scrollable-sticky-header{
+    /* font-size: 3em; */
+    font-size: var(--table-font-size);
+    text-align: center;
+}
+
+.title-bg{
+    background-color: white;
+}
+
+.display-title{
+    text-align: center;
+    font-size: 4em;
+}
