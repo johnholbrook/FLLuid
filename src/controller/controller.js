@@ -24,8 +24,15 @@ function set_timer_font(){
     }
 }
 
+const EVENT_UPDATE_INTERVAL = 3; //mins
+
 var this_event_id = "";
 var get_comp_results = true;
+var updating_this_event = null;
+
+var other_event_ids = [];
+var get_other_comp_results = true;
+var updating_other_events = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     showLogos();
@@ -117,34 +124,55 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWindow.webContents.send("set-chroma-key-timer-teams", document.querySelector("#chroma-key-timer-teams").checked);
     };
 
-    document.querySelector("#save-this-tournament-id").onclick = function(){
-        let new_id = document.querySelector("#this-tournament-id").value;
-        // displayWindow.webContents.send("set-this-tournament-id", new_id);
-        schedule.set_event_id(new_id);
-        this_event_id = new_id;
+    function update_this_event_scores(){
         scraper.getScores(this_event_id, get_comp_results, scores => {
             ipcRenderer.send("update-scores", scores);
         });
+    }
+
+    document.querySelector("#save-this-tournament-id").onclick = function(){
+        let new_id = document.querySelector("#this-tournament-id").value;
+        schedule.set_event_id(new_id);
+        this_event_id = new_id;
+        clearInterval(updating_this_event);
+        update_this_event_scores();
+        updating_this_event = setInterval(update_this_event_scores, EVENT_UPDATE_INTERVAL*60*1000);
     };
 
     document.querySelector("#select-this-match-type").onchange = function(){
         let selection = document.querySelector("#select-this-match-type").value;
-        /*let*/ get_comp_results = selection == "competition" ? true : false;
-        scraper.getScores(this_event_id, get_comp_results, scores => {
-            ipcRenderer.send("update-scores", scores);
-        });
-        // displayWindow.webContents.send("set-this-comp-mode", get_comp_results);
+        get_comp_results = selection == "competition" ? true : false;
+        clearInterval(updating_this_event);
+        update_this_event_scores();
+        updating_this_event = setInterval(update_this_event_scores, EVENT_UPDATE_INTERVAL*60*1000);
     };
+
+    function update_other_event_scores(){
+        ipcRenderer.send("other-event-ids", other_event_ids);
+        other_event_ids.forEach(id => {
+            scraper.getEventName(id, ename => {
+                scraper.getScores(id, get_other_comp_results, escores => {
+                    ipcRenderer.send("other-event-scores", {event_name:ename, event_id:id, scores:escores});
+                });
+            });
+        });
+    }
 
     document.querySelector("#save-other-tournament-ids").onclick = function(){
         let input = document.querySelector("#other-tournament-ids").value;
-        displayWindow.webContents.send("set-other-tournament-ids", input);
+        // displayWindow.webContents.send("set-other-tournament-ids", input);
+        other_event_ids = input.split(",").map(x => x.trim());
+        clearInterval(updating_other_events);
+        update_other_event_scores();
+        updating_other_events = setInterval(update_other_event_scores, EVENT_UPDATE_INTERVAL*60*1000);
     };
 
     document.querySelector("#select-other-match-type").onchange = function(){
         let selection = document.querySelector("#select-other-match-type").value;
-        let get_comp_results = selection == "competition" ? true : false;
-        displayWindow.webContents.send("set-other-comp-mode", get_comp_results);
+        get_other_comp_results = selection == "competition" ? true : false;
+        clearInterval(updating_other_events);
+        update_other_event_scores();
+        updating_other_events = setInterval(update_other_event_scores, EVENT_UPDATE_INTERVAL*60*1000);
     };
 
     document.querySelector("#refresh-this-event").onclick = function(){

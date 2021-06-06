@@ -115,7 +115,8 @@ var display_state = {
     show_message_on_tables: false,
     match_blocks: [],
     current_block: 0,
-    scores: []
+    scores: [],
+    other_events: []
 }
 
 // send the display state to all connected clients
@@ -167,5 +168,28 @@ ipcMain.on("set-current-block", function(event, arg){
 
 ipcMain.on("update-scores", function(event, arg){
     display_state.scores = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("other-event-ids", function(event, arg){
+    // remove any entries for events not in the list of IDs we just recieved
+    display_state.other_events.forEach((entry, idx) => {
+        if (!arg.includes(entry.event_id)){
+            display_state.other_events.splice(idx,1);
+        }
+    });
+});
+
+ipcMain.on("other-event-scores", function(event, arg){
+    let event_id = arg.event_id;
+
+    // remove the existing entry for this event (if any)
+    display_state.other_events.forEach((entry, idx) => {
+        if (entry.event_id == event_id){
+            display_state.other_events.splice(idx,1);
+        }
+    });
+
+    display_state.other_events.push(arg);
     updateDisplayState();
 });
