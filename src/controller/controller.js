@@ -1,4 +1,5 @@
-const { remote, ipcRenderer } = require('electron');
+const { ipcRenderer } = require('electron');
+// const remote = require('@electron/remote');
 const schedule = require('./schedule.js');
 const scraper = require('../web_scraper/web_scraper.js');
 
@@ -35,6 +36,7 @@ var get_other_comp_results = true;
 var updating_other_events = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+
     showLogos();
 
     // setTimeout(() => {
@@ -52,24 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelector("#timer-start-pause").onclick = function(){
-        displayWindow.webContents.send("start-timer");
+        ipcRenderer.send("start-timer");
         showTimer();
     };
 
     document.querySelector("#timer-reset").onclick = function(){
-        displayWindow.webContents.send("reset-timer");
+        ipcRenderer.send("reset-timer");
     };
 
     document.querySelector("#start-sound").onchange = function(){
-        displayWindow.webContents.send("set-start-sound", document.querySelector("#start-sound").checked);
+        ipcRenderer.send("set-start-sound", document.querySelector("#start-sound").checked);
     };
 
     document.getElementById("30-second-warning").onchange = function(){
-        displayWindow.webContents.send("set-30sec-warning", document.getElementById("30-second-warning").checked);
+        ipcRenderer.send("set-30sec-warning", document.getElementById("30-second-warning").checked);
     };
 
     document.querySelector("#end-sound").onchange = function(){
-        displayWindow.webContents.send("set-end-sound", document.querySelector("#end-sound").checked);
+        ipcRenderer.send("set-end-sound", document.querySelector("#end-sound").checked);
     };
 
     document.querySelector("#select-font").onchange = set_timer_font;
@@ -205,8 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#auto-advance").onclick = function(){
         let auto_advance = document.querySelector("#auto-advance").checked;
-        displayWindow.webContents.send("set-auto-advance", auto_advance);
-        console.log("Sending auto advance");
+        ipcRenderer.send("set-auto-advance", auto_advance);
+        // console.log("Sending auto advance");
     };
 
     document.querySelector("#submit-message-text").onclick = function(){
@@ -261,7 +263,7 @@ ipcRenderer.on("prev-match-block", function(event, arg){
 });
 
 ipcRenderer.on("start-timer", function(event){
-    displayWindow.webContents.send("start-timer");
+    ipcRenderer.send("start-timer");
     showTimer();
 });
 
@@ -270,23 +272,23 @@ ipcRenderer.on("radio-select", function(event, arg){
 });
 
 function showNone(){
-    displayWindow.webContents.send("new-display-selected", "none");
+    ipcRenderer.send("set-display", "none");
     document.querySelector("#none-radio-button").checked = true;
 }
 
 function showLogos(){
-    // displayWindow.webContents.send("new-display-selected", "logos");
-    ipcRenderer.send("broadcast-to-displays", "set-display", "logos");
+    ipcRenderer.send("set-display", "logos");
+    // ipcRenderer.send("broadcast-to-displays", "set-display", "logos");
     document.querySelector("#logos-radio-button").checked = true;
 }
 
 function showScores(){
-    displayWindow.webContents.send("new-display-selected", "scores");
+    ipcRenderer.send("set-display", "scores");
     document.querySelector("#scores-radio-button").checked = true;
 }
 
 function showTimer(){
-    displayWindow.webContents.send("new-display-selected", "timer");
+    ipcRenderer.send("set-display", "timer");
     document.querySelector("#timer-radio-button").checked = true;
 }
 

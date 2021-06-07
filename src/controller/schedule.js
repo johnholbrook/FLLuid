@@ -70,7 +70,7 @@ function set_current_block(new_value){
         document.querySelector("#current-match-block").innerHTML = blocks[new_value].time;
         ipcRenderer.send("current-match-block", blocks[new_value].time) // for the touch bar?
         ipcRenderer.send("set-current-block", current_block) // for the displays
-        console.log(current_block);
+        // console.log(current_block);
     }
 }
 
@@ -161,6 +161,6 @@ function parseCSV(filePath){
 
     setTimeout(function(){
         ipcRenderer.send("set-blocks", blocks);
-        console.log(blocks);
+        // console.log(blocks);
     }, 1000);
 }

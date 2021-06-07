@@ -1,7 +1,14 @@
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
+var accurateInterval = require('accurate-interval');
 const {ipcMain} = require("electron");
+const { setTimeout } = require('timers');
+
+var sendToController = null;
+module.exports = {
+    initSendToController: f => sendToController = f
+}
 
 // check if a file at the given path (relative to the display directory) exists
 function fileExists(filepath) {
@@ -102,12 +109,24 @@ const io = require("socket.io")(server);
 // when a new client connects, send it the display state
 io.on('connection', socket => {
     console.log("connection!");
+    // console.log(socket.handshake.headers.referer);
+
     socket.emit("set-state", JSON.stringify(display_state));
+
+    let page = socket.handshake.headers.referer.split("/").slice(-1)[0];
+    if (page == "timer") {
+        socket.emit("timer-value", secsToClock(current_time));
+    }
+    else if (page == ""){
+        socket.emit("select-display", current_display);
+    }
 });
 
 // listen on port 34778 (spells FIRST on a phone pad)
 server.listen(34778);
 console.log('Web server running at http://localhost:34778...');
+
+var current_display = "";
 
 var display_state = {
     images: [],
@@ -116,7 +135,14 @@ var display_state = {
     match_blocks: [],
     current_block: 0,
     scores: [],
-    other_events: []
+    other_events: [],
+    timer_options: {
+        start_sound: true,
+        warning_sound: true,
+        end_sound: true,
+        font: "",
+        auto_advance: false
+    }
 }
 
 // send the display state to all connected clients
@@ -125,6 +151,7 @@ function updateDisplayState(){
 }
 
 ipcMain.on("set-display", function(event, arg){
+    current_display = arg;
     io.emit("select-display", arg);
 });
 
@@ -191,5 +218,94 @@ ipcMain.on("other-event-scores", function(event, arg){
     });
 
     display_state.other_events.push(arg);
+    updateDisplayState();
+});
+
+const TIMER_RESET_VAL = 10; //seconds
+var current_time = TIMER_RESET_VAL;
+var timer_interval = null;
+var timer_running = false;
+
+function broadcast_current_time(){
+    io.emit("timer-value", secsToClock(current_time));
+    sendToController("set-timer-text", secsToClock(current_time));
+}
+
+function tick_timer(){
+    current_time -= 1;
+    if (current_time == 0){
+        pause_timer();
+        setTimeout(reset_timer, 5000);
+        if (display_state.timer_options.auto_advance){
+            setTimeout(() => {
+                sendToController("next-match-block", "");
+            }, 5000);
+        }
+    }
+    broadcast_current_time();
+}
+
+function start_timer(){
+    if (!timer_running){
+        console.log("Starting timer");
+        io.emit("play-start-sound");
+        timer_interval = accurateInterval(tick_timer, 1000);
+        sendToController("set-start-button-text", "Pause");
+        timer_running = true;
+    }
+}
+
+function pause_timer(){
+    if (timer_interval != null) timer_interval.clear();
+    timer_running = false;
+    sendToController("set-start-button-text", "Start");
+}
+
+function reset_timer(){
+    pause_timer();
+    current_time = TIMER_RESET_VAL;
+    broadcast_current_time();
+}
+
+//converts a number of seconds to a clock display
+//@param time - a number of seconds
+function secsToClock(time) {
+	var secs = time % 60;
+	if (secs < 10) {
+		//force 2-digit display of seconds
+		secs = '0' + secs;
+	}
+	var mins = Math.floor(time / 60);
+	return mins + ':' + secs;
+}
+
+ipcMain.on("start-timer", function(){
+    timer_running? pause_timer() : start_timer();
+});
+
+ipcMain.on("reset-timer", reset_timer);
+
+ipcMain.on("set-start-sound", function(event, arg){
+    display_state.timer_options.start_sound = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-30sec-warning", function(event, arg){
+    display_state.timer_options.warning_sound = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-end-sound", function(event, arg){
+    display_state.timer_options.end_sound = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-timer-font", function(event, arg){
+    display_state.timer_options.font = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-auto-advance", function(event, arg){
+    display_state.timer_options.auto_advance = arg;
     updateDisplayState();
 });

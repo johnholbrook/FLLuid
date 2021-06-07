@@ -1,3 +1,13 @@
+@font-face{
+    font-family: ubuntu-mono-bold;
+    src: url("/fonts/UbuntuMono-B.ttf");
+}
+
+@font-face{
+	font-family: digital-7-mono;
+	src: url("/fonts/digital-7-mono.ttf");
+}
+
 .display-frame{
     height: 100%;
     width: 100%;
@@ -21,7 +31,7 @@
     text-align: left !important;
 }
 
-/* also bold the best score on the scores table */
+/* also bold the best score on the scores tables */
 #scores-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(4),
 .other-events-table > tbody > tr > td:nth-of-type(4) {
     font-weight: bold !important;
@@ -55,4 +65,26 @@
     width: 90%;
     margin: 0 auto;
     text-align: center;
+}
+
+.timer-text-wrapper{
+    margin: auto 0;
+    font-size: 40vw;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.timer-text-wrapper .brick-font{
+    /* display:block; */
+    width: 90vw;
+    height: auto;
+    max-height: 90vh;
+    position:fixed;
+    top:55%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    /* margin-top: 16vh; */
 }

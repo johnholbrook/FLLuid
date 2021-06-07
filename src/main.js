@@ -5,7 +5,10 @@ const path = require('path')
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 
 // start the server
-require("./server/server.js")
+var server = require("./server/server.js");
+server.initSendToController(function(name, data){
+  controllerWindow.webContents.send(name, data);
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -158,7 +161,8 @@ function createControllerWindow(){
     height: 800,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule:true
     }
   })
 
@@ -312,10 +316,10 @@ ipcMain.on("spawn-extra-timer-window", function(event, arg){
 
 //distribute the set-timer-text message to appropriate windows
 ipcMain.on("set-timer-text", function(event, arg){
-  controllerWindow.webContents.send("set-timer-text", arg);
-  if (extraTimerWindow != null){
-    extraTimerWindow.webContents.send("set-timer-text", arg);
-  }
+  // controllerWindow.webContents.send("set-timer-text", arg);
+  // if (extraTimerWindow != null){
+  //   extraTimerWindow.webContents.send("set-timer-text", arg);
+  // }
   timer_current.label = arg;
 });
 
