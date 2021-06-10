@@ -27,6 +27,7 @@ const paths = {
     "/schedule" : path.join("schedule", "schedule.html"),
     "/scores" : path.join("scores", "scores.html"),
     "/timer" : path.join("timer", "timer.html"),
+    "/timer-chroma" : path.join("timer", "timer-chroma.html"),
     "/lib/socket.io.min.js" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js"),
     "/lib/socket.io.min.js.map" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map"),
     "/lib/bootstrap.min.css" : path.join("..", "..", "node_modules", "bootstrap", "dist", "css", "bootstrap.min.css"),
@@ -114,7 +115,7 @@ io.on('connection', socket => {
     socket.emit("set-state", JSON.stringify(display_state));
 
     let page = socket.handshake.headers.referer.split("/").slice(-1)[0];
-    if (page == "timer") {
+    if (page == "timer" || page == "timer-chroma") {
         socket.emit("timer-value", secsToClock(current_time));
     }
     else if (page == ""){
@@ -141,8 +142,10 @@ var display_state = {
         warning_sound: true,
         end_sound: true,
         font: "",
-        auto_advance: false
-    }
+        auto_advance: false,
+        chroma_teams: false
+    },
+    chroma_mode: false
 }
 
 // send the display state to all connected clients
@@ -221,7 +224,7 @@ ipcMain.on("other-event-scores", function(event, arg){
     updateDisplayState();
 });
 
-const TIMER_RESET_VAL = 10; //seconds
+const TIMER_RESET_VAL = 150; //seconds
 var current_time = TIMER_RESET_VAL;
 var timer_interval = null;
 var timer_running = false;
@@ -309,3 +312,13 @@ ipcMain.on("set-auto-advance", function(event, arg){
     display_state.timer_options.auto_advance = arg;
     updateDisplayState();
 });
+
+ipcMain.on("set-chroma-key-timer-teams", function(event, arg){
+    display_state.timer_options.chroma_teams = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-chroma-key-mode", function(event, arg){
+    display_state.chroma_mode = arg;
+    updateDisplayState();
+})

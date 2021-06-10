@@ -119,11 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector("#chroma-key").onchange = function(){
-        displayWindow.webContents.send("set-chroma-key-mode", document.querySelector("#chroma-key").checked);
+        ipcRenderer.send("set-chroma-key-mode", document.querySelector("#chroma-key").checked);
     };
 
     document.querySelector("#chroma-key-timer-teams").onchange = function(){
-        displayWindow.webContents.send("set-chroma-key-timer-teams", document.querySelector("#chroma-key-timer-teams").checked);
+        ipcRenderer.send("set-chroma-key-timer-teams", document.querySelector("#chroma-key-timer-teams").checked);
     };
 
     function update_this_event_scores(){

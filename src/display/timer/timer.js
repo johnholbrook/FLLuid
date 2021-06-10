@@ -24,6 +24,25 @@ socket.on("set-state", newState => {
             document.querySelector("#timer-text-wrapper").classList.remove("brick");
         }
     }
+
+    // this stuff should only happen on the chroma timer
+    if (window.location.pathname == "/timer-chroma"){
+        // hide or show the teams in the current match as needed
+        if (old_state.timer_options.chroma_teams != display_state.timer_options.chroma_teams){
+            document.querySelector("#timer-team-info-wrapper").style.display = 
+                display_state.timer_options.chroma_teams ? "" : "none";
+        }
+
+        // show the correct teams for the current match
+        if (old_state.match_blocks != display_state.match_blocks || 
+            old_state.current_block != display_state.current_block){
+                let tmp = "";
+                display_state.match_blocks[display_state.current_block].matches.forEach(match => {
+                    tmp += `<span class="team-match-info">${match.table}: <b>${match.name}</b></span><span class="hsep"></span>`;
+                });
+                document.querySelector("#timer-team-info").innerHTML = tmp;
+            }
+    }
 });
 
 socket.on("timer-value", val => {
@@ -60,8 +79,8 @@ function textToImage(text){
         
 		return `<svg class="brick-font" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1600 1200">
         <image x="0px" y="0px" width="650px" height="1200px" href="/fonts/brick_digits/${left}-left.png"></image>
-        <image x="649px" y="0px" width="470px" height="1200px" href="/fonts/brick_digits/${mid}-mid.png"></image>
-        <image x="1118px" y="0px" width="480px" height="1200px" href="/fonts/brick_digits/${right}-right.png"></image>
+        <image x="647px" y="0px" width="470px" height="1200px" href="/fonts/brick_digits/${mid}-mid.png"></image>
+        <image x="1116px" y="0px" width="480px" height="1200px" href="/fonts/brick_digits/${right}-right.png"></image>
 	</svg>`
     }
 }

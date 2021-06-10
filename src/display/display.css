@@ -88,3 +88,56 @@
     transform: translate(-50%, -45%);
     /* margin-top: 16vh; */
 }
+
+.timer-text-wrapper-chroma{
+    position: fixed;
+    top: 0.25em;
+    right: 0;
+    height: 1.25em;
+    width: 2.25em;
+    border-radius: 15% 0 0 15%;
+    font-size: 8vw;
+    background-color: white;
+    margin: 0;
+    padding: 0 0.125em;
+}
+.timer-text-wrapper-chroma.brick{
+    background-color: transparent;
+    top: -5vh;
+    right: 0.75em;
+    /* width: auto; */
+}
+.timer-text-wrapper-chroma .brick-font{
+    width: 22vw;
+    height: auto;
+}
+.timer-text-wrapper-chroma > #timer-text{
+    position:fixed;
+    top:0.125em;
+}
+
+.chroma-bg{
+    background-color: #00ff00;
+}
+
+#timer-team-info-wrapper{
+    width: 100%;
+    position: fixed;
+    bottom: 1em;
+    font-size: 2em;
+    background-color: white;
+    text-align: center;
+}
+
+#timer-team-info{
+    max-width: 95%;
+    margin: 0 auto;
+    font-size: 0.8em;
+}
+.team-match-info{
+    white-space: nowrap;
+}
+.hsep{
+    display:inline-block;
+    width: 1em;
+}
