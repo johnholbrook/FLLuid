@@ -20,6 +20,7 @@ function fileExists(filepath) {
 const paths = {
     "/" : "display.html",
     "/index" : "display.html",
+    "/none" : path.join("none", "none.html"),
     "/intro" : path.join("intro", "intro.html"),
     "/logos" : path.join("logos", "logos.html"),
     "/message" : path.join("message", "message.html"),
@@ -145,7 +146,8 @@ var display_state = {
         auto_advance: false,
         chroma_teams: false
     },
-    chroma_mode: false
+    chroma_mode: false,
+    chroma_color: "#00ff00"
 }
 
 // send the display state to all connected clients
@@ -322,3 +324,8 @@ ipcMain.on("set-chroma-key-mode", function(event, arg){
     display_state.chroma_mode = arg;
     updateDisplayState();
 })
+
+ipcMain.on("set-chroma-color", function(event, arg){
+    display_state.chroma_color = arg;
+    updateDisplayState();
+});

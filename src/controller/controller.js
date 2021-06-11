@@ -222,16 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ipcRenderer.send("msg-on-other-screens", status);
     }
 
-    $('#chroma-color-picker').colorpicker({
-        autoInputFallback: false,
-        format: 'hex',
-        debug: true
-    });
-
-    $('#chroma-color-picker').on('colorpickerChange', function(event){
-        // console.log(event.color.toString());
-        displayWindow.webContents.send("set-chroma-key-color", event.color.toString())
-    });
+    document.querySelector("#chroma-color-picker").onchange = function(){
+        // console.log(document.querySelector("#chroma-color-picker").value);
+        ipcRenderer.send("set-chroma-color", document.querySelector("#chroma-color-picker").value);
+    }
 
     document.querySelector("#table-scroll-speed").oninput = function(){
         let value = document.querySelector("#table-scroll-speed").value;

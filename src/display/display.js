@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function selectDisplay(disp_name){
     if (disp_name == "none"){
         if (display_state.chroma_mode){
-            document.querySelector("#display-frame").src = "/none.html";
+            document.querySelector("#display-frame").src = "/none";
         }
         else{
             selectDisplay("logos");

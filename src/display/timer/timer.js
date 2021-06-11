@@ -34,14 +34,19 @@ socket.on("set-state", newState => {
         }
 
         // show the correct teams for the current match
-        if (old_state.match_blocks != display_state.match_blocks || 
-            old_state.current_block != display_state.current_block){
+        if ((old_state.match_blocks != display_state.match_blocks || 
+            old_state.current_block != display_state.current_block) &&
+            (display_state.match_blocks.length != 0)){
                 let tmp = "";
                 display_state.match_blocks[display_state.current_block].matches.forEach(match => {
                     tmp += `<span class="team-match-info">${match.table}: <b>${match.name}</b></span><span class="hsep"></span>`;
                 });
                 document.querySelector("#timer-team-info").innerHTML = tmp;
             }
+
+        if (old_state.chroma_color != display_state.chroma_color){
+            document.querySelector("body").style.backgroundColor = display_state.chroma_color;
+        }
     }
 });
 
