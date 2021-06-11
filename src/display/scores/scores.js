@@ -36,6 +36,10 @@ socket.on("set-state", newState => {
         document.querySelector("#message-wrapper").style.display = display_state.show_message_on_tables ? "block" : "none";
     }
 
+    if (old_state.scroll_speed != display_state.scroll_speed){
+        scores_table.updateOptions({speed: display_state.scroll_speed});
+    }
+
 });
 
 var scores_table;

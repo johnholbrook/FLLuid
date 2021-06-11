@@ -230,13 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#table-scroll-speed").oninput = function(){
         let value = document.querySelector("#table-scroll-speed").value;
         document.querySelector("#table-scroll-speed-current-value").innerHTML = value;
-        displayWindow.webContents.send("set-table-scroll-speed", value);
+        ipcRenderer.send("set-table-scroll-speed", value);
     };
 
     document.querySelector("#logo-time").oninput = function(){
         let value = document.querySelector("#logo-time").value;
         document.querySelector("#logo-time-current-value").innerHTML = value;
-        displayWindow.webContents.send("set-logo-time", value);
+        ipcRenderer.send("set-logo-time", value);
     };
 });
 

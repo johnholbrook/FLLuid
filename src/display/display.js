@@ -10,14 +10,17 @@ socket.on("select-display", name => {
     console.log(name);
 });
 
-var display_state = {};
+var display_state = {chroma_mode: false};
 
 socket.on("set-state", new_state => {
     let old_state = display_state;
 
     display_state = JSON.parse(new_state);
 
-    if (old_state.chroma_mode != new_state.chroma_mode){
+    // console.log(old_state.chroma_mode, display_state.chroma_mode);
+    if ((old_state.chroma_mode !== display_state.chroma_mode) &&
+        (current_display == "timer" || current_display == "none")){
+        console.log("reloading displays")
         selectDisplay(current_display);
     }
 });

@@ -132,6 +132,7 @@ var current_display = "";
 
 var display_state = {
     images: [],
+    image_time: 5,
     message: "",
     show_message_on_tables: false,
     match_blocks: [],
@@ -147,7 +148,8 @@ var display_state = {
         chroma_teams: false
     },
     chroma_mode: false,
-    chroma_color: "#00ff00"
+    chroma_color: "#00ff00",
+    scroll_speed: 70
 }
 
 // send the display state to all connected clients
@@ -329,3 +331,13 @@ ipcMain.on("set-chroma-color", function(event, arg){
     display_state.chroma_color = arg;
     updateDisplayState();
 });
+
+ipcMain.on("set-table-scroll-speed", function(event, arg){
+    display_state.scroll_speed = arg;
+    updateDisplayState();
+});
+
+ipcMain.on("set-logo-time", function(event, arg){
+    display_state.image_time = arg;
+    updateDisplayState();
+})

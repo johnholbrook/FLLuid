@@ -6,7 +6,19 @@ socket.on('connect', () => {
 var display_state = {};
 
 socket.on("set-state", newState => {
+    let old_state = display_state
     display_state = JSON.parse(newState);
+    
+    if (old_state.image_time != display_state.image_time){
+        DELAY_TIME = display_state.image_time;
+        if (interval){
+            clearInterval(interval);
+            if (display_state.images.length != 0){
+                interval = setInterval(next_image, DELAY_TIME*1000);
+            }
+        }
+    }
+    
     if (!interval){
         start();
     }
