@@ -178,11 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector("#refresh-this-event").onclick = function(){
-        displayWindow.webContents.send("refresh-this-event");
+        // displayWindow.webContents.send("refresh-this-event");
+        update_this_event_scores();
     }
 
     document.querySelector("#refresh-other-events").onclick = function(){
-        displayWindow.webContents.send("refresh-other-events");
+        // displayWindow.webContents.send("refresh-other-events");
+        update_other_event_scores();
     }
 
     document.querySelector("#spawn-extra-timer-window").onclick = function(){
