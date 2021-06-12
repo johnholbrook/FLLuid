@@ -157,8 +157,8 @@ const winMenuTemplate = [
 function createControllerWindow(){
   // Create the browser window.
   controllerWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 850,
+    height: 700,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

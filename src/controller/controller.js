@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //     displayWindow.webContents.send("reset-timer");
     // }, 500);
     
+    // activate tooltips
+    $('[data-bs-toggle="tooltip"]').tooltip();
+
     let display_radio_buttons = document.getElementsByName('current-display');
     for (let i=0; i<display_radio_buttons.length; i++){
         display_radio_buttons[i].onchange = function(){
@@ -186,13 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // displayWindow.webContents.send("refresh-other-events");
         update_other_event_scores();
     }
-
-    document.querySelector("#spawn-extra-timer-window").onclick = function(){
-        // console.log("spawn extra timer window button clicked");
-        ipcRenderer.send("spawn-extra-timer-window");
-        //terrible hack, I know
-        setTimeout(set_timer_font, 500);
-    };
 
     document.querySelector("#schedule-csv-picker").onchange = function(){
         let file_path = document.querySelector("#schedule-csv-picker").files[0].path;
