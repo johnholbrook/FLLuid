@@ -32,6 +32,7 @@ const paths = {
     "/lib/socket.io.min.js" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js"),
     "/lib/socket.io.min.js.map" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map"),
     "/lib/bootstrap.min.css" : path.join("..", "..", "node_modules", "bootstrap", "dist", "css", "bootstrap.min.css"),
+    "/lib/bootstrap.bundle.min.js" : path.join("..", "..", "node_modules", "bootstrap", "dist", "js", "bootstrap.bundle.min.js"),
     "/lib/scrollable.js" : path.join("..", "scrollable", "scrollable.js"),
 }
 

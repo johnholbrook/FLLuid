@@ -8,43 +8,22 @@ var display_state = {};
 socket.on("set-state", newState => {
     let old_state = display_state
     display_state = JSON.parse(newState);
-    
-    if (old_state.image_time != display_state.image_time){
-        DELAY_TIME = display_state.image_time;
-        if (interval){
-            clearInterval(interval);
-            if (display_state.images.length != 0){
-                interval = setInterval(next_image, DELAY_TIME*1000);
-            }
-        }
+
+    if (old_state.images != display_state.images){
+        let tmp = "";
+        display_state.images.forEach(img => tmp += generate_item(img));
+        document.querySelector("#logoCarousel > .carousel-inner").innerHTML = tmp;
+        // apply the 'active' class to the first image to start the slideshow
+        document.querySelector("#logoCarousel > .carousel-inner > .carousel-item").classList.add("active");
     }
-    
-    if (!interval){
-        start();
+
+    if (old_state.image_time != display_state.image_time){
+        document.querySelectorAll("#logoCarousel > .carousel-inner > .carousel-item").forEach(item => {
+            item.setAttribute("data-bs-interval", display_state.image_time*1000);
+        });
     }
 });
 
-var DELAY_TIME = 5;//seconds each image is displayed
-var current_image = 0;
-
-function next_image(){
-    current_image += 1;
-    if (current_image >= display_state.images.length){
-        current_image = 0;
-    }
-    document.querySelector("#logo_area").src = display_state.images[current_image];
-}
-
-var interval;
-function start(){
-    clearInterval(interval);
-    current_image -= 1;
-    next_image();
-    if (display_state.images.length != 0){
-        interval = setInterval(next_image, DELAY_TIME*1000);
-    }
-}
-
-function stop(){
-    clearInterval(interval);
+function generate_item(path){
+    return `<div class="carousel-item" data-bs-interval="${display_state.image_time*1000}"><img src="${path}" class="logo"></div>`;
 }
