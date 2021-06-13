@@ -142,6 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(updating_this_event);
         update_this_event_scores();
         updating_this_event = setInterval(update_this_event_scores, EVENT_UPDATE_INTERVAL*60*1000);
+
+        // set the event name in the controller window
+        scraper.getEventName(new_id, name => {
+            document.querySelector("#optionsAccordionHeading > button").innerHTML = 
+            `<b>Configuration & Options</b>&nbsp; ${name}`;
+        });
     };
 
     document.querySelector("#select-this-match-type").onchange = function(){
@@ -294,3 +300,20 @@ function isImage(name){
 // function spawnExtraTimerWindow(){
 //     ipcMain.send("spawn-extra-timer-window");
 // }
+
+
+var blocks = []
+ipcRenderer.on("set-blocks", function(event, arg){
+    // console.log(arg);
+    blocks = arg;
+})
+
+ipcRenderer.on("set-current-block", function(event, arg){
+    // console.log(blocks[arg]);
+    let matches = blocks[arg].matches;
+    let tmp = "Teams: ";
+    matches.forEach((m, i) => {
+        tmp += `${m.team}${i<matches.length-1 ? ", " : ""}`;
+    });
+    document.querySelector("#block-teams").innerText = tmp;
+});

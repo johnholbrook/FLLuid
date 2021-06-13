@@ -188,6 +188,7 @@ ipcMain.on("set-message-text", function(event, arg){
 ipcMain.on("set-blocks", function(event, arg){
     // console.log(arg);
     display_state.match_blocks = arg;
+    sendToController("set-blocks", arg);
     updateDisplayState();
 });
 
@@ -198,6 +199,7 @@ ipcMain.on("msg-on-other-screens", function(event, arg){
 
 ipcMain.on("set-current-block", function(event, arg){
     display_state.current_block = arg;
+    sendToController("set-current-block", arg);
     updateDisplayState();
 });
 
