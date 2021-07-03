@@ -190,8 +190,18 @@ function createDisplayWindow(){
 
   // and load the index.html of the app.
   // displayWindow.loadFile('./src/display/display.html')
-  displayWindow.loadURL("http://localhost:34778")
+  displayWindow.loadURL("http://localhost:355")
 }
+
+ipcMain.on("launch-disp-window", () => {
+  if (displayWindow == null){
+    createDisplayWindow();
+
+    displayWindow.on('closed', function () {
+      displayWindow = null;
+    });
+  }
+});
 
 function createExtraTimerWindow(){
   extraTimerWindow = new BrowserWindow({
@@ -261,7 +271,7 @@ function checkForUpdates(manually_activated){
 function initialize() {
   checkForUpdates(false);
 
-  createDisplayWindow();
+  // createDisplayWindow();
   createControllerWindow();
   // createDisplayWindow();
 
@@ -279,12 +289,12 @@ function initialize() {
     controllerWindow = null;
   });
 
-  displayWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    displayWindow = null;
-  });
+  // displayWindow.on('closed', function () {
+  //   // Dereference the window object, usually you would store windows
+  //   // in an array if your app supports multi windows, this is the time
+  //   // when you should delete the corresponding element.
+  //   displayWindow = null;
+  // });
 }
 
 // This method will be called when Electron has finished
@@ -303,7 +313,7 @@ app.on('activate', function () {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (controllerWindow === null) createControllerWindow();
-  if (displayWindow === null) createDisplayWindow();
+  // if (displayWindow === null) createDisplayWindow();
 })
 
 // In this file you can include the rest of your app's specific main process

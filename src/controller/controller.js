@@ -2,6 +2,7 @@ const { ipcRenderer } = require('electron');
 // const remote = require('@electron/remote');
 const schedule = require('./schedule.js');
 const scraper = require('../web_scraper/web_scraper.js');
+var ip = require("ip");
 
 // var displayWindow = remote.getGlobal('displayWindow');
 
@@ -242,6 +243,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector("#logo-time-current-value").innerHTML = value;
         ipcRenderer.send("set-logo-time", value);
     };
+
+    document.querySelector("#disp-select").onchange = function(){
+        let value = document.querySelector("#disp-select").value;
+        document.querySelector("#localhost-addr").innerHTML = `http://localhost:355${value == 'display' ? '' : `/${value}`}`;
+        document.querySelector("#local-ip-addr").innerHTML = `http://${ip.address()}:355${value == 'display' ? '' : `/${value}`}`;
+    };
+    document.querySelector("#local-ip-addr").innerHTML = `http://${ip.address()}:355`;
+
+    document.querySelector("#copy-localhost").onclick = function(){
+        navigator.clipboard.writeText(document.querySelector("#localhost-addr").innerHTML);
+    }
+
+    document.querySelector("#copy-ip").onclick = function(){
+        navigator.clipboard.writeText(document.querySelector("#local-ip-addr").innerHTML);
+    }
+
+    document.querySelector("#launch-disp-window").onclick = function(){
+        ipcRenderer.send("launch-disp-window");
+    }
 });
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
