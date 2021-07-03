@@ -125,9 +125,9 @@ io.on('connection', socket => {
     }
 });
 
-// listen on port 34778 (spells FIRST on a phone pad)
-server.listen(34778);
-console.log('Web server running at http://localhost:34778...');
+// listen on port 355 (spells FLL on a phone pad)
+server.listen(355);
+console.log('Web server running at http://localhost:355...');
 
 var current_display = "";
 
