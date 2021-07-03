@@ -14,7 +14,6 @@ server.initSendToController(function(name, data){
 // be closed automatically when the JavaScript object is garbage collected.
 global.controllerWindow = null;
 global.displayWindow = null;
-global.extraTimerWindow = null;
 global.updateWindow = null;
 
 //global to indicate whether the app is running on macs
@@ -171,7 +170,6 @@ function createControllerWindow(){
   }
 
   // and load the index.html of the app.
-  controllerWindow.loadFile('./src/controller/controller.html')
 }
 
 function createDisplayWindow(){
