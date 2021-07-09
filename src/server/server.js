@@ -29,6 +29,8 @@ const paths = {
     "/scores" : path.join("scores", "scores.html"),
     "/timer" : path.join("timer", "timer.html"),
     "/timer-chroma" : path.join("timer", "timer-chroma.html"),
+    "/slides" : path.join("slides", "slides.html"),
+    "/slides-chroma" : path.join("slides", "slides-chroma.html"),
     "/lib/socket.io.min.js" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js"),
     "/lib/socket.io.min.js.map" : path.join("..", "..", "node_modules", "socket.io", "client-dist", "socket.io.min.js.map"),
     "/lib/bootstrap.min.css" : path.join("..", "..", "node_modules", "bootstrap", "dist", "css", "bootstrap.min.css"),

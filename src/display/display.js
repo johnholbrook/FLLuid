@@ -19,7 +19,7 @@ socket.on("set-state", new_state => {
 
     // console.log(old_state.chroma_mode, display_state.chroma_mode);
     if ((old_state.chroma_mode !== display_state.chroma_mode) &&
-        (current_display == "timer" || current_display == "none")){
+        (current_display == "timer" || current_display == "none" || current_display == "slides")){
         console.log("reloading displays")
         selectDisplay(current_display);
     }
@@ -40,6 +40,9 @@ function selectDisplay(disp_name){
     }
     else if (disp_name == "timer" && display_state.chroma_mode){
         document.querySelector("#display-frame").src = "/timer-chroma";
+    }
+    else if (disp_name == "slides" && display_state.chroma_mode){
+        document.querySelector("#display-frame").src="/slides-chroma";
     }
     else{
         document.querySelector("#display-frame").src = `/${disp_name}`;

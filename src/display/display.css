@@ -153,3 +153,34 @@
 .carousel-item{
     transition: opacity 0.5s ease-in-out !important;
 }
+
+.slides-disp{
+    font-size: 4em;
+    text-align: center;
+    width: 90%;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slides-disp-chroma{
+    background-color: white;
+    font-size: 2em;
+    text-align: left;
+    width: 100%;
+    position: fixed;
+    bottom:2em;
+}
+
+.slides-disp-chroma #slides-disp{
+    margin: auto 1em;
+}
+
+.slide-name{
+    font-size: 1.5em;
+}
+
+.award-desc{
+    font-size: 0.75em;
+}
