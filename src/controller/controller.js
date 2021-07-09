@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: document.querySelector("#speaker-title").value,
                     company: document.querySelector("#speaker-company").value
                 };
-                slide_html = `<div class="card-header">Speaker</div><div class="card-body"><b>Name: </b>${slide_json.name}<br><b>Title: </b>${slide_json.title}<br><b>Company: </b>${slide_json.company}</div>`
+                // slide_html = `<div class="card-header">Speaker</div><div class="card-body"><b>Name: </b>${slide_json.name}<br><b>Title: </b>${slide_json.title}<br><b>Company: </b>${slide_json.company}</div>`
             break;
             case "award-intro":
                 slide_json = {
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     award_name: document.querySelector("#award-name").value,
                     desc: document.querySelector("#award-desc").value
                 };
-                slide_html = `<div class="card-header">Award Intro</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Description: </b>${slide_json.desc}</div>`;
+                // slide_html = `<div class="card-header">Award Intro</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Description: </b>${slide_json.desc}</div>`;
             break;
             case "award-winner":
                 slide_json = {
@@ -314,14 +314,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     team_name: document.querySelector("#award-team-name").value,
                     team_loc: document.querySelector("#award-team-loc").value,
                 }
-                slide_html = `<div class="card-header">Award Winner</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Team #: </b>${slide_json.team_num}<br><b>Team Name: </b>${slide_json.team_name}<br><b>Location: </b>${slide_json.team_loc}</div>`;
+                // slide_html = `<div class="card-header">Award Winner</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Team #: </b>${slide_json.team_num}<br><b>Team Name: </b>${slide_json.team_name}<br><b>Location: </b>${slide_json.team_loc}</div>`;
             break;
             case "text":
                 slide_json = {
                     slide_type: "text",
                     slide_text: document.querySelector("#slide-text").value,
                 }
-                slide_html = `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
+                // slide_html = `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
             break;
         }
         let tmp = document.createElement("div");
@@ -329,7 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tmp.classList.add("card", "mb-3");
         tmp.id = tmp_id;
         tmp.setAttribute("json", JSON.stringify(slide_json));
-        tmp.innerHTML = slide_html;
+        // tmp.innerHTML = slide_html;
+        tmp.innerHTML = slide_preview_html(slide_json);
         tmp.querySelector("div.card-header").innerHTML += `<span class="del-slide" onclick="deleteSlide('${tmp_id}')">❌</span>`
 
         document.querySelector("#slide-order-area").appendChild(tmp);
@@ -339,6 +340,35 @@ document.addEventListener('DOMContentLoaded', () => {
             onSort: update_slide_order
         })
     };
+
+    document.querySelector("#prev-slide").onclick = () => {
+        ipcRenderer.send("prev-slide");
+    };
+
+    document.querySelector("#next-slide").onclick = () => {
+        ipcRenderer.send("next-slide");
+    };
+});
+
+function slide_preview_html(slide_json){
+    switch(slide_json.slide_type){
+        case "speaker":
+            return `<div class="card-header">Speaker</div><div class="card-body"><b>Name: </b>${slide_json.name}<br><b>Title: </b>${slide_json.title}<br><b>Company: </b>${slide_json.company}</div>`;
+        break;
+        case "award-intro":
+            return `<div class="card-header">Award Intro</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Description: </b>${slide_json.desc}</div>`;
+        break;
+        case "award-winner":
+            return `<div class="card-header">Award Winner</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Team #: </b>${slide_json.team_num}<br><b>Team Name: </b>${slide_json.team_name}<br><b>Location: </b>${slide_json.team_loc}</div>`;
+        break;
+        case "text":
+            return `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
+        break;
+    }
+}
+
+ipcRenderer.on("curr-slide", function(event, arg){
+    document.querySelector("#curr-slide").innerHTML = slide_preview_html(arg);
 });
 
 function randID(){

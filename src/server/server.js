@@ -150,8 +150,10 @@ var display_state = {
     },
     chroma_mode: false,
     chroma_color: "#00ff00",
-    scroll_speed: 70
-}
+    scroll_speed: 70,
+    slides: [],
+    curr_slide: 0
+};
 
 // send the display state to all connected clients
 function updateDisplayState(){
@@ -344,3 +346,34 @@ ipcMain.on("set-logo-time", function(event, arg){
     display_state.image_time = arg;
     updateDisplayState();
 })
+
+ipcMain.on("set-slides", function(event, arg){
+    display_state.slides = arg;
+    if (display_state.curr_slide >= display_state.slides.length){
+        display_state.curr_slide = display_state.slides.length-1;
+    }
+    updateCurrSlide();
+    updateDisplayState();
+});
+
+ipcMain.on("prev-slide", function(event, arg){
+    if (display_state.curr_slide > 0){
+        display_state.curr_slide -= 1;
+        updateCurrSlide();
+        updateDisplayState();
+    }
+});
+
+ipcMain.on("next-slide", function(event, arg){
+    if (display_state.curr_slide < display_state.slides.length-1){
+        display_state.curr_slide += 1;
+        updateCurrSlide();
+        updateDisplayState();
+    }
+});
+
+// send the current slide back to the controller for display to the user
+function updateCurrSlide(){
+    // console.log(display_state.slides[display_state.curr_slide]);
+    sendToController("curr-slide", display_state.slides[display_state.curr_slide]);
+}
