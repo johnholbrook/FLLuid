@@ -67,3 +67,7 @@ summary{
     text-align: center;
     height: 5ex;
 }
+
+.del-slide{
+    float:right;
+}

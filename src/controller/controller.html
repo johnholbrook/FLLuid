@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline';" />
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <script src="import-jquery.js"></script>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -59,6 +59,11 @@
                             <button class="text-primary nav-link" id="appearance-tab" data-bs-toggle="tab"
                                 data-bs-target="#appearance" type="button" role="tab" aria-controls="appearance"
                                 aria-selected="false">Appearance</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="text-primary nav-link" id="slides-tab" data-bs-toggle="tab"
+                                data-bs-target="#slides" type="button" role="tab" aria-controls="appearance"
+                                aria-selected="false">Slides</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="text-primary nav-link" id="display-tab" data-bs-toggle="tab"
@@ -290,6 +295,52 @@
                                 </div>
                             </div>
                         </div> <!-- END of APPEARANCE tab content -->
+
+                        <div class="tab-pane fade" id="slides" role="tabpanel" aria-labelledby="slides-tab">
+                            <div class="row mt-3">
+                                <!-- add slide -->
+                                <div class="col-auto mx-auto">
+                                    <div class="card">
+                                        <div class="card-header">Add Slide</div>
+                                        <div class="card-body">
+                                            <div class="btn-group mb-3" role="group">
+                                                <span class="input-group-text">Slide Type:</span>
+
+                                                <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-speaker" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="slide-type-speaker">Speaker</label>
+                                              
+                                                <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-award-intro" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="slide-type-award-intro">Award Intro</label>
+                                              
+                                                <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-award-winner" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="slide-type-award-winner">Award Winner</label>
+
+                                                <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-text" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="slide-type-text">Text</label>
+                                            </div>
+                                            <div class="card mb-3">
+                                                <div class="card-header">Slide Content:</div>
+                                                <div class="card-body" id="new-slide-content"></div>
+                                            </div>
+                                            <div class="container">
+                                                <div class="text-center">
+                                                    <button class="btn btn-success text-center w-50" id="add-slide">+ Add Slide</button>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- slide ordering -->
+                                <div class="col-auto mx-auto">
+                                    <div class="card">
+                                        <div class="card-header" data-bs-toggle="tooltip" data-bs-placement="top" title="Drag to rearrange">Slide Ordering</div>
+                                        <div class="card-body" id="slide-order-area"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- DISPLAY tab content -->
                         <div class="tab-pane fade" id="display" role="tabpanel" aria-labelledby="display-tab">

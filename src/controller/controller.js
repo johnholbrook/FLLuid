@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, TouchBarOtherItemsProxy, TouchBarSegmentedControl } = require('electron');
 // const remote = require('@electron/remote');
 const schedule = require('./schedule.js');
 const scraper = require('../web_scraper/web_scraper.js');
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let sortable_list = document.querySelector("#logo-ordering");
-        var sortable = Sortable.create(sortable_list, {
+        let sortable = Sortable.create(sortable_list, {
             onSort: function(evt){
                 let new_list = []
                 for (let child of evt.to.children){
@@ -262,7 +262,104 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#launch-disp-window").onclick = function(){
         ipcRenderer.send("launch-disp-window");
     }
+
+    document.querySelector("#slide-type-speaker").onclick = () => {
+        document.querySelector("#new-slide-content").setAttribute("slide-type", "speaker");
+        document.querySelector("#new-slide-content").innerHTML = `<div class="input-group mb-3 w-100"><span class="input-group-text">Name:</span><input type="text" class="form-control" id="speaker-name"></div><div class="input-group mb-3 w-100"><span class="input-group-text">Title:</span><input type="text" class="form-control" id="speaker-title"></div><div class="input-group w-100"><span class="input-group-text">Company:</span><input type="text" class="form-control" id="speaker-company"></div>`;
+    };
+
+    document.querySelector("#slide-type-award-intro").onclick = () => {
+        document.querySelector("#new-slide-content").setAttribute("slide-type", "award-intro");
+        document.querySelector("#new-slide-content").innerHTML = `<div class="input-group mb-3 w-100"><span class="input-group-text">Award Name:</span><input type="text" class="form-control" id="award-name"></div><div class="input-group w-100"><span class="input-group-text">Description:</span><textarea rows="3" id="award-desc" class="form-control"></textarea></div>`;
+    };
+
+    document.querySelector("#slide-type-award-winner").onclick = () => {
+        document.querySelector("#new-slide-content").setAttribute("slide-type", "award-winner");
+        document.querySelector("#new-slide-content").innerHTML = `<div class="input-group w-100 mb-3"><span class="input-group-text">Award Name:</span><input type="text" class="form-control" id="award-name"></div><div class="input-group w-100 mb-3"><span class="input-group-text">Team #:</span><input type="text" class="form-control" id="award-team-num"></div><div class="input-group w-100 mb-3"><span class="input-group-text">Team Name:</span><input type="text" class="form-control" id="award-team-name"></div><div class="input-group w-100"><span class="input-group-text">Location:</span><input type="text" class="form-control" id="award-team-loc"></div>`;
+    };
+
+    document.querySelector("#slide-type-text").onclick = () => {
+        document.querySelector("#new-slide-content").setAttribute("slide-type", "text");
+        document.querySelector("#new-slide-content").innerHTML = `<div class="input-group"><span class="input-group-text" id="slide-text-label" data-bs-toggle="tooltip" data-bs-placement="bottom" title="HTML supported">Text:</span><textarea id="slide-text" class="form-control"></textarea></div>`;
+        $('#slide-text-label').tooltip();
+    };
+
+    document.querySelector("#add-slide").onclick = () => {
+        let slide_type = document.querySelector("#new-slide-content").getAttribute("slide-type");
+        let slide_json;
+        let slide_html;
+        switch(slide_type){
+            case "speaker":
+                slide_json = {
+                    slide_type: "speaker",
+                    name: document.querySelector("#speaker-name").value,
+                    title: document.querySelector("#speaker-title").value,
+                    company: document.querySelector("#speaker-company").value
+                };
+                slide_html = `<div class="card-header">Speaker</div><div class="card-body"><b>Name: </b>${slide_json.name}<br><b>Title: </b>${slide_json.title}<br><b>Company: </b>${slide_json.company}</div>`
+            break;
+            case "award-intro":
+                slide_json = {
+                    slide_type: "award-intro",
+                    award_name: document.querySelector("#award-name").value,
+                    desc: document.querySelector("#award-desc").value
+                };
+                slide_html = `<div class="card-header">Award Intro</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Description: </b>${slide_json.desc}</div>`;
+            break;
+            case "award-winner":
+                slide_json = {
+                    slide_type: "award-winner",
+                    award_name: document.querySelector("#award-name").value,
+                    team_num: document.querySelector("#award-team-num").value,
+                    team_name: document.querySelector("#award-team-name").value,
+                    team_loc: document.querySelector("#award-team-loc").value,
+                }
+                slide_html = `<div class="card-header">Award Winner</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Team #: </b>${slide_json.team_num}<br><b>Team Name: </b>${slide_json.team_name}<br><b>Location: </b>${slide_json.team_loc}</div>`;
+            break;
+            case "text":
+                slide_json = {
+                    slide_type: "text",
+                    slide_text: document.querySelector("#slide-text").value,
+                }
+                slide_html = `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
+            break;
+        }
+        let tmp = document.createElement("div");
+        let tmp_id = randID();
+        tmp.classList.add("card", "mb-3");
+        tmp.id = tmp_id;
+        tmp.setAttribute("json", JSON.stringify(slide_json));
+        tmp.innerHTML = slide_html;
+        tmp.querySelector("div.card-header").innerHTML += `<span class="del-slide" onclick="deleteSlide('${tmp_id}')">❌</span>`
+
+        document.querySelector("#slide-order-area").appendChild(tmp);
+        update_slide_order();
+
+        let sortable_slides = Sortable.create(document.querySelector("#slide-order-area"), {
+            onSort: update_slide_order
+        })
+    };
 });
+
+function randID(){
+    return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+}
+
+function deleteSlide(id){
+    let elem = document.querySelector(`#${id}`);
+    elem.parentElement.removeChild(elem);
+    update_slide_order();
+}
+
+function update_slide_order(){
+    let area = document.querySelector("#slide-order-area");
+    let new_list = [];
+    for (let child of area.children){
+        new_list.push(JSON.parse(child.getAttribute("json")));
+    }
+    // console.log(new_list);
+    ipcRenderer.send("set-slides", new_list);
+}
 
 ipcRenderer.on("set-start-button-text", function(event, arg){
     document.querySelector("#timer-start-pause").innerHTML = arg;
