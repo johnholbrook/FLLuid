@@ -27,7 +27,7 @@ function openAboutWindow(){
     icon_path: join(__dirname, "about", "timer.png"),
     package_json_dir: join(__dirname, ".."),
     bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
-    copyright: "Copyright (c) 2019-2020 John Holbrook. <br/> Distributed under the MIT License.",
+    copyright: "Copyright (c) 2019-2021 John Holbrook. <br/> Distributed under the MIT License.",
     homepage: "https://github.com/johnholbrook/flluid",
     css_path: join(__dirname, "about", "about_window.css"),
     description: "An easy-to-use display package for FIRST Lego League events run using FLLTournament.com.",

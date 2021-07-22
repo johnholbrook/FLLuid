@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.4.0",
-    "about-window": "^1.13.4",
+    "about-window": "^1.14.0",
     "accurate-interval": "^1.0.9",
     "bootstrap": "^5.0.1",
     "fast-csv": "^4.3.6",
