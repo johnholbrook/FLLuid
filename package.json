@@ -6,7 +6,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "node build.js"
   },
   "repository": "https://github.com/johnholbrook/flluid",
   "keywords": [
@@ -22,14 +22,14 @@
   "author": "John Holbrook",
   "license": "MIT",
   "devDependencies": {
-    "electron": "latest",
-    "electron-builder": "^21.2.0"
+    "electron": "latest"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.0",
     "about-window": "^1.14.0",
     "accurate-interval": "^1.0.9",
     "bootstrap": "^5.0.1",
+    "electron-packager": "^15.3.0",
     "fast-csv": "^4.3.6",
     "ip": "^1.1.5",
     "jquery": "^3.5.0",
@@ -41,17 +41,5 @@
     "socket.io": "^3.1.0",
     "sortablejs": "^1.10.2",
     "uglify-js": "^3.6.9"
-  },
-  "build": {
-    "appId": "com.fll-timer.flluid",
-    "mac": {
-      "category": "public.app-category.entertainment",
-      "target": "zip",
-      "icon": "build/logo-1024.png"
-    },
-    "win": {
-      "target": "portable",
-      "icon": "build/logo-1024.png"
-    }
   }
 }
