@@ -27,3 +27,16 @@ socket.on("set-state", newState => {
 function generate_item(path){
     return `<div class="carousel-item" data-bs-interval="${display_state.image_time*1000}"><img src="${path}" class="logo"></div>`;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    // need to apply different CSS if we're running in safari, because the crossfade CSS doesn't work in that browser
+    if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1){
+        // assume we're running in safari if the user agent string contains "Safari" but doesn't
+        // contain "Chrome" – we can't just check for "Safari" because Chrome's user agent
+        // has "Safari" somewhere in there :facepalm:
+        document.querySelector("#logoCarousel .carousel-inner").classList.add("carousel-inner-safari");
+    }
+    else {
+        document.querySelector("#logoCarousel .carousel-inner").classList.add("carousel-inner-default");
+    }
+});
