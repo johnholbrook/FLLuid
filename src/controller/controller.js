@@ -348,6 +348,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#next-slide").onclick = () => {
         ipcRenderer.send("next-slide");
     };
+
+    document.querySelector("#custom-timer-val-box").onclick = () => {
+        let checked = document.querySelector("#custom-timer-val-box").checked;
+        if (checked){
+            let value = document.querySelector("#custom-timer-val").value;
+            ipcRenderer.send("set-timer-length", value);
+        }
+        else{
+            ipcRenderer.send("set-timer-length", 150);
+        }
+    };
+
+    document.querySelector("#custom-timer-val").onchange = () => {
+        let checked = document.querySelector("#custom-timer-val-box").checked;
+        if (checked){
+            let value = document.querySelector("#custom-timer-val").value;
+            ipcRenderer.send("set-timer-length", value);
+        }
+    }
 });
 
 function slide_preview_html(slide_json){

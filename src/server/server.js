@@ -235,7 +235,7 @@ ipcMain.on("other-event-scores", function(event, arg){
     updateDisplayState();
 });
 
-const TIMER_RESET_VAL = 150; //seconds
+var TIMER_RESET_VAL = 150; //seconds
 var current_time = TIMER_RESET_VAL;
 var timer_interval = null;
 var timer_running = false;
@@ -298,6 +298,14 @@ ipcMain.on("start-timer", function(){
 });
 
 ipcMain.on("reset-timer", reset_timer);
+
+ipcMain.on("set-timer-length", function(event, arg){
+    // console.log(`Timer set to ${arg}`);
+    TIMER_RESET_VAL = parseInt(arg);
+    if (!timer_running){
+        reset_timer();
+    }
+});
 
 ipcMain.on("set-start-sound", function(event, arg){
     display_state.timer_options.start_sound = arg;
