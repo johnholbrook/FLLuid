@@ -300,11 +300,6 @@ ipcMain.on("set-timer-text", function(event, arg){
   timer_current.label = arg;
 });
 
-//distribute the set-timer-font message to appropriate windows
-ipcMain.on("set-timer-font", function(event, arg){
-  displayWindow.webContents.send("set-timer-font", arg);
-});
-
 ipcMain.on("set-start-button-text", function(event, arg){
   displayWindow.webContents.send("set-start-button-text", arg);
   timer_sp.label = arg;
