@@ -25,6 +25,7 @@
     "electron": "latest"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "@popperjs/core": "^2.4.0",
     "about-window": "^1.14.0",
     "accurate-interval": "^1.0.9",
@@ -34,7 +35,7 @@
     "ip": "^1.1.5",
     "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
-    "markdown-it": "^12.0.2",
+    "marked": "^3.0.4",
     "needle": "^2.4.0",
     "popper.js": "^1.16.1",
     "require": "^0.4.4",

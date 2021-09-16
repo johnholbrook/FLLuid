@@ -1,9 +1,18 @@
-const getJSON = require("../web_scraper/get_json.js");
-const md = require("markdown-it")();
+console.log(window.update_data);
+
+const getJSON = window.update_data.getJSON;
 
 document.addEventListener("DOMContentLoaded", function(){
     // Show this version number
-    document.querySelector("#this_version").innerHTML = require("electron").remote.app.getVersion();
+    document.querySelector("#this_version").innerHTML = window.update_data.this_version;
+
+    document.querySelector("#update_now").onclick = function(){
+        window.update_data.openExternal("https://github.com/johnholbrook/FLLuid/releases/latest");
+    }
+
+    document.querySelector("#no_thanks").onclick = function(){
+        window.close();
+    }
 
     // get info about the latest version
     getJSON("https://api.github.com/repos/johnholbrook/flluid/releases/latest", function(latest_release){
@@ -13,15 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
         document.querySelector("#latest_version").innerHTML = latest_version;
 
         // show update notes for latest version
-        document.querySelector("#update_notes").innerHTML = md.render(latest_release.body);
+        document.querySelector("#update_notes").innerHTML = window.update_data.marked(latest_release.body);
     });
-
-    document.querySelector("#update_now").onclick = function(){
-        require("electron").shell.openExternal("https://github.com/johnholbrook/FLLuid/releases/latest");
-    }
-
-    document.querySelector("#no_thanks").onclick = function(){
-        require("electron").remote.getCurrentWindow().close();
-    }
 
 })

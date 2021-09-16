@@ -14,10 +14,10 @@ p{
 #update_notes{
     text-align: left;
     font-size: medium;
-    font-style: italic;
+    /* font-style: italic; */
     background-color: lightgrey;
     padding: 1em;
 
     overflow-y: scroll;
-    max-height: 22em;
+    max-height: 18em;
 }

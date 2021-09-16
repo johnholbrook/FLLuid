@@ -1,8 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, ipcMain, TouchBar, dialog} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain, TouchBar, dialog, webContents} = require('electron')
 const path = require('path')
 
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
+
+// initialize the @electron/remote module
+require("@electron/remote/main").initialize();
 
 // start the server
 var server = require("./server/server.js");
@@ -27,7 +30,7 @@ function openAboutWindow(){
     icon_path: join(__dirname, "about", "timer.png"),
     package_json_dir: join(__dirname, ".."),
     bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
-    copyright: "Copyright (c) 2019-2021 John Holbrook. <br/> Distributed under the MIT License.",
+    copyright: `Copyright (c) 2019-${new Date().getFullYear()} John Holbrook. <br/> Distributed under the MIT License.`,
     homepage: "https://github.com/johnholbrook/flluid",
     css_path: join(__dirname, "about", "about_window.css"),
     description: "An easy-to-use display package for FIRST Lego League events run using FLLTournament.com.",
@@ -211,20 +214,20 @@ function checkForUpdates(manually_activated){
     let this_version = app.getVersion();
     // let this_version = "0.1";
 
-    // console.log(latest_version > this_version);
     if (latest_version > this_version){
       // a newer version is available, alert the user
       updateWindow = new BrowserWindow({
         parent: controllerWindow, 
         modal: true, 
         width: 800, 
-        height: 750, 
+        height: 685, 
         webPreferences: {
-          nodeIntegration: true
+          preload: path.join(__dirname, "update/update_preload.js"),
+          enableRemoteModule: true
         }
       });
       
-      updateWindow.loadFile('./update/update.html');
+      updateWindow.loadFile('./src/update/update.html');
 
       updateWindow.on('closed', function(){
         updateWindow = null;
