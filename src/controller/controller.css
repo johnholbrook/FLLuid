@@ -75,3 +75,8 @@ summary{
 #custom-timer-val{
     width: 5em;
 }
+
+.slide-img-preview img{
+    max-width: 90%;
+    margin: 0 auto;
+}

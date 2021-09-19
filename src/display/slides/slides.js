@@ -48,6 +48,9 @@ function show_slide(slide, chroma){
         case "text":
             tmp = slide.slide_text;
         break;
+        case "image":
+            // tmp = `<div class="slide-image"><img src="${slide.image_url}"></div>`
+            tmp = `<img class="slide-image" src="${slide.image_url}">`
     }
     document.querySelector("#slides-disp").innerHTML = tmp;
 }

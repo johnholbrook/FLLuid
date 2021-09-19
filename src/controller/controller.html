@@ -316,7 +316,7 @@
                                         <div class="card-header">Add Slide</div>
                                         <div class="card-body">
                                             <div class="btn-group mb-3" role="group">
-                                                <span class="input-group-text">Slide Type:</span>
+                                                <span class="input-group-text">Type:</span>
 
                                                 <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-speaker" autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="slide-type-speaker">Speaker</label>
@@ -329,6 +329,9 @@
 
                                                 <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-text" autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="slide-type-text">Text</label>
+
+                                                <input type="radio" class="btn-check" name="slide-type-radio" id="slide-type-image" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="slide-type-image">Image</label>
                                             </div>
                                             <div class="card mb-3">
                                                 <div class="card-header">Slide Content:</div>
@@ -533,8 +536,6 @@
                 <div class="card-body">
                     <h2 class="text-center">Current Slide</h2>
 
-                    <div id="curr-slide" class="card m-2"></div>
-
                     <div class="row px-3">
                         <div class="col-12 col-sm-6 pr-sm-1 mb-3 mb-sm-0">
                             <button class="w-100 btn btn-primary" id="prev-slide">
@@ -547,6 +548,10 @@
                             </button>
                         </div>
                     </div>
+
+                    <div id="curr-slide" class="card m-2"></div>
+
+                    
                 </div>
             </div>
         </div>

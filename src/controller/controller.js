@@ -284,6 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#slide-text-label').tooltip();
     };
 
+    document.querySelector("#slide-type-image").onclick = () => {
+        document.querySelector("#new-slide-content").setAttribute("slide-type", "image");
+        document.querySelector("#new-slide-content").innerHTML = `<input type="file" class="form-control" id="slide-img-picker" accept=".jpg, .jpeg, .gif, .png, .bmp"><div id="slide-img-preview" class="slide-img-preview"></div>`;
+        document.querySelector("#slide-img-picker").onchange = () => {
+            document.querySelector("#slide-img-preview").innerHTML = `<img src="${document.querySelector("#slide-img-picker").files[0].path}">`
+        };
+    };
+
     document.querySelector("#add-slide").onclick = () => {
         let slide_type = document.querySelector("#new-slide-content").getAttribute("slide-type");
         let slide_json;
@@ -320,8 +328,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 slide_json = {
                     slide_type: "text",
                     slide_text: document.querySelector("#slide-text").value,
-                }
+                };
                 // slide_html = `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
+            break;
+            case "image":
+                let img_path = document.querySelector("#slide-img-picker").files[0].path;
+                let img_url = `/img/slides/${randID()}.${img_path.split(".").pop()}`
+                slide_json = {
+                    slide_type: "image",
+                    image_url: img_url,
+                    image_local_path: img_path
+                };
             break;
         }
         let tmp = document.createElement("div");
@@ -382,6 +399,9 @@ function slide_preview_html(slide_json){
         break;
         case "text":
             return `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
+        break;
+        case "image":
+            return `<div class="card-header">Image</div><div class="card-body slide-img-preview"><img src="${slide_json.image_local_path}"></div>`;
         break;
     }
 }

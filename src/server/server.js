@@ -49,8 +49,11 @@ const mime_types = {
     "bmp" : "image/bmp"
 };
 
-// object to keep track of the user-selected images
+// object to keep track of the user-selected sponsor logos
 var images = {};
+
+// object to keep track of the user-selected images for use in slides
+var slide_images = {};
 
 // create the HTTP server
 var server = http.createServer(function(req, res) {
@@ -68,6 +71,10 @@ var server = http.createServer(function(req, res) {
     // otherwise, if the url is an image, use the path to the image
     else if (images.hasOwnProperty(req.url)){
         fp = images[req.url];
+        absolute_path = true;
+    }
+    else if (slide_images.hasOwnProperty(req.url)){
+        fp = slide_images[req.url];
         absolute_path = true;
     }
     // otherwise, if the url is the name of a file in /display, use that
@@ -362,6 +369,17 @@ ipcMain.on("set-slides", function(event, arg){
     if (display_state.curr_slide >= display_state.slides.length){
         display_state.curr_slide = display_state.slides.length-1;
     }
+
+    // find any image slides and get the images to be displayed
+    let tmp = {};
+    display_state.slides.forEach(slide => {
+        if (slide.slide_type == "image"){
+            tmp[slide.image_url] = slide.image_local_path
+        }
+    });
+    slide_images = tmp;
+    console.log(slide_images);
+
     updateCurrSlide();
     updateDisplayState();
 });
