@@ -174,13 +174,18 @@ ipcMain.on("set-display", function(event, arg){
     io.emit("select-display", arg);
 });
 
+function randID(){
+    return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+}
+
 // when a new set of images is selected in the controller,
 // propagate that change appropriately
 ipcMain.on("set-logos", function(event, arg){
     images = {};
     let names = [];
     arg.forEach(img_fp => {
-        let fname = `/img/${path.basename(img_fp)}`;
+        // let fname = `/img/${path.basename(img_fp)}`;
+        let fname = `/img/${randID()}${path.extname(img_fp)}`;
         images[fname] = img_fp;
         names.push(fname);
     });
