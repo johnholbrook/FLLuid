@@ -4,6 +4,7 @@ var fs = require('fs');
 var accurateInterval = require('accurate-interval');
 const {ipcMain} = require("electron");
 const { setTimeout } = require('timers');
+const { send } = require('process');
 
 var sendToController = null;
 module.exports = {
@@ -267,14 +268,23 @@ function tick_timer(){
                 sendToController("next-match-block", "");
             }, 5000);
         }
+        if (display_state.timer_options.end_sound){
+            sendToController("play-end-sound");
+        }
+    }
+    else if (current_time == 30 && display_state.timer_options.warning_sound){
+        sendToController("play-warning-sound");
     }
     broadcast_current_time();
 }
 
 function start_timer(){
     if (!timer_running){
-        console.log("Starting timer");
+        // console.log("Starting timer");
         io.emit("play-start-sound");
+        if (display_state.timer_options.start_sound){
+            sendToController("play-start-sound");
+        }
         timer_interval = accurateInterval(tick_timer, 1000);
         sendToController("set-start-button-text", "Pause");
         timer_running = true;

@@ -503,3 +503,26 @@ ipcRenderer.on("set-current-block", function(event, arg){
     });
     document.querySelector("#block-teams").innerText = tmp;
 });
+
+//pre-load sounds
+const start_sound = new Audio('../display/sounds/charge.mp3');
+const warning_sound = new Audio('../display/sounds/laser.mp3');
+const end_sound = new Audio('../display/sounds/buzzer.mp3');
+
+ipcRenderer.on("play-start-sound", event => {
+    if (document.querySelector("#play-sound-from-controller").checked){
+        start_sound.play();
+    }
+});
+
+ipcRenderer.on("play-warning-sound", event => {
+    if (document.querySelector("#play-sound-from-controller").checked){
+        warning_sound.play();
+    }
+});
+
+ipcRenderer.on("play-end-sound", event => {
+    if (document.querySelector("#play-sound-from-controller").checked){
+        end_sound.play();
+    }
+});
