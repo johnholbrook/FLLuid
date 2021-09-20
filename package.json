@@ -22,7 +22,8 @@
   "author": "John Holbrook",
   "license": "MIT",
   "devDependencies": {
-    "electron": "latest"
+    "electron": "latest",
+    "electron-packager": "^15.4.0"
   },
   "dependencies": {
     "@electron/remote": "^2.0.1",
@@ -30,7 +31,6 @@
     "about-window": "^1.14.0",
     "accurate-interval": "^1.0.9",
     "bootstrap": "^5.0.1",
-    "electron-packager": "^15.3.0",
     "fast-csv": "^4.3.6",
     "ip": "^1.1.5",
     "jquery": "^3.5.0",
