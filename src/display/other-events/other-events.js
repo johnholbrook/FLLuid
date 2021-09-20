@@ -36,6 +36,29 @@ socket.on("set-state", newState => {
         document.querySelector("#message-wrapper").style.display = display_state.show_message_on_tables ? "block" : "none";
     }
 
+    // if (old_state.dark_mode != display_state.dark_mode){
+    //     if (display_state.dark_mode){
+    //         document.querySelector("body").classList.add("dark", text-light);
+
+    //         document.querySelectorAll(".other-eevnts-table").forEach(table => {
+    //             table.classList.add("table-dark");
+    //         });
+
+    //         document.querySelector(".title-bg").classList.add("dark", "text-light");
+    //         document.querySelector("#message-wrapper").classList.add("dark", "text-light");
+    //     }
+    //     else {
+    //         document.querySelector("body").classList.remove("dark", text-light);
+
+    //         document.querySelectorAll(".other-events-table").forEach(table => {
+    //             table.classList.remove("table-dark");
+    //         });
+
+    //         document.querySelector(".title-bg").classList.remove("dark", "text-light");
+    //         document.querySelector("#message-wrapper").classList.remove("dark", "text-light");
+    //     }
+    // }
+
 });
 
 function nextEvent(){
@@ -52,6 +75,7 @@ function nextEvent(){
     // build the HTML table
     let table = document.createElement("table");
     table.classList.add("table", "table-striped", "table-borderless", "other-events-table");
+    if (dark) table.classList.add("table-dark");
     
     // get headers
     let rounds = Object.keys(this_event.scores[0]).filter(name => name.includes("Round")||name.includes("Practice"));
@@ -82,3 +106,19 @@ function start(){
 function stop(){
     clearInterval(updating);
 }
+
+var dark = false;
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(location.search);
+    // var dark = false;
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        dark = true;
+        document.querySelector("body").classList.add("dark");
+        document.querySelectorAll(".title-bg").forEach(el => {
+            el.classList.add("dark", "text-light");
+        });
+        document.querySelector("#message-wrapper").classList.add("dark", "text-light");
+    }
+});
+   

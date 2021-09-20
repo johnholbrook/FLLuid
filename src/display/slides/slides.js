@@ -54,3 +54,17 @@ function show_slide(slide, chroma){
     }
     document.querySelector("#slides-disp").innerHTML = tmp;
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        
+        if (window.location.pathname == "/slides-chroma"){
+            document.querySelector(".slides-disp-chroma").classList.add("dark", "text-light");
+        }
+        else{
+            document.querySelector("body").classList.add("dark", "text-light");
+        }
+    }
+});

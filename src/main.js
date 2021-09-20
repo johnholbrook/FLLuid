@@ -177,7 +177,7 @@ function createControllerWindow(){
   controllerWindow.setMinimumSize(550, 400);
 }
 
-function createDisplayWindow(){
+function createDisplayWindow(dark){
   displayWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -193,12 +193,12 @@ function createDisplayWindow(){
 
   // and load the index.html of the app.
   // displayWindow.loadFile('./src/display/display.html')
-  displayWindow.loadURL("http://localhost:355")
+  displayWindow.loadURL(`http://localhost:355${dark ? "?dark=1" : ""}`)
 }
 
-ipcMain.on("launch-disp-window", () => {
+ipcMain.on("launch-disp-window", (event, dark) => {
   if (displayWindow == null){
-    createDisplayWindow();
+    createDisplayWindow(dark);
 
     displayWindow.on('closed', function () {
       displayWindow = null;

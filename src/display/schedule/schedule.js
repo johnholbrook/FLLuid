@@ -5,11 +5,17 @@ socket.on('connect', () => {
 
 var display_state = {};
 
+function array_cmp(a1, a2){
+    return JSON.stringify(a1) === JSON.stringify(a2);
+}
+
 socket.on("set-state", newState => {
     let old_state = display_state;
     display_state = JSON.parse(newState);
 
-    if ((old_state.match_blocks != display_state.match_blocks) ||
+    // if ((old_state.match_blocks != display_state.match_blocks) ||
+        // (old_state.current_block != display_state.current_block)){
+    if (!array_cmp(old_state.match_blocks, display_state.match_blocks) ||
         (old_state.current_block != display_state.current_block)){
         // console.log(display_state.match_blocks);
         let tmp = [["Time", "Team #", "Team Name", "Table", "Type", "Round"]];
@@ -39,17 +45,25 @@ socket.on("set-state", newState => {
 
     if (old_state.scroll_speed != display_state.scroll_speed){
         schedule_table.updateOptions({speed: display_state.scroll_speed});
+        console.log("speed");
     }
-
 });
 
 var schedule_table;
 window.addEventListener("DOMContentLoaded", () => {
-    console.log("hello")
+    const urlParams = new URLSearchParams(location.search);
+    let dark = false;
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        dark = true;
+        document.querySelector("body").classList.add("dark");
+        document.querySelector(".title-bg").classList.add("dark", "text-light");
+        document.querySelector("#message-wrapper").classList.add("dark", "text-light");
+    }
+
     schedule_table = new Scrollable(
         document.querySelector("#schedule-display-area"),
-        {"extraClasses" : "table table-striped table-borderless"}
+        {"extraClasses" : `table table-striped table-borderless ${dark ? "table-dark" : ""}`}
     );
-    // schedule_table.setTable([[1,2,3],[4,5,6],[7,8,9]]);
-    // schedule_table.start();
+
 });

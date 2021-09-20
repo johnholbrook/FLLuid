@@ -39,4 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
     else {
         document.querySelector("#logoCarousel .carousel-inner").classList.add("carousel-inner-default");
     }
+
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        document.querySelector("body").classList.add("dark");
+    }
+
 });

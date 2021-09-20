@@ -58,35 +58,37 @@ var slide_images = {};
 
 // create the HTTP server
 var server = http.createServer(function(req, res) {
+    let url = req.url.split("?")[0];
+    
     // determine the location of the file to be retrieved based on the request's URL
     let fp;
     let absolute_path = false;
     // if the url is one of the special cases, use the corresponding path
-    if (paths.hasOwnProperty(req.url)){
-        fp = paths[req.url];
+    if (paths.hasOwnProperty(url)){
+        fp = paths[url];
     }
     // if not, try appending ".html" to the path and see if it matches one of the special cases
     // else if (paths.hasOwnProperty(req.url+".html")){
     //     fp = paths[req.url+".html"];
     // }
     // otherwise, if the url is an image, use the path to the image
-    else if (images.hasOwnProperty(req.url)){
-        fp = images[req.url];
+    else if (images.hasOwnProperty(url)){
+        fp = images[url];
         absolute_path = true;
     }
-    else if (slide_images.hasOwnProperty(req.url)){
-        fp = slide_images[req.url];
+    else if (slide_images.hasOwnProperty(url)){
+        fp = slide_images[url];
         absolute_path = true;
     }
     // otherwise, if the url is the name of a file in /display, use that
-    else if (fileExists(req.url)){
+    else if (fileExists(url)){
         // if the URL is an extant file, return that file
-        fp = req.url;
+        fp = url;
     }
     else{
         // if not, try appending ".html" and see if that's a file
-        if (fileExists(`${req.url}.html`)){
-            fp = `${req.url}.html`;
+        if (fileExists(`${url}.html`)){
+            fp = `${url}.html`;
         }
         else{
             // finally, if none of the above worked, return the 404 page

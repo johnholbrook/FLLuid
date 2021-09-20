@@ -39,14 +39,22 @@ socket.on("set-state", newState => {
     if (old_state.scroll_speed != display_state.scroll_speed){
         scores_table.updateOptions({speed: display_state.scroll_speed});
     }
-
 });
 
 var scores_table;
 window.addEventListener("DOMContentLoaded", () => {
-    console.log("hello")
+    const urlParams = new URLSearchParams(location.search);
+    let dark = false;
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        dark = true;
+        document.querySelector("body").classList.add("dark");
+        document.querySelector(".title-bg").classList.add("dark", "text-light");
+        document.querySelector("#message-wrapper").classList.add("dark", "text-light");
+    }
+
     scores_table = new Scrollable(
         document.querySelector("#scores-display-area"),
-        {"extraClasses" : "table table-striped table-borderless"}
+        {"extraClasses" : `table table-striped table-borderless ${dark ? "table-dark" : ""}`}
     );
 });

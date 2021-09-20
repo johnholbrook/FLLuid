@@ -100,6 +100,9 @@
     margin: 0;
     padding: 0 0.125em;
 }
+.dark .timer-text-wrapper-chroma{
+    background-color: var(--bs-dark);
+}
 .timer-text-wrapper-chroma.brick{
     background-color: transparent;
     top: -5vh;
@@ -202,4 +205,8 @@
 
 .award-desc{
     font-size: 0.75em;
+}
+
+.dark{
+    background-color: var(--bs-dark);
 }

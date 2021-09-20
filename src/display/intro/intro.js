@@ -15,6 +15,7 @@ socket.on("set-state", newState => {
 
         let table = document.createElement("table");
         table.classList.add("table", "table-striped", "table-borderless", "intro-table");
+        if (dark) table.classList.add("table-dark");
         let tmp = `<thead><tr><th>Time</th><th>Team #</th><th>Team Name</th><th>Table</th><th>Type</th><th>Round</th></tr></thead><tbody>`
 
         let time = display_state.match_blocks[display_state.current_block].time
@@ -34,5 +35,18 @@ socket.on("set-state", newState => {
     if (old_state.show_message_on_tables != display_state.show_message_on_tables){
         document.querySelector("#message-wrapper").style.display = display_state.show_message_on_tables ? "block" : "none";
     }
+});
 
+var dark = false;
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        dark = true;
+        document.querySelector("body").classList.add("dark");
+        document.querySelectorAll(".title-bg").forEach(el => {
+            el.classList.add("dark", "text-light");
+        });
+        document.querySelector("#message-wrapper").classList.add("dark", "text-light");
+    }
 });

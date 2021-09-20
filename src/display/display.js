@@ -25,7 +25,12 @@ socket.on("set-state", new_state => {
     }
 });
 
+var dark = false;
 document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get("dark") >= 1){
+        dark = true;
+    }
     selectDisplay("logos");
 });
 
@@ -39,12 +44,12 @@ function selectDisplay(disp_name){
         }
     }
     else if (disp_name == "timer" && display_state.chroma_mode){
-        document.querySelector("#display-frame").src = "/timer-chroma";
+        document.querySelector("#display-frame").src = `/timer-chroma${dark ? "?dark=1" : ""}`;
     }
     else if (disp_name == "slides" && display_state.chroma_mode){
-        document.querySelector("#display-frame").src="/slides-chroma";
+        document.querySelector("#display-frame").src=`/slides-chroma${dark ? "?dark=1" : ""}`;
     }
     else{
-        document.querySelector("#display-frame").src = `/${disp_name}`;
+        document.querySelector("#display-frame").src = `/${disp_name}${dark ? "?dark=1" : ""}`;
     }
 }

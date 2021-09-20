@@ -93,3 +93,11 @@ function textToImage(text){
 function setTimerValue(val){
     document.querySelector('#timer-text').innerHTML = brick_font ? textToImage(val) : val;
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(location.search);
+    if (urlParams.get("dark") >= 1){
+        // dark mode
+        document.querySelector("body").classList.add("dark", "text-light");
+    }
+});
