@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+        <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <!-- <script src="./controller/import-jquery.js"></script> -->
+        <!-- <script src="../node_modules/popper.js/dist/umd/popper.js"></script> -->
+        <!-- <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
+        <link rel="stylesheet" href="update.css">
+        <script src="update.js"></script>
+
+        <title>Update Available!</title>
+    </head>
+    <body>
+        <h1>Update Available!</h1>
+        <p>
+            An update for FLLuid is available. This is version <span id="this_version"></span>, but the latest version is
+            <span id="latest_version"></span>. The update notes for the latest version are:
+        </p>
+        <blockquote class="blockquote" id="update_notes"></blockquote>
+        <p>
+            Click the button below to download the latest version:
+        </p>
+        <button class="btn btn-lg btn-success" id="update_now"><h1>Update Now</h1></button>
+        <div class="my-4"></div>
+        <button class="btn btn-danger" id="no_thanks">No thanks</button>
+    </body>
+</html>

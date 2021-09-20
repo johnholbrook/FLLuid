@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';" />
+    <link href="/lib/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/display.css" rel="stylesheet" type="text/css" media="all">
+    <!-- <script src="/lib/scrollable.js"></script> -->
+    <script src="/lib/socket.io.min.js"></script>
+    <script src="/other-events/other-events.js"></script>
+    <title>FLLuid - Other Events Display</title>
+  </head>
+
+  <body>
+    <div class="w-100 title-bg pb-1">
+        <h1 class="display-title">Other Events</h1>
+    </div>
+    <div class="w-100 title-bg p-1" id="message-wrapper" style="display:block">
+      <h1 id="message-area" class="mx-5 my-1 text-center"></h1>
+    </div>
+    <div class="title-bg p-1">
+        <h1 id="event-name" class="text-center"></h1>
+    </div>
+    <div id="other-events-display-area"></div>
+  </body>
+
+</html>

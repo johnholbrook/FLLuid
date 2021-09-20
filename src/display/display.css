@@ -1,0 +1,212 @@
+@font-face{
+    font-family: ubuntu-mono-bold;
+    src: url("/fonts/UbuntuMono-B.ttf");
+}
+
+@font-face{
+	font-family: digital-7-mono;
+	src: url("/fonts/digital-7-mono.ttf");
+}
+
+.display-frame{
+    height: 100%;
+    width: 100%;
+}
+
+:root{
+    --table-font-size: 2.5em;
+}
+
+.scrollable-table, .scrollable-sticky-header{
+    /* font-size: 3em; */
+    font-size: var(--table-font-size);
+    text-align: center;
+}
+
+/* left-align only the team names in the various tables, leave other cols centered */
+#schedule-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(3),
+.intro-table > tbody > tr > td:nth-of-type(3),
+#scores-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(3),
+.other-events-table > tbody > tr > td:nth-of-type(3) {
+    text-align: left !important;
+}
+
+/* also bold the best score on the scores tables */
+#scores-display-area > div > .scrollable-table > tbody > tr > td:nth-of-type(4),
+.other-events-table > tbody > tr > td:nth-of-type(4) {
+    font-weight: bold !important;
+}
+
+/* try to ensure there's enough room for the round titles on the scores display */
+#scores-display-area > div > .scrollable-table > tbody > tr > td,
+#scores-display-area > div > .scrollable-table > thead > th > td {
+    min-width: 4.3em;
+}
+
+.title-bg{
+    background-color: white;
+}
+
+.display-title{
+    text-align: center;
+    font-size: 4em;
+}
+
+#intro-display-area{
+    font-size: var(--table-font-size);
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#other-events-display-area{
+    font-size: 1.5em;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.timer-text-wrapper{
+    margin: auto 0;
+    font-size: 40vw;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.timer-text-wrapper .brick-font{
+    /* display:block; */
+    width: 90vw;
+    height: auto;
+    max-height: 90vh;
+    position:fixed;
+    top:55%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    /* margin-top: 16vh; */
+}
+
+.timer-text-wrapper-chroma{
+    position: fixed;
+    top: 0.25em;
+    right: 0;
+    height: 1.25em;
+    width: 2.25em;
+    border-radius: 15% 0 0 15%;
+    font-size: 8vw;
+    background-color: white;
+    margin: 0;
+    padding: 0 0.125em;
+}
+.dark .timer-text-wrapper-chroma{
+    background-color: var(--bs-dark);
+}
+.timer-text-wrapper-chroma.brick{
+    background-color: transparent;
+    top: -5vh;
+    right: 0.75em;
+    /* width: auto; */
+}
+.timer-text-wrapper-chroma .brick-font{
+    width: 22vw;
+    height: auto;
+}
+.timer-text-wrapper-chroma > #timer-text{
+    position:fixed;
+    top:0.125em;
+}
+
+.chroma-bg{
+    background-color: #00ff00;
+}
+
+#timer-team-info-wrapper{
+    width: 100%;
+    position: fixed;
+    bottom: 1em;
+    font-size: 2em;
+    background-color: white;
+    text-align: center;
+}
+
+#timer-team-info{
+    max-width: 95%;
+    margin: 0 auto;
+    font-size: 0.8em;
+}
+.team-match-info{
+    white-space: nowrap;
+}
+.hsep{
+    display:inline-block;
+    width: 1em;
+}
+
+.logo{
+    max-width: 90% !important;
+    max-height: 80% !important;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.carousel-inner-default .carousel-item{
+    transition: opacity 0.5s ease-in-out !important;
+}
+
+.carousel-inner-safari .carousel-item{
+    transition: color 0.5s ease-in-out !important;
+}
+
+.slides-disp{
+    font-size: 4em;
+    text-align: center;
+    width: 90%;
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slides-disp-chroma{
+    background-color: white;
+    font-size: 2em;
+    text-align: left;
+    width: 100%;
+    position: fixed;
+    bottom:2em;
+}
+
+.slides-disp-chroma #slides-disp{
+    margin: auto 1em;
+}
+
+.slide-name{
+    font-size: 1.5em;
+}
+
+.slide-image{
+    max-width: 100%;
+    max-height: 100%;    
+}
+
+.slides-disp-chroma .slide-image{
+    max-width: 90%;
+    max-height: 90%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.award-desc{
+    font-size: 0.75em;
+}
+
+.dark{
+    background-color: var(--bs-dark);
+}

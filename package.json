@@ -1,12 +1,12 @@
 {
   "name": "flluid",
   "productName": "FLLuid",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An easy-to-use display package for FIRST Lego League events run using the FLLTournament.com website",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "node build.js"
   },
   "repository": "https://github.com/johnholbrook/flluid",
   "keywords": [
@@ -22,35 +22,25 @@
   "author": "John Holbrook",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.4.0",
-    "electron-builder": "^21.2.0"
+    "electron": "latest",
+    "electron-packager": "^15.4.0"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "@popperjs/core": "^2.4.0",
-    "about-window": "^1.13.4",
+    "about-window": "^1.14.0",
     "accurate-interval": "^1.0.9",
-    "bootstrap": "^4.4.1",
-    "bootstrap-colorpicker": "^3.2.0",
+    "bootstrap": "^5.0.1",
     "fast-csv": "^4.3.6",
+    "ip": "^1.1.5",
     "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
-    "markdown-it": "^12.0.2",
+    "marked": "^3.0.4",
     "needle": "^2.4.0",
     "popper.js": "^1.16.1",
-    "require": "^2.4.20",
+    "require": "^0.4.4",
+    "socket.io": "^3.1.0",
     "sortablejs": "^1.10.2",
     "uglify-js": "^3.6.9"
-  },
-  "build": {
-    "appId": "com.fll-timer.flluid",
-    "mac": {
-      "category": "public.app-category.entertainment",
-      "target": "zip",
-      "icon": "build/logo-1024.png"
-    },
-    "win": {
-      "target": "portable",
-      "icon": "build/logo-1024.png"
-    }
   }
 }
