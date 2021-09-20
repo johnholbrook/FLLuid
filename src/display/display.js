@@ -5,9 +5,11 @@ socket.on('connect', () => {
 
 var current_display = "";
 socket.on("select-display", name => {
-    current_display = name;
-    selectDisplay(name);
-    console.log(name);
+    if (current_display != name){
+        current_display = name;
+        selectDisplay(name);
+        console.log(name);
+    }
 });
 
 var display_state = {chroma_mode: false};
