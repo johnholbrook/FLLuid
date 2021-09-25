@@ -67,10 +67,6 @@ var server = http.createServer(function(req, res) {
     if (paths.hasOwnProperty(url)){
         fp = paths[url];
     }
-    // if not, try appending ".html" to the path and see if it matches one of the special cases
-    // else if (paths.hasOwnProperty(req.url+".html")){
-    //     fp = paths[req.url+".html"];
-    // }
     // otherwise, if the url is an image, use the path to the image
     else if (images.hasOwnProperty(url)){
         fp = images[url];
@@ -124,7 +120,6 @@ const io = require("socket.io")(server);
 // when a new client connects, send it the display state
 io.on('connection', socket => {
     console.log("connection!");
-    // console.log(socket.handshake.headers.referer);
 
     socket.emit("set-state", JSON.stringify(display_state));
 
@@ -187,7 +182,6 @@ ipcMain.on("set-logos", function(event, arg){
     images = {};
     let names = [];
     arg.forEach(img_fp => {
-        // let fname = `/img/${path.basename(img_fp)}`;
         let fname = `/img/${randID()}${path.extname(img_fp)}`;
         images[fname] = img_fp;
         names.push(fname);
@@ -200,12 +194,10 @@ ipcMain.on("set-logos", function(event, arg){
 // update the message
 ipcMain.on("set-message-text", function(event, arg){
     display_state.message = arg;
-    // console.log(display_state.message)
     updateDisplayState();
 });
 
 ipcMain.on("set-blocks", function(event, arg){
-    // console.log(arg);
     display_state.match_blocks = arg;
     sendToController("set-blocks", arg);
     updateDisplayState();
@@ -282,7 +274,6 @@ function tick_timer(){
 
 function start_timer(){
     if (!timer_running){
-        // console.log("Starting timer");
         io.emit("play-start-sound");
         if (display_state.timer_options.start_sound){
             sendToController("play-start-sound");
@@ -324,7 +315,6 @@ ipcMain.on("start-timer", function(){
 ipcMain.on("reset-timer", reset_timer);
 
 ipcMain.on("set-timer-length", function(event, arg){
-    // console.log(`Timer set to ${arg}`);
     TIMER_RESET_VAL = parseInt(arg);
     if (!timer_running){
         reset_timer();
@@ -419,6 +409,5 @@ ipcMain.on("next-slide", function(event, arg){
 
 // send the current slide back to the controller for display to the user
 function updateCurrSlide(){
-    // console.log(display_state.slides[display_state.curr_slide]);
     sendToController("curr-slide", display_state.slides[display_state.curr_slide]);
 }

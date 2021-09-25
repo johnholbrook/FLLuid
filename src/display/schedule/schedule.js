@@ -13,11 +13,8 @@ socket.on("set-state", newState => {
     let old_state = display_state;
     display_state = JSON.parse(newState);
 
-    // if ((old_state.match_blocks != display_state.match_blocks) ||
-        // (old_state.current_block != display_state.current_block)){
     if (!array_cmp(old_state.match_blocks, display_state.match_blocks) ||
         (old_state.current_block != display_state.current_block)){
-        // console.log(display_state.match_blocks);
         let tmp = [["Time", "Team #", "Team Name", "Table", "Type", "Round"]];
         display_state.match_blocks.forEach((block, idx) => {
             if (idx >= display_state.current_block){

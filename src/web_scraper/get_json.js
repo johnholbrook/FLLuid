@@ -8,7 +8,6 @@ module.exports = function(url, callback){
             console.error(`Error connecting to ${url}: ${error}`);
         }
         else{
-            // callback(JSON.parse(response.body));
             callback(response.body);
         }
     });

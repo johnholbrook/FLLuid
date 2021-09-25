@@ -65,8 +65,6 @@ function url_response_handler(body, next_step){
 //@param is_comp - true to get competition round scores, false to get practice round scores
 //@param next_step - callback to send DOM <table> to
 function getScores(event_id, is_comp, next_step){
-    // let url = "https://flltournament.com/Scoreboard.aspx?TID=" + event_id;
-    // url += "&Display=" + (is_comp ? 0 : 1);
     let url = `https://flltournament.com/Scoreboard.aspx?TID=${event_id}&Display=${is_comp ? 0 : 1}`;
     make_request(url, url_response_handler, next_step);
 }

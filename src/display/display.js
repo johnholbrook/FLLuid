@@ -19,7 +19,6 @@ socket.on("set-state", new_state => {
 
     display_state = JSON.parse(new_state);
 
-    // console.log(old_state.chroma_mode, display_state.chroma_mode);
     if ((old_state.chroma_mode !== display_state.chroma_mode) &&
         (current_display == "timer" || current_display == "none" || current_display == "slides")){
         console.log("reloading displays")

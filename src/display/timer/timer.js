@@ -76,6 +76,7 @@ var end_sound = new Audio('/sounds/buzzer.mp3');
 function textToImage(text){
     if (text.charAt(1) != ":" || text.length != 4){
         console.error("Format: x:yz");
+        return "";
     }
     else{
         let left = text.charAt(0);

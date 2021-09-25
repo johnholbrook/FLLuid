@@ -2,11 +2,6 @@ const csv = require('fast-csv');
 const scraper = require('../web_scraper/web_scraper.js');
 const { remote, ipcRenderer } = require('electron');
 
-// var displayWindow = remote.getGlobal('displayWindow');
-
-
-// console.log("Hello from schedule.js");
-
 module.exports = {
     parseCSV : parseCSV,
     next_block : next_block,
@@ -70,18 +65,15 @@ function set_current_block(new_value){
         document.querySelector("#current-match-block").innerHTML = blocks[new_value].time;
         ipcRenderer.send("current-match-block", blocks[new_value].time) // for the touch bar?
         ipcRenderer.send("set-current-block", current_block) // for the displays
-        // console.log(current_block);
     }
 }
 
 function next_block(){
     set_current_block(current_block+1);
-    // displayWindow.webContents.send("set-current-block", current_block);
 }
 
 function previous_block(){
     set_current_block(current_block-1);
-    // displayWindow.webContents.send("set-current-block", current_block);
 }
 
 let event_id = null;
@@ -89,7 +81,6 @@ let event_id = null;
 function set_event_id(new_id){
     event_id = new_id;
 }
-
 
 //insert the specified match into the block at the
 //specified time, creating the block if it doesn't already exist
@@ -126,7 +117,6 @@ function parseCSV(filePath){
             indexes.round = row.indexOf("Round");
             indexes.team = row.indexOf("Team #");
             indexes.table = row.indexOf("Room");
-            // console.log(indexes);
         }
         else{
             // this is not the title row
@@ -161,6 +151,5 @@ function parseCSV(filePath){
 
     setTimeout(function(){
         ipcRenderer.send("set-blocks", blocks);
-        // console.log(blocks);
     }, 1000);
 }
