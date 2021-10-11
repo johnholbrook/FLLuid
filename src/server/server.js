@@ -119,12 +119,12 @@ const io = require("socket.io")(server);
 
 // when a new client connects, send it the display state
 io.on('connection', socket => {
-    console.log("connection!");
 
     socket.emit("set-state", JSON.stringify(display_state));
 
     let page = socket.handshake.headers.referer.split("/").slice(-1)[0];
-    if (page == "timer" || page == "timer-chroma") {
+    console.log(`connection: ${page}`);
+    if (page.includes("timer")){
         socket.emit("timer-value", secsToClock(current_time));
     }
     else if (page == ""){
