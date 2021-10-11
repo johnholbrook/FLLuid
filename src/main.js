@@ -26,7 +26,6 @@ const aboutWindow = require('about-window').default;
 const join = require('path').join;
 function openAboutWindow(){ 
   aboutWindow({
-    // icon_path: join(__dirname, "build", "logo-1024.png"),
     icon_path: join(__dirname, "about", "timer.png"),
     package_json_dir: join(__dirname, ".."),
     bug_report_url: "https://github.com/johnholbrook/FLLuid/issues",
@@ -43,11 +42,9 @@ function openAboutWindow(){
 
 //define the menu code
 const winMenuTemplate = [
-  // { role: 'appMenu' } (macOS only)
   ...(isMac ? [{
     label: app.getName(),
     submenu: [
-      // { role: 'about' },
       {
         label: 'About FLLuid',
         click: openAboutWindow
@@ -80,7 +77,6 @@ const winMenuTemplate = [
       }
     ]
   }]),
-  // { role: 'editMenu' }
   {
     label: 'Edit',
     submenu: [
@@ -125,12 +121,10 @@ const winMenuTemplate = [
       { role: 'togglefullscreen' }
     ]
   },
-  // { role: 'windowMenu' }
   {
     label: 'Window',
     submenu: [
       { role: 'minimize' },
-      // { role: 'maximize' },
       { role: 'zoom' },
       ...(isMac ? [
         { type: 'separator' },
@@ -182,7 +176,6 @@ function createDisplayWindow(dark){
     width: 1200,
     height: 800,
     webPreferences: {
-      // preload: path.join(__dirname, 'preload.js')
       nodeIntegration:true
     }
   })
@@ -192,7 +185,6 @@ function createDisplayWindow(dark){
   }
 
   // and load the index.html of the app.
-  // displayWindow.loadFile('./src/display/display.html')
   displayWindow.loadURL(`http://localhost:355${dark ? "?dark=1" : ""}`)
 }
 
@@ -249,15 +241,10 @@ function checkForUpdates(manually_activated){
 function initialize() {
   checkForUpdates(false);
 
-  // createDisplayWindow();
   createControllerWindow();
-  // createDisplayWindow();
 
   const winMenu = Menu.buildFromTemplate(winMenuTemplate)
   Menu.setApplicationMenu(winMenu)
-
-  // Open the DevTools.
-  // controllerWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   controllerWindow.on('closed', function () {
@@ -266,13 +253,6 @@ function initialize() {
     // when you should delete the corresponding element.
     controllerWindow = null;
   });
-
-  // displayWindow.on('closed', function () {
-  //   // Dereference the window object, usually you would store windows
-  //   // in an array if your app supports multi windows, this is the time
-  //   // when you should delete the corresponding element.
-  //   displayWindow = null;
-  // });
 }
 
 // This method will be called when Electron has finished
@@ -291,7 +271,6 @@ app.on('activate', function () {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (controllerWindow === null) createControllerWindow();
-  // if (displayWindow === null) createDisplayWindow();
 })
 
 // In this file you can include the rest of your app's specific main process
@@ -299,7 +278,6 @@ app.on('activate', function () {
 
 //distribute the set-timer-text message to appropriate windows
 ipcMain.on("set-timer-text", function(event, arg){
-  // controllerWindow.webContents.send("set-timer-text", arg);
   timer_current.label = arg;
 });
 

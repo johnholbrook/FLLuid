@@ -19,7 +19,6 @@ socket.on("set-state", new_state => {
 
     display_state = JSON.parse(new_state);
 
-    // console.log(old_state.chroma_mode, display_state.chroma_mode);
     if ((old_state.chroma_mode !== display_state.chroma_mode) &&
         (current_display == "timer" || current_display == "none" || current_display == "slides")){
         console.log("reloading displays")
@@ -27,31 +26,48 @@ socket.on("set-state", new_state => {
     }
 });
 
+var frame_a;
+var frame_b;
 var dark = false;
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(location.search);
     if (urlParams.get("dark") >= 1){
         dark = true;
     }
+
+    frame_a = document.querySelector("#display-frame-a");
+    frame_b = document.querySelector("#display-frame-b");
+
     selectDisplay("logos");
 });
 
-function selectDisplay(disp_name){
-    if (disp_name == "none"){
-        if (display_state.chroma_mode){
-            document.querySelector("#display-frame").src = "/none";
-        }
-        else{
-            selectDisplay("logos");
-        }
+function getDisplayPath(name){
+    if (name == "none"){
+        return display_state.chroma_mode ? "/none" : getDisplayPath("logos");
     }
-    else if (disp_name == "timer" && display_state.chroma_mode){
-        document.querySelector("#display-frame").src = `/timer-chroma${dark ? "?dark=1" : ""}`;
-    }
-    else if (disp_name == "slides" && display_state.chroma_mode){
-        document.querySelector("#display-frame").src=`/slides-chroma${dark ? "?dark=1" : ""}`;
+    else if (display_state.chroma_mode && (["timer", "slides"].includes(name))){
+        return `/${name}-chroma${dark ? "?dark=1" : ""}`
     }
     else{
-        document.querySelector("#display-frame").src = `/${disp_name}${dark ? "?dark=1" : ""}`;
+        return `/${name}${dark ? "?dark=1" : ""}`
     }
+}
+
+function selectDisplay(name){
+    if (frame_a.style.display == ""){
+        // frame a is currently active, switch to frame b
+        frame_b.src = getDisplayPath(name);
+        frame_b.onload = () => {
+            frame_b.style.display = "";
+            frame_a.style.display = "none";
+        }
+    }
+    else {
+        // frame b is currently active, switch to frame a
+        frame_a.src = getDisplayPath(name);
+        frame_a.onload = () => {
+            frame_a.style.display = "";
+            frame_b.style.display = "none";
+        }
+    }       
 }

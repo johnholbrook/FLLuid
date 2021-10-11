@@ -1,10 +1,7 @@
 const { ipcRenderer, TouchBarOtherItemsProxy, TouchBarSegmentedControl } = require('electron');
-// const remote = require('@electron/remote');
 const schedule = require('./schedule.js');
 const scraper = require('../web_scraper/web_scraper.js');
 var ip = require("ip");
-
-// var displayWindow = remote.getGlobal('displayWindow');
 
 //gets the selected value of a set of radio buttons
 //@param buttons - a list of buttons, e.g.returned by document.getElementsByName('current-display')
@@ -39,10 +36,6 @@ var updating_other_events = null;
 document.addEventListener('DOMContentLoaded', () => {
 
     showLogos();
-
-    // setTimeout(() => {
-    //     displayWindow.webContents.send("reset-timer");
-    // }, 500);
     
     // activate tooltips
     $('[data-bs-toggle="tooltip"]').tooltip();
@@ -50,9 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let display_radio_buttons = document.getElementsByName('current-display');
     for (let i=0; i<display_radio_buttons.length; i++){
         display_radio_buttons[i].onchange = function(){
-            // displayWindow.webContents.send("new-display-selected", getRadioValue(display_radio_buttons));
-            // ipcRenderer.send("new-display-selected", getRadioValue(display_radio_buttons));
-            // ipcRenderer.send("broadcast-to-displays", "set-display", getRadioValue(display_radio_buttons));
             ipcRenderer.send("set-display", getRadioValue(display_radio_buttons));
         };
     }
@@ -81,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#select-font").onchange = set_timer_font;
 
     document.querySelector("#logo-dir-picker").onchange = function(){
-        // console.log(document.querySelector("#logo-dir-picker").files);
         let files = document.querySelector("#logo-dir-picker").files;
         let list_of_files = [];
         for (let i=0; i<files.length; i++){
@@ -97,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         list_of_files.forEach(file_path => {
             let tmp = document.createElement("div");
             tmp.setAttribute("path", file_path);
-            // tmp.className = "logo-draggable-element";
             tmp.className = "card logo-draggable-element";
             let file_name = file_path.split(/[\/\\]/).pop(); //split on either-direction slash
             tmp.innerHTML = `<div class="card-body">
@@ -172,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector("#save-other-tournament-ids").onclick = function(){
         let input = document.querySelector("#other-tournament-ids").value;
-        // displayWindow.webContents.send("set-other-tournament-ids", input);
         other_event_ids = input.split(",").map(x => x.trim());
         clearInterval(updating_other_events);
         update_other_event_scores();
@@ -188,12 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector("#refresh-this-event").onclick = function(){
-        // displayWindow.webContents.send("refresh-this-event");
         update_this_event_scores();
     }
 
     document.querySelector("#refresh-other-events").onclick = function(){
-        // displayWindow.webContents.send("refresh-other-events");
         update_other_event_scores();
     }
 
@@ -213,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#auto-advance").onclick = function(){
         let auto_advance = document.querySelector("#auto-advance").checked;
         ipcRenderer.send("set-auto-advance", auto_advance);
-        // console.log("Sending auto advance");
     };
 
     document.querySelector("#submit-message-text").onclick = function(){
@@ -228,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelector("#chroma-color-picker").onchange = function(){
-        // console.log(document.querySelector("#chroma-color-picker").value);
         ipcRenderer.send("set-chroma-color", document.querySelector("#chroma-color-picker").value);
     }
 
@@ -302,7 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: document.querySelector("#speaker-title").value,
                     company: document.querySelector("#speaker-company").value
                 };
-                // slide_html = `<div class="card-header">Speaker</div><div class="card-body"><b>Name: </b>${slide_json.name}<br><b>Title: </b>${slide_json.title}<br><b>Company: </b>${slide_json.company}</div>`
             break;
             case "award-intro":
                 slide_json = {
@@ -310,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     award_name: document.querySelector("#award-name").value,
                     desc: document.querySelector("#award-desc").value
                 };
-                // slide_html = `<div class="card-header">Award Intro</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Description: </b>${slide_json.desc}</div>`;
             break;
             case "award-winner":
                 slide_json = {
@@ -320,14 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     team_name: document.querySelector("#award-team-name").value,
                     team_loc: document.querySelector("#award-team-loc").value,
                 }
-                // slide_html = `<div class="card-header">Award Winner</div><div class="card-body"><b>Award: </b>${slide_json.award_name}<br><b>Team #: </b>${slide_json.team_num}<br><b>Team Name: </b>${slide_json.team_name}<br><b>Location: </b>${slide_json.team_loc}</div>`;
             break;
             case "text":
                 slide_json = {
                     slide_type: "text",
                     slide_text: document.querySelector("#slide-text").value,
                 };
-                // slide_html = `<div class="card-header">Text</div><div class="card-body">${slide_json.slide_text}</div>`;
             break;
             case "image":
                 let img_path = document.querySelector("#slide-img-picker").files[0].path;
@@ -344,7 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tmp.classList.add("card", "mb-3");
         tmp.id = tmp_id;
         tmp.setAttribute("json", JSON.stringify(slide_json));
-        // tmp.innerHTML = slide_html;
         tmp.innerHTML = slide_preview_html(slide_json);
         tmp.querySelector("div.card-header").innerHTML += `<span class="del-slide" onclick="deleteSlide('${tmp_id}')">❌</span>`
 
@@ -431,7 +409,6 @@ function update_slide_order(){
     for (let child of area.children){
         new_list.push(JSON.parse(child.getAttribute("json")));
     }
-    // console.log(new_list);
     ipcRenderer.send("set-slides", new_list);
 }
 
@@ -467,7 +444,6 @@ function showNone(){
 
 function showLogos(){
     ipcRenderer.send("set-display", "logos");
-    // ipcRenderer.send("broadcast-to-displays", "set-display", "logos");
     document.querySelector("#logos-radio-button").checked = true;
 }
 
@@ -488,19 +464,13 @@ function isImage(name){
     return image_extensions.indexOf(extension) > -1
 }
 
-// function spawnExtraTimerWindow(){
-//     ipcMain.send("spawn-extra-timer-window");
-// }
-
 
 var blocks = []
 ipcRenderer.on("set-blocks", function(event, arg){
-    // console.log(arg);
     blocks = arg;
 })
 
 ipcRenderer.on("set-current-block", function(event, arg){
-    // console.log(blocks[arg]);
     let matches = blocks[arg].matches;
     let tmp = "Teams: ";
     matches.forEach((m, i) => {

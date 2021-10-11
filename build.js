@@ -17,5 +17,4 @@ let options = {
     asar: true
 }
 
-
 bundleElectronApp(options);

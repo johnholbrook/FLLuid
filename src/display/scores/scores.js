@@ -19,7 +19,6 @@ socket.on("set-state", newState => {
             })
             data.push(tmp);
         });
-        // console.log(data);
         scores_table.setTable(data);
         scores_table.start();
     }
