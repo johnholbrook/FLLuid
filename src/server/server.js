@@ -8,7 +8,10 @@ const { send } = require('process');
 
 var sendToController = null;
 module.exports = {
-    initSendToController: f => sendToController = f
+    initSendToController: f => sendToController = f,
+    start_timer: start_timer,
+    reset_timer: reset_timer,
+    pause_timer: pause_timer
 }
 
 // check if a file at the given path (relative to the display directory) exists

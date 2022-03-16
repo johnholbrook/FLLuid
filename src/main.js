@@ -1,8 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, ipcMain, TouchBar, dialog, webContents} = require('electron')
+const {app, BrowserWindow, Menu, ipcMain, dialog, webContents, globalShortcut} = require('electron')
 const path = require('path')
-
-const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 
 // initialize the @electron/remote module
 require("@electron/remote/main").initialize();
@@ -41,7 +39,7 @@ function openAboutWindow(){
 }
 
 //define the menu code
-const winMenuTemplate = [
+let winMenuTemplate = [
   ...(isMac ? [{
     label: app.getName(),
     submenu: [
@@ -137,6 +135,48 @@ const winMenuTemplate = [
     ]
   },
   {
+    label: 'Actions',
+    submenu: [
+      {
+        label: "Global keyboard shortcuts are disabled.",
+        enabled: false,
+        id: "globalShortcutDescriptor"
+      },
+      {
+        label: "Enable...",
+        click: toggleGlobalShortcuts,
+        id: "globalShortcutToggleItem"
+      },
+      { type: "separator" },
+      { 
+        label: "Start Timer",
+        click: server.start_timer,
+        accelerator: "CommandOrControl+Alt+Shift+F13"
+      },
+      {
+        label: "Pause Timer",
+        click: server.pause_timer,
+        accelerator: "CommandOrControl+Alt+Shift+F14"
+      },
+      { 
+        label: "Reset Timer",
+        click: server.reset_timer,
+        accelerator: "CommandOrControl+Alt+Shift+F15"
+      },
+      { type: "separator" },
+      { 
+        label: "Previous Block",
+        click: prev_block,
+        accelerator: "CommandOrControl+Alt+Shift+F16"
+      },
+      { 
+        label: "Next Block",
+        click: next_block,
+        accelerator: "CommandOrControl+Alt+Shift+F17"
+      }
+    ]
+  },
+  {
     role: 'help',
     submenu: [
       {
@@ -162,10 +202,6 @@ function createControllerWindow(){
     }
   })
 
-  if (isMac){
-    controllerWindow.setTouchBar(touchBar)
-  }
-
   // and load the index.html of the app.
   controllerWindow.loadFile('./src/controller/controller.html');
   controllerWindow.setMinimumSize(550, 400);
@@ -179,10 +215,6 @@ function createDisplayWindow(dark){
       nodeIntegration:true
     }
   })
-
-  if (isMac){
-    displayWindow.setTouchBar(touchBar)
-  }
 
   // and load the index.html of the app.
   displayWindow.loadURL(`http://localhost:355${dark ? "?dark=1" : ""}`)
@@ -273,6 +305,10 @@ app.on('activate', function () {
   if (controllerWindow === null) createControllerWindow();
 })
 
+app.on('will-quit', () => {
+  unRegisterGlobalShortcuts();
+})
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
@@ -286,91 +322,50 @@ ipcMain.on("set-start-button-text", function(event, arg){
   timer_sp.label = arg;
 });
 
-ipcMain.on("current-match-block", function(event, arg){
-  curr_block.label = arg;
-})
+// these two functions are called by the action menu items and global shortcuts
+function next_block(){
+  controllerWindow.webContents.send("next-match-block");
+}
+function prev_block(){
+  controllerWindow.webContents.send("prev-match-block");
+}
 
-const timer_current = new TouchBarButton({
-  backgroundColor: "#000000"
-});
-const timer_sp = new TouchBarButton({
-  label : "Start",
-  backgroundColor: '#5CB85C',
-  click: () => {
-    controllerWindow.webContents.send("start-timer");
-  }
-});
-const timer_reset = new TouchBarButton({
-  label : "Reset",
-  backgroundColor : "#D9534F",
-  click : () => {
-    displayWindow.webContents.send("reset-timer");
-  }
-});
+// helper functions to manage global shortcuts
+function registerGlobalShortcut(accelerator, callback, name){
+  let gs_tmp = globalShortcut.register(accelerator, callback);
+  if (!gs_tmp) console.error(`Failed to register global shortcut ${accelerator} for ${name}`);
+}
 
+var global_shortcuts_enabled = false;
+function registerAllGlobalShortcuts(){
+  // Note the the globalShortcut module only detects keypresses when the app **does not** have focus.
+  // So even though there are menu items that do the same things with the same accelerators, the actions
+  // will still only be triggered once when the accelerator is activated, whether the app has focus or not.
+  registerGlobalShortcut("CommandOrControl+Alt+Shift+F13", server.start_timer, "start timer");
+  registerGlobalShortcut("CommandOrControl+Alt+Shift+F14", server.pause_timer, "pause timer");
+  registerGlobalShortcut("CommandOrControl+Alt+Shift+F15", server.reset_timer, "reset timer");
+  registerGlobalShortcut("CommandOrControl+Alt+Shift+F16", prev_block, "previous block");
+  registerGlobalShortcut("CommandOrControl+Alt+Shift+F17", next_block, "next block");
+  global_shortcuts_enabled = true;
+}
 
-const curr_block = new TouchBarLabel();
-const prev_block = new TouchBarButton({
-  label : "Prev Block",
-  backgroundColor : "#0275d8",
-  click : () => {
-    controllerWindow.webContents.send("prev-match-block");
-  }
-});
-const next_block = new TouchBarButton({
-  label : "Next Block",
-  backgroundColor : "#0275d8",
-  click : () => {
-    controllerWindow.webContents.send("next-match-block");
-  }
-});
+function unRegisterGlobalShortcuts(){
+  globalShortcut.unregisterAll();
+  global_shortcuts_enabled = false;
+}
 
-const logos_button = new TouchBarButton({
-  label : "Logos",
-  click : () => {
-    displayWindow.webContents.send("new-display-selected", "logos");
-    controllerWindow.webContents.send("radio-select", "#logos-radio-button")
+function toggleGlobalShortcuts(){
+  // console.log("Toggling global shortcuts")
+  if (global_shortcuts_enabled){
+    unRegisterGlobalShortcuts();
+    winMenuTemplate[4].submenu[0].label = "Global keyboard shortcuts are disabled.";
+    winMenuTemplate[4].submenu[1].label = "Enable";
   }
-});
-const schedule_button = new TouchBarButton({
-  label : "Schedule",
-  click : () => {
-    displayWindow.webContents.send("new-display-selected", "schedule");
-    controllerWindow.webContents.send("radio-select", "#schedule-radio-button")
+  else{
+    registerAllGlobalShortcuts();
+    winMenuTemplate[4].submenu[0].label = "Global keyboard shortcuts are enabled.";
+    winMenuTemplate[4].submenu[1].label = "Disable";
   }
-});
-const intro_button = new TouchBarButton({
-  label : "Intro",
-  click : () => {
-    displayWindow.webContents.send("new-display-selected", "intro");
-    controllerWindow.webContents.send("radio-select", "#intro-radio-button")
-  }
-});
-const scores_button = new TouchBarButton({
-  label : "Scores",
-  click : () => {
-    displayWindow.webContents.send("new-display-selected", "scores");
-    controllerWindow.webContents.send("radio-select", "#scores-radio-button")
-  }
-});
-
-const other_events_button = new TouchBarButton({
-  label : "Other",
-  click : () => {
-    displayWindow.webContents.send("new-display-selected", "other-events");
-    controllerWindow.webContents.send("radio-select", "#other-events-radio-button")
-  }
-});
-
-const touchBar = new TouchBar({
-  items: [
-    timer_current,
-    timer_sp,
-    timer_reset,
-    logos_button,
-    schedule_button,
-    intro_button,
-    scores_button,
-    other_events_button
-  ]
-});
+  const winMenu = Menu.buildFromTemplate(winMenuTemplate)
+  Menu.setApplicationMenu(winMenu)
+}
