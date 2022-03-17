@@ -86,7 +86,7 @@ function textToImage(text){
 		return `<svg class="brick-font" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1600 1200">
         <image x="0px" y="0px" width="650px" height="1200px" href="/fonts/brick_digits/${left}-left.png"></image>
         <image x="647px" y="0px" width="470px" height="1200px" href="/fonts/brick_digits/${mid}-mid.png"></image>
-        <image x="1116px" y="0px" width="480px" height="1200px" href="/fonts/brick_digits/${right}-right.png"></image>
+        <image x="1115px" y="0px" width="480px" height="1200px" href="/fonts/brick_digits/${right}-right.png"></image>
 	</svg>`
     }
 }
