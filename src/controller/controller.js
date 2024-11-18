@@ -273,10 +273,27 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
+    function add_slide(slide_json){
+        // let slide_html;
+        let tmp = document.createElement("div");
+        let tmp_id = randID();
+        tmp.classList.add("card", "mb-3", "slide");
+        tmp.id = tmp_id;
+        tmp.setAttribute("json", JSON.stringify(slide_json));
+        tmp.innerHTML = slide_preview_html(slide_json);
+        tmp.querySelector("div.card-header").innerHTML += `<span class="del-slide" onclick="deleteSlide('${tmp_id}')">❌</span>`
+
+        document.querySelector("#slide-order-area").appendChild(tmp);
+        update_slide_order();
+
+        let sortable_slides = Sortable.create(document.querySelector("#slide-order-area"), {
+            onSort: update_slide_order
+        })
+    }
+
     document.querySelector("#add-slide").onclick = () => {
         let slide_type = document.querySelector("#new-slide-content").getAttribute("slide-type");
         let slide_json;
-        let slide_html;
         switch(slide_type){
             case "speaker":
                 slide_json = {
@@ -318,20 +335,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             break;
         }
-        let tmp = document.createElement("div");
-        let tmp_id = randID();
-        tmp.classList.add("card", "mb-3");
-        tmp.id = tmp_id;
-        tmp.setAttribute("json", JSON.stringify(slide_json));
-        tmp.innerHTML = slide_preview_html(slide_json);
-        tmp.querySelector("div.card-header").innerHTML += `<span class="del-slide" onclick="deleteSlide('${tmp_id}')">❌</span>`
+        add_slide(slide_json)
+    };
 
-        document.querySelector("#slide-order-area").appendChild(tmp);
-        update_slide_order();
+    document.querySelector("#save-slides").onclick = () => {
+        let slides = document.querySelectorAll("#slide-order-area > .slide");
+        let result = [];
+        slides.forEach(slide => result.push(JSON.parse(slide.getAttribute("json"))));
+        // console.log(result);
 
-        let sortable_slides = Sortable.create(document.querySelector("#slide-order-area"), {
-            onSort: update_slide_order
-        })
+        let file = new Blob([JSON.stringify(result)], {type: "text/json"});
+        let a = document.createElement("a");
+        let url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = "slides.json";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    };
+
+    document.querySelector("#slides-json-picker").onchange = function(){
+        let file = document.querySelector("#slides-json-picker").files[0];
+        if (!file) return;
+        document.querySelector("#slide-order-area").innerHTML = "";
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            var contents = JSON.parse(e.target.result);
+            // displayContents(contents);
+            console.log(contents);
+            contents.forEach(s => add_slide(s));
+        };
+        reader.readAsText(file);
+        // schedule.parseCSV(file_path);
     };
 
     document.querySelector("#prev-slide").onclick = () => {
