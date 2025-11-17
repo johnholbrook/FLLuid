@@ -114,6 +114,10 @@
     top:0.125em;
 }
 
+#timer-text{
+    font-variant-numeric: tabular-nums;
+}
+
 .chroma-bg{
     background-color: #00ff00;
 }
