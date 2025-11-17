@@ -1,7 +1,7 @@
 {
   "name": "flluid",
   "productName": "FLLuid",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "An easy-to-use display package for FIRST Lego League events run using the FLLTournament.com website",
   "main": "src/main.js",
   "scripts": {
