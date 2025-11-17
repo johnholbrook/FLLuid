@@ -6,7 +6,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder -m --universal; electron-builder -w"
+    "dist": " electron-builder -w --x64; electron-builder -m --universal"
   },
   "repository": "https://github.com/johnholbrook/flluid",
   "keywords": [
