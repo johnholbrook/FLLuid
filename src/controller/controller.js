@@ -471,6 +471,10 @@ ipcRenderer.on("start-timer", function(event){
     showTimer();
 });
 
+ipcRenderer.on("show-timer", function(event){
+    showTimer();
+});
+
 ipcRenderer.on("radio-select", function(event, arg){
     document.querySelector(arg).checked = true;
 });

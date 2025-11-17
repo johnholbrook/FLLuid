@@ -277,6 +277,7 @@ function tick_timer(){
 
 function start_timer(){
     if (!timer_running){
+        sendToController("show-timer")
         io.emit("play-start-sound");
         if (display_state.timer_options.start_sound){
             sendToController("play-start-sound");
