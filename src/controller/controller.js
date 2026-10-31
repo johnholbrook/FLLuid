@@ -1,4 +1,4 @@
-const { ipcRenderer, TouchBarOtherItemsProxy, TouchBarSegmentedControl } = require('electron');
+const { ipcRenderer, webUtils, TouchBarOtherItemsProxy, TouchBarSegmentedControl } = require('electron');
 const schedule = require('./schedule.js');
 const scraper = require('../web_scraper/web_scraper.js');
 var ip = require("ip");
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let list_of_files = [];
         for (let i=0; i<files.length; i++){
             if (isImage(files[i].name)){
-                list_of_files.push(files[i].path);
+                list_of_files.push(webUtils.getPathForFile(files[i]));
             }
         }
         list_of_files.sort();
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelector("#schedule-csv-picker").onchange = function(){
-        let file_path = document.querySelector("#schedule-csv-picker").files[0].path;
+        let file_path = webUtils.getPathForFile(document.querySelector("#schedule-csv-picker").files[0]);
         schedule.parseCSV(file_path);
     };
 
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector("#new-slide-content").setAttribute("slide-type", "image");
         document.querySelector("#new-slide-content").innerHTML = `<input type="file" class="form-control" id="slide-img-picker" accept=".jpg, .jpeg, .gif, .png, .bmp"><div id="slide-img-preview" class="slide-img-preview"></div>`;
         document.querySelector("#slide-img-picker").onchange = () => {
-            document.querySelector("#slide-img-preview").innerHTML = `<img src="${document.querySelector("#slide-img-picker").files[0].path}">`
+            document.querySelector("#slide-img-preview").innerHTML = `<img src="${webUtils.getPathForFile(document.querySelector("#slide-img-picker").files[0])}">`
         };
     };
 
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             break;
             case "image":
-                let img_path = document.querySelector("#slide-img-picker").files[0].path;
+                let img_path = webUtils.getPathForFile(document.querySelector("#slide-img-picker").files[0]);
                 let img_url = `/img/slides/${randID()}.${img_path.split(".").pop()}`
                 slide_json = {
                     slide_type: "image",
